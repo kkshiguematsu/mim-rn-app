@@ -1,0 +1,1 @@
+# mim-rn-app
