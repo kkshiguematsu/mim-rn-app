@@ -16,82 +16,19 @@ export default function HomeScreen() {
       }
     >
       <View className="w-52 d-flex gap-2">
-        <Button variant="solid" size="xl" action="primary">
+        <Button variant="solid" size="xl" action="negative">
           <ButtonText>Click me</ButtonText>
         </Button>
         <Button variant="solid" size="xl" action="primary">
           <ButtonText>Click me</ButtonText>
         </Button>
-        <Button variant="solid" size="xl" action="primary">
+        <Button variant="solid" size="xl" action="secondary">
           <ButtonText>Click me</ButtonText>
         </Button>
-        <Button variant="solid" size="xl" action="primary">
+        <Button variant="solid" size="xl" action="positive">
           <ButtonText>Click me</ButtonText>
         </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
+        <Button variant="solid" size="xl">
           <ButtonText>Click me</ButtonText>
         </Button>
       </View>
