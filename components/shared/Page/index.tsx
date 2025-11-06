@@ -4,34 +4,56 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface PageProps {
   children: React.ReactNode;
-  align?: 'start' | 'center';
+  alignItems?: 'start' | 'center' | 'end';
+  justifyContent?: 'start' | 'center' | 'end';
   background?: 'normal' | 'primary';
 }
 
-const page = tva({
-  base: 'flex-1 w-full',
+const pageStyled = tva({
+  base: 'flex-1 w-full ',
   variants: {
-    align: {
-      start: '',
-      center: 'items-center justify-center',
-    },
     background: {
       normal: 'bg-neutral-100 dark:bg-slate-950',
       primary: 'bg-[#0A4669]',
+      // primary: 'bg-primary-400',
     },
   },
   defaultVariants: {
-    align: 'start',
     background: 'normal',
   },
 });
 
-export const Page = ({ children, align = 'start', background = 'normal' }: PageProps) => {
+const scrollViewStyled = tva({
+  base: 'flex-grow gap-10',
+  variants: {
+    alignItems: {
+      start: '',
+      center: 'items-center ',
+      end: 'items-end',
+    },
+    justifyContent: {
+      start: '',
+      center: 'justify-center',
+      end: 'justify-end',
+    },
+  },
+  defaultVariants: {
+    alignItems: 'start',
+    justifyContent: 'start',
+  },
+});
+
+export const Page = ({
+  children,
+  alignItems = 'start',
+  justifyContent = 'start',
+  background = 'normal',
+}: PageProps) => {
   return (
-    <SafeAreaView className={page({ align, background })}>
+    <SafeAreaView className={pageStyled({ background })}>
       <ScrollView
-        contentContainerClassName="flex-grow p-5 w-full"
-        // contentContainerStyle={{ flexGrow: 1 }}
+        className={'w-full'}
+        contentContainerClassName={scrollViewStyled({ alignItems, justifyContent })}
       >
         {children}
       </ScrollView>

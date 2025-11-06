@@ -6,6 +6,8 @@ export interface DynamicInputProps extends LoginInput {
   control: Control<FieldValues, any, FieldValues>;
 }
 
+const sizeInput = 'xl';
+
 export const DynamicInput = ({
   control,
   type,
@@ -18,9 +20,10 @@ export const DynamicInput = ({
     switch (type) {
       case InputTypes.TEXT:
         return (
-          <Input>
+          <Input size={sizeInput}>
             <InputField
               type="text"
+              className="font-[Poppins_400Regular]"
               placeholder={placeholder}
               value={value}
               onBlur={onBlur}
@@ -31,8 +34,9 @@ export const DynamicInput = ({
 
       case InputTypes.PASSWORD:
         return (
-          <Input>
+          <Input size={sizeInput}>
             <InputField
+              className=""
               type="password"
               placeholder={placeholder}
               value={value}
