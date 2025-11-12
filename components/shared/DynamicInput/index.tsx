@@ -1,5 +1,7 @@
 import { InputTypes, LoginInput } from '@/components/form/LoginForm/loginForm.types';
-import { Input, InputField } from '@/components/ui/input';
+import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
+import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
+import { useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
 export interface DynamicInputProps extends LoginInput {
@@ -33,16 +35,24 @@ export const DynamicInput = ({
         );
 
       case InputTypes.PASSWORD:
+        const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+        const handleShowPassoword = () => {
+          setIsPasswordVisible((old) => !old);
+        };
+
         return (
           <Input size={sizeInput}>
             <InputField
-              className=""
-              type="password"
+              type={isPasswordVisible ? 'text' : 'password'}
               placeholder={placeholder}
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
             />
+            <InputSlot className="pr-3" onPress={handleShowPassoword}>
+              <InputIcon as={isPasswordVisible ? EyeIcon : EyeOffIcon} />
+            </InputSlot>
           </Input>
         );
 
