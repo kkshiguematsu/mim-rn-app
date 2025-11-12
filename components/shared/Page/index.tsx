@@ -1,6 +1,6 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
-import { ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface PageProps {
   children: React.ReactNode;
@@ -49,14 +49,19 @@ export const Page = ({
   justifyContent = 'start',
   background = 'normal',
 }: PageProps) => {
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView className={pageStyled({ background })}>
+    <View
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+      className={pageStyled({ background })}
+    >
       <ScrollView
         className={'w-full'}
         contentContainerClassName={scrollViewStyled({ alignItems, justifyContent })}
       >
         {children}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };

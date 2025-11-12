@@ -3,12 +3,11 @@ import { Page } from '@/components/shared/Page';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import React from 'react';
-import { View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
+
 export default function Index() {
   return (
     <Page background="primary" alignItems="center" justifyContent="end">
-      {/* <View className="w-full items-center "> */}
-
       <Image
         source={require('../assets/images/mim-logo-tec.webp')}
         className="rounded-2xl"
@@ -16,11 +15,13 @@ export default function Index() {
         size="xl"
       />
 
-      <View className="w-full bg-white rounded-3xl p-8">
-        <Text className=" text-2xl mb-5 font-bold ">Bem vindo a MiM!</Text>
-        {/* <Text className="text-center text-xl mb-14 font-bold ">Login</Text> */}
+      <Animated.View
+        entering={FadeInDown.duration(400).springify()}
+        className="w-full bg-white rounded-3xl py-20 px-8"
+      >
+        <Text className="text-2xl mb-5 font-bold">Bem vindo à MiM!</Text>
         <LoginForm />
-      </View>
+      </Animated.View>
     </Page>
   );
 }
