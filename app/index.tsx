@@ -17,9 +17,9 @@ export default function Index() {
 
       <Animated.View
         entering={FadeInDown.duration(400).springify()}
-        className="w-full bg-white rounded-3xl py-20 px-8"
+        className="w-full rounded-3xl bg-gray-200 px-8 py-20 dark:bg-zinc-700"
       >
-        <Text className="text-2xl mb-5 font-bold">Bem vindo à MiM!</Text>
+        <Text className="mb-5 text-2xl font-bold">Bem vindo à MiM!</Text>
         <LoginForm />
       </Animated.View>
     </Page>

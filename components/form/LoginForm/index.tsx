@@ -1,6 +1,7 @@
 import { DynamicInput } from '@/components/shared/DynamicInput';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
+import { useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import { InputTypes, LoginInput } from './loginForm.types';
@@ -23,16 +24,21 @@ const loginInputs: LoginInput[] = [
 ];
 
 export const LoginForm = () => {
+  const { navigate } = useRouter();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const submitForm = (data: any) => {
+    navigate('/home');
+  };
+
   return (
     <View className="w-full gap-5">
       {loginInputs.map(({ type, label, name, placeholder, rules }) => (
-        <View key={`view-${label}`} className=" gap-1">
+        <View key={`view-${label}`} className="gap-1">
           <Text key={`text-${label}`} size="md" className="ms-2">
             {label}
           </Text>
@@ -47,7 +53,7 @@ export const LoginForm = () => {
           />
         </View>
       ))}
-      <View className="w-full flex items-end pe-3">
+      <View className="flex w-full items-end pe-3">
         <Button variant="link">
           <ButtonText>
             <Text className="" underline>
@@ -56,7 +62,7 @@ export const LoginForm = () => {
           </ButtonText>
         </Button>
       </View>
-      <Button size="xl" variant="solid">
+      <Button size="xl" variant="solid" onPress={handleSubmit(submitForm)}>
         <ButtonText>Login</ButtonText>
       </Button>
       <Button size="xl" variant="outline">

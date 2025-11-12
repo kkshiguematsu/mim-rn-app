@@ -15,7 +15,7 @@ export default function HomeScreen() {
         />
       }
     >
-      <View className="w-52 d-flex gap-2">
+      <View className="d-flex w-52 gap-2">
         <Button variant="solid" size="xl" action="negative">
           <ButtonText>Click me</ButtonText>
         </Button>
