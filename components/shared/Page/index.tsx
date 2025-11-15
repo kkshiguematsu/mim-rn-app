@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface PageProps {
   children: React.ReactNode;
+  needsSafeArea?: boolean;
   alignItems?: 'start' | 'center' | 'end';
   justifyContent?: 'start' | 'center' | 'end';
   background?: 'normal' | 'primary';
@@ -45,6 +46,7 @@ const scrollViewStyled = tva({
 
 export const Page = ({
   children,
+  needsSafeArea = true,
   alignItems = 'start',
   justifyContent = 'start',
   background = 'normal',
@@ -53,7 +55,10 @@ export const Page = ({
 
   return (
     <View
-      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+      style={{
+        paddingTop: needsSafeArea ? insets.top : 0,
+        paddingBottom: needsSafeArea ? insets.bottom : 0,
+      }}
       className={pageStyled({ background })}
     >
       <ScrollView
