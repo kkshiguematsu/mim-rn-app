@@ -14,7 +14,7 @@ const pageStyled = tva({
   base: 'flex-1 w-full ',
   variants: {
     background: {
-      normal: 'bg-neutral-100 dark:bg-slate-950',
+      normal: 'bg-neutral-100 dark:bg-zinc-700',
       primary: 'bg-[#0A4669]',
       // primary: 'bg-primary-400',
     },
