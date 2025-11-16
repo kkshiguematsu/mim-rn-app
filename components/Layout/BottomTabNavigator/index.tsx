@@ -67,11 +67,11 @@ export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTab
             onLongPress={onLongPress}
           >
             <Icon
-              className={clsx(['', isFocused ? 'text-primary-400 dark:text-primary-300' : ''])}
+              className={clsx(['', isFocused ? 'text-primary-400 dark:text-primary-600' : ''])}
               as={options.tabBarIcon}
               size={'md'}
             />
-            <Text className={isFocused ? 'text-primary-400 dark:text-primary-300' : ''}>
+            <Text className={isFocused ? 'text-primary-400 dark:text-primary-600' : ''}>
               {label as string}
             </Text>
           </TouchableOpacity>
