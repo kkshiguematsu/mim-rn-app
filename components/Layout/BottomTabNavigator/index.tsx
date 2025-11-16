@@ -13,7 +13,7 @@ export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTab
 
   return (
     <View
-      className="absolute left-1/2 flex min-w-[80%] -translate-x-1/2 flex-row justify-evenly rounded-full bg-gray-100/80 p-1 dark:bg-zinc-700"
+      className="absolute left-1/2 flex min-w-[80%] -translate-x-1/2 flex-row justify-evenly rounded-full bg-gray-100/80 p-1 dark:bg-zinc-600"
       style={[
         {
           bottom: insets.bottom,
@@ -52,7 +52,7 @@ export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTab
             activeOpacity={1}
             className={clsx([
               'flex min-w-[20%] items-center justify-center rounded-full p-3',
-              isFocused ? 'bg-gray-300/50' : '',
+              isFocused ? 'bg-gray-300/50 dark:bg-gray-500' : '',
             ])}
             accessibilityState={
               isFocused
@@ -67,11 +67,13 @@ export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTab
             onLongPress={onLongPress}
           >
             <Icon
-              className={clsx(['', isFocused ? 'text-primary-400' : ''])}
+              className={clsx(['', isFocused ? 'text-primary-400 dark:text-primary-300' : ''])}
               as={options.tabBarIcon}
               size={'md'}
             />
-            <Text className={isFocused ? 'text-primary-400' : ''}>{label as string}</Text>
+            <Text className={isFocused ? 'text-primary-400 dark:text-primary-300' : ''}>
+              {label as string}
+            </Text>
           </TouchableOpacity>
         );
       })}
