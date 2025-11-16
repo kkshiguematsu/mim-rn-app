@@ -22,14 +22,9 @@ export default function UserStackLayout() {
           name={menuItem.name}
           options={{
             title: menuItem.label,
-            // header: ({ options }) => <HeaderTab title={options.title} />,
-            // headerTransparent: true,
+            header: ({ options }) => <HeaderTab title={options.title} />,
             headerShown: true,
-
-            // Transparência e Blur para o cabeçalho padrão
             headerTransparent: true,
-            headerBlurEffect: theme,
-            headerTitleStyle: { color: theme === 'light' ? 'text-black' : 'text-white' },
           }}
         />
       ))}
