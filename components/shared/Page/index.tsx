@@ -1,4 +1,5 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -52,18 +53,17 @@ export const Page = ({
   background = 'normal',
 }: PageProps) => {
   const insets = useSafeAreaInsets();
+  const headerHeight = useHeaderHeight();
 
   return (
-    <View
-      style={{
-        paddingTop: needsSafeArea ? insets.top : 0,
-        paddingBottom: needsSafeArea ? insets.bottom : 0,
-      }}
-      className={pageStyled({ background })}
-    >
+    <View className={pageStyled({ background })}>
       <ScrollView
         className={'w-full'}
         contentContainerClassName={scrollViewStyled({ alignItems, justifyContent })}
+        contentContainerStyle={{
+          paddingTop: needsSafeArea ? headerHeight : 0,
+          paddingBottom: needsSafeArea ? insets.bottom : 0,
+        }}
       >
         {children}
       </ScrollView>

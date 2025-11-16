@@ -6,7 +6,7 @@ import { Divider } from '@/components/ui/divider';
 import React from 'react';
 export default function UserPage() {
   return (
-    <Page needsSafeArea={false}>
+    <Page>
       <UserInfos />
       <Divider orientation={'horizontal'} />
       <UserMenuList />

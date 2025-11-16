@@ -2,16 +2,23 @@ import React from 'react';
 
 import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
 import clsx from 'clsx';
-import { ArrowRight } from 'lucide-react-native';
+import { Href, useRouter } from 'expo-router';
+import { ChevronRight } from 'lucide-react-native';
 import { View } from 'react-native';
-interface UserMenuItemProps {
+export type UserMenuItemProps = {
   label: string;
+  name: string;
   icon: React.ElementType;
-  link: string;
+  link: Href;
   forceColor?: string;
-}
+};
 export const UserMenuItem = ({ label, icon, link, forceColor }: UserMenuItemProps) => {
-  const goTo = () => {};
+  const router = useRouter();
+
+  const goTo = () => {
+    router.navigate(link);
+  };
+
   return (
     <Button
       className="justify-between rounded-none bg-transparent px-5"
@@ -23,18 +30,16 @@ export const UserMenuItem = ({ label, icon, link, forceColor }: UserMenuItemProp
         <ButtonIcon
           as={icon}
           size="lg"
-          className={clsx(['mr-5', forceColor ? `text-${forceColor}-500` : 'text-primary-400'])}
+          className={clsx(['mr-5', forceColor ? forceColor : 'text-primary-400'])}
         />
-        <ButtonText
-          className={clsx(forceColor ? `text-${forceColor}-500` : 'text-black dark:text-white')}
-        >
+        <ButtonText className={clsx(forceColor ? forceColor : 'text-black dark:text-white')}>
           {label}
         </ButtonText>
       </View>
       <ButtonIcon
-        as={ArrowRight}
+        as={ChevronRight}
         size="lg"
-        className={clsx(forceColor ? `text-${forceColor}-500` : 'text-primary-400')}
+        className={clsx(forceColor ? forceColor : 'text-primary-400')}
       />
     </Button>
   );

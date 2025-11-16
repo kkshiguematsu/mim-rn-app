@@ -62,7 +62,8 @@ export const LoginForm = () => {
           </ButtonText>
         </Button>
       </View>
-      <Button size="xl" variant="solid" onPress={handleSubmit(submitForm)}>
+
+      <Button size="xl" variant="solid" onPress={() => navigate('/home')}>
         <ButtonText>Login</ButtonText>
       </Button>
       <Button size="xl" variant="outline">

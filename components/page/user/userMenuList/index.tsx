@@ -1,52 +1,58 @@
 import { MenuList } from '@/components/shared/MenuList';
 import { Box } from '@/components/ui/box';
 import { CarFront, CreditCard, Headset, LogOut, Settings, User } from 'lucide-react-native';
-import { UserMenuItem } from '../userMenuItem';
+import { UserMenuItem, UserMenuItemProps } from '../userMenuItem';
 
-const menuList = [
+export const userMenuList: UserMenuItemProps[] = [
   {
     label: 'Informações pessoais',
+    name: '[userId]',
     icon: User,
-    link: '',
+    link: '/user/[userId]',
   },
   {
     label: 'Meus veículos',
+    name: 'vehicle',
     icon: CarFront,
-    link: '',
+    link: '/user/vehicle',
   },
   {
     label: 'Pagamento',
+    name: 'payments',
     icon: CreditCard,
-    link: '',
+    link: '/(tabs)/user/payments',
   },
   {
     label: 'Suporte',
+    name: 'support',
     icon: Headset,
-    link: '',
+    link: '/(tabs)/user/support',
   },
   {
     label: 'Configurações',
+    name: 'settings',
     icon: Settings,
-    link: '',
+    link: '/user/settings',
   },
 ];
 
-const Logout = {
+const Logout: UserMenuItemProps = {
   label: 'Logout',
+  name: 'logout',
   icon: LogOut,
-  link: '',
+  link: '/',
 };
 
 export const UserMenuList = () => {
   return (
-    <Box className="m-7 flex gap-5">
+    <Box className="mx-7 mt-10 flex gap-7">
       <MenuList>
-        {menuList.map((menuItem) => (
+        {userMenuList.map((menuItem) => (
           <UserMenuItem key={menuItem.label} {...menuItem} />
         ))}
       </MenuList>
       <MenuList>
-        <UserMenuItem key={Logout.label} {...Logout} forceColor="red" />
+        <UserMenuItem key={Logout.label} {...Logout} forceColor="text-red-500" />
       </MenuList>
     </Box>
   );
