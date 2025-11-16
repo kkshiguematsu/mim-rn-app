@@ -1,44 +1,15 @@
-import { Heading } from '@/components/ui/heading';
-import React from 'react';
+import { UserInfos } from '@/components/page/userInfos';
+import { Page } from '@/components/shared/Page';
+import { Divider } from '@/components/ui/divider';
+import { Text } from '@/components/ui/text';
 
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { Image } from 'expo-image';
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
 export default function UserPage() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{
-        light: '#A1CEDC',
-        dark: '#1D3D47',
-      }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <View className="d-flex w-52 gap-2">
-        <Heading size={'3xl'}>User Page</Heading>
-      </View>
-    </ParallaxScrollView>
+    <Page needsSafeArea={false}>
+      <UserInfos />
+      <Divider orientation={'horizontal'} />
+      <Text>aa</Text>
+    </Page>
   );
 }
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
