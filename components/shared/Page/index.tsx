@@ -25,7 +25,7 @@ const pageStyled = tva({
 });
 
 const scrollViewStyled = tva({
-  base: 'flex-grow gap-10',
+  base: 'flex-grow',
   variants: {
     alignItems: {
       start: '',

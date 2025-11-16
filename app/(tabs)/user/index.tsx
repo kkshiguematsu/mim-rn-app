@@ -1,7 +1,7 @@
-import { UserInfos } from '@/components/page/userInfos';
+import { UserInfos } from '@/components/page/user/userInfos';
+import { UserMenuList } from '@/components/page/user/userMenuList';
 import { Page } from '@/components/shared/Page';
 import { Divider } from '@/components/ui/divider';
-import { Text } from '@/components/ui/text';
 
 import React from 'react';
 export default function UserPage() {
@@ -9,7 +9,7 @@ export default function UserPage() {
     <Page needsSafeArea={false}>
       <UserInfos />
       <Divider orientation={'horizontal'} />
-      <Text>aa</Text>
+      <UserMenuList />
     </Page>
   );
 }

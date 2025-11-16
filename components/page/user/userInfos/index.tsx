@@ -5,13 +5,15 @@ import { Text } from '@/components/ui/text';
 import { EditIcon } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
+
 const infos = {
   name: 'Kassiano shiguematsu',
   phone: '+55 45 998602082',
 };
+
 export const UserInfos = () => {
   return (
-    <View className="flex w-full flex-col items-center justify-center gap-3 py-7">
+    <View className="flex w-full flex-col items-center justify-center gap-3 py-9">
       <Avatar size={'xl'}>
         <AvatarFallbackText>{infos.name}</AvatarFallbackText>
         <AvatarImage source={{}} />
