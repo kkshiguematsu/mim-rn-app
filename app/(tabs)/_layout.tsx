@@ -3,6 +3,7 @@ import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { BottomTabNavigator } from '@/components/Layout/BottomTabNavigator';
+import { HeaderTab } from '@/components/Layout/HeaderTab';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Home, Map, Settings, User } from 'lucide-react-native';
@@ -25,7 +26,7 @@ const tabs = [
   },
   {
     name: 'user/index',
-    title: 'User',
+    title: 'Minha conta',
     icon: User,
   },
 ];
@@ -37,8 +38,9 @@ export default function TabLayout() {
     <Tabs
       tabBar={(props) => <BottomTabNavigator {...props} />}
       screenOptions={{
+        header: ({ options }) => <HeaderTab title={options.title} />,
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
+        // headerShown: false,
         tabBarButton: HapticTab,
       }}
     >
