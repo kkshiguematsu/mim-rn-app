@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { Button, ButtonText } from '@/components/ui/button';
 
-export default function HomeScreen() {
+export default function ChargingPage() {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}

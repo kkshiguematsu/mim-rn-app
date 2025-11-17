@@ -1,25 +1,30 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { BottomTabNavigator } from '@/components/Layout/BottomTabNavigator';
-import { HeaderTab } from '@/components/Layout/HeaderTab';
-import { Home, Map, Settings, User } from 'lucide-react-native';
+import { useTheme } from '@/context/themeContext';
+import { BlurView } from 'expo-blur';
+import { CarFront, EvCharger, FileClock, Map, User } from 'lucide-react-native';
 
 const tabs = [
   {
-    name: 'home/index',
-    title: 'Home',
-    icon: Home,
+    name: 'charging/index',
+    title: 'Carregamento',
+    icon: EvCharger,
   },
   {
-    name: 'explore',
-    title: 'Explore',
-    icon: Settings,
+    name: 'vehicle/index',
+    title: 'Veículos',
+    icon: CarFront,
   },
   {
     name: 'map/index',
     title: 'Map',
     icon: Map,
+  },
+  {
+    name: 'history/index',
+    title: 'Histórico',
+    icon: FileClock,
   },
   {
     name: 'user',
@@ -30,12 +35,30 @@ const tabs = [
 ];
 
 export default function TabLayout() {
+  const { theme } = useTheme();
+
   return (
     <Tabs
-      tabBar={(props) => <BottomTabNavigator {...props} />}
       screenOptions={{
-        header: ({ options }) => <HeaderTab title={options.title} />,
         headerTransparent: true,
+        tabBarStyle: {
+          position: 'absolute',
+          backgroundColor: 'transparent',
+          borderTopWidth: 0,
+          elevation: 0,
+        },
+
+        tabBarBackground: () => (
+          <BlurView
+            tint={theme}
+            intensity={60}
+            style={{
+              flex: 1,
+              borderRadius: 30,
+              overflow: 'hidden',
+            }}
+          />
+        ),
       }}
     >
       {tabs.map((item) => (
@@ -43,7 +66,10 @@ export default function TabLayout() {
           name={item.name}
           options={{
             title: item.title,
-            tabBarIcon: item.icon,
+            tabBarIcon: ({ color, size }) => {
+              const IconComponent = item.icon;
+              return <IconComponent color={color} size={size} />;
+            },
             headerShown: item.headerShown ?? true,
           }}
         />

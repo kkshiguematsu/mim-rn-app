@@ -1,10 +1,10 @@
 import { Icon } from '@/components/ui/icon';
 
-import { Text } from '@/components/ui/text';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import clsx from 'clsx';
+import { BlurView } from 'expo-blur';
 import React, { useRef } from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTabBarProps) => {
@@ -12,11 +12,14 @@ export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTab
   const prevIndex = useRef(state.index);
 
   return (
-    <View
-      className="absolute left-1/2 flex min-w-[80%] -translate-x-1/2 flex-row justify-evenly rounded-full bg-gray-100/80 p-1 dark:bg-zinc-600"
+    // <View
+    //   className="flex-row justify-evenly rounded-full bg-gray-100/80 p-1 dark:bg-zinc-600"
+    <BlurView
+      className="flex-row justify-evenly rounded-full bg-transparent"
+      tint="default"
       style={[
         {
-          bottom: insets.bottom,
+          paddingBottom: insets.bottom,
         },
         Platform.OS === 'android' ? shadowStyles.androidShadow : shadowStyles.iosShadow,
       ]}
@@ -51,7 +54,7 @@ export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTab
             key={route.key}
             activeOpacity={1}
             className={clsx([
-              'flex min-w-[20%] items-center justify-center rounded-full p-3',
+              'flex flex-grow items-center justify-center rounded-full p-3',
               isFocused ? 'bg-gray-300/50 dark:bg-gray-500' : '',
             ])}
             accessibilityState={
@@ -69,15 +72,15 @@ export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTab
             <Icon
               className={clsx(['', isFocused ? 'text-primary-400 dark:text-primary-600' : ''])}
               as={options.tabBarIcon}
-              size={'md'}
+              size={'xl'}
             />
-            <Text className={isFocused ? 'text-primary-400 dark:text-primary-600' : ''}>
+            {/* <Text className={isFocused ? 'text-primary-400 dark:text-primary-600' : ''}>
               {label as string}
-            </Text>
+            </Text> */}
           </TouchableOpacity>
         );
       })}
-    </View>
+    </BlurView>
   );
 };
 

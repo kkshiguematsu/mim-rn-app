@@ -4,7 +4,7 @@ import React from 'react';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
-export default function MapScreen() {
+export default function MapPage() {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{
