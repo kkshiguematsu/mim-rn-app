@@ -53,26 +53,25 @@ export const LoginForm = () => {
           />
         </View>
       ))}
-      <View className="flex w-full items-end pe-3">
+      <View className="-mt-2 flex w-full items-end pe-3">
         <Button variant="link">
           <ButtonText>
-            <Text className="" underline>
-              Esqueci minha senha
-            </Text>
+            <Text underline>Esqueci minha senha</Text>
           </ButtonText>
         </Button>
       </View>
 
-      <Button size="xl" variant="solid" onPress={() => replace('/(tabs)/home')}>
-        <ButtonText>Login</ButtonText>
-      </Button>
-      <Button size="xl" variant="outline">
-        <ButtonText>
-          <Text className="" size="xl">
-            Cadastrar
-          </Text>
-        </ButtonText>
-      </Button>
+      <View className="mt-7 flex gap-2">
+        <Button size="xl" variant="solid" onPress={() => replace('/(tabs)/home')}>
+          <ButtonText className="text-white">Login</ButtonText>
+        </Button>
+        <View className="flex flex-row items-center justify-center gap-2">
+          <Text>Não tem uma conta?</Text>
+          <Button variant="link">
+            <ButtonText className="text-blue-500">Registre-se</ButtonText>
+          </Button>
+        </View>
+      </View>
     </View>
   );
 };

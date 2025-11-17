@@ -1,25 +1,31 @@
 import { LoginForm } from '@/components/form/LoginForm';
 import { Page } from '@/components/shared/Page';
+import { Heading } from '@/components/ui/heading';
 import { Image } from '@/components/ui/image';
-import { Text } from '@/components/ui/text';
 import React from 'react';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 export default function Index() {
   return (
-    <Page background="primary" alignItems="center" justifyContent="end">
+    <Page
+      background="primary"
+      alignItems="center"
+      justifyContent="start"
+      needsSafeArea={false}
+      needsPadding={false}
+    >
       <Image
         source={require('../assets/images/mim-logo-tec.webp')}
-        className="rounded-2xl"
+        className="mb-14 mt-32 rounded-2xl"
         alt="Logo"
         size="xl"
       />
 
       <Animated.View
         entering={FadeInDown.duration(400).springify()}
-        className="w-full rounded-3xl bg-gray-200 px-8 py-20 dark:bg-zinc-700"
+        className="h-full w-full rounded-3xl bg-gray-200 p-7 pb-32 dark:bg-zinc-700"
       >
-        <Text className="mb-5 text-2xl font-bold">Bem vindo à MiM!</Text>
+        <Heading className="my-10 text-center text-2xl font-bold">Login</Heading>
         <LoginForm />
       </Animated.View>
     </Page>

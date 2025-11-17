@@ -1,6 +1,6 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { ScrollView, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface PageProps {
@@ -8,7 +8,7 @@ interface PageProps {
   needsSafeArea?: boolean;
   needsPadding?: boolean;
   alignItems?: 'start' | 'center' | 'end';
-  justifyContent?: 'start' | 'center' | 'end';
+  justifyContent?: 'start' | 'center' | 'end' | 'around' | 'between' | 'evenly';
   background?: 'normal' | 'primary';
 }
 
@@ -30,7 +30,7 @@ const scrollViewStyled = tva({
   base: 'flex-grow ',
   variants: {
     needsPadding: {
-      true: 'm-7',
+      true: 'p-7',
       false: '',
     },
     alignItems: {
@@ -42,10 +42,12 @@ const scrollViewStyled = tva({
       start: '',
       center: 'justify-center',
       end: 'justify-end',
+      around: 'justify-around',
+      between: 'justify-between',
+      evenly: 'justify-evenly',
     },
   },
   defaultVariants: {
-    needsPadding: true,
     alignItems: 'start',
     justifyContent: 'start',
   },
@@ -63,9 +65,14 @@ export const Page = ({
   const headerHeight = useHeaderHeight();
 
   return (
-    <View className={pageStyled({ background })}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={{ flex: 1 }}
+      className={pageStyled({ background })}
+    >
       <ScrollView
         className={'w-full'}
+        keyboardShouldPersistTaps="handled"
         contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
         contentContainerStyle={{
           paddingTop: needsSafeArea ? headerHeight : 0,
@@ -74,6 +81,6 @@ export const Page = ({
       >
         {children}
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
