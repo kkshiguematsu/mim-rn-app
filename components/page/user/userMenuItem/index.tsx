@@ -16,6 +16,10 @@ export const UserMenuItem = ({ label, icon, link, forceColor }: UserMenuItemProp
   const router = useRouter();
 
   const goTo = () => {
+    if (link === '/') {
+      router.replace('/');
+    }
+
     router.navigate(link);
   };
 

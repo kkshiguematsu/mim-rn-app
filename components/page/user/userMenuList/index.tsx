@@ -45,7 +45,7 @@ const Logout: UserMenuItemProps = {
 
 export const UserMenuList = () => {
   return (
-    <Box className="mx-7 mt-10 flex gap-7">
+    <Box className="mt-10 flex gap-7">
       <MenuList>
         {userMenuList.map((menuItem) => (
           <UserMenuItem key={menuItem.label} {...menuItem} />

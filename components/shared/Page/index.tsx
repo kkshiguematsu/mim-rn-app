@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 interface PageProps {
   children: React.ReactNode;
   needsSafeArea?: boolean;
+  needsPadding?: boolean;
   alignItems?: 'start' | 'center' | 'end';
   justifyContent?: 'start' | 'center' | 'end';
   background?: 'normal' | 'primary';
@@ -26,8 +27,12 @@ const pageStyled = tva({
 });
 
 const scrollViewStyled = tva({
-  base: 'flex-grow',
+  base: 'flex-grow ',
   variants: {
+    needsPadding: {
+      true: 'm-7',
+      false: '',
+    },
     alignItems: {
       start: '',
       center: 'items-center ',
@@ -40,6 +45,7 @@ const scrollViewStyled = tva({
     },
   },
   defaultVariants: {
+    needsPadding: true,
     alignItems: 'start',
     justifyContent: 'start',
   },
@@ -48,6 +54,7 @@ const scrollViewStyled = tva({
 export const Page = ({
   children,
   needsSafeArea = true,
+  needsPadding = true,
   alignItems = 'start',
   justifyContent = 'start',
   background = 'normal',
@@ -59,7 +66,7 @@ export const Page = ({
     <View className={pageStyled({ background })}>
       <ScrollView
         className={'w-full'}
-        contentContainerClassName={scrollViewStyled({ alignItems, justifyContent })}
+        contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
         contentContainerStyle={{
           paddingTop: needsSafeArea ? headerHeight : 0,
           paddingBottom: needsSafeArea ? insets.bottom : 0,

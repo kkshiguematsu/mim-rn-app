@@ -24,7 +24,7 @@ const loginInputs: LoginInput[] = [
 ];
 
 export const LoginForm = () => {
-  const { navigate } = useRouter();
+  const { navigate, replace } = useRouter();
   const {
     control,
     handleSubmit,
@@ -32,7 +32,7 @@ export const LoginForm = () => {
   } = useForm();
 
   const submitForm = (data: any) => {
-    navigate('/home');
+    replace('/(tabs)/home');
   };
 
   return (
@@ -63,7 +63,7 @@ export const LoginForm = () => {
         </Button>
       </View>
 
-      <Button size="xl" variant="solid" onPress={() => navigate('/home')}>
+      <Button size="xl" variant="solid" onPress={() => replace('/(tabs)/home')}>
         <ButtonText>Login</ButtonText>
       </Button>
       <Button size="xl" variant="outline">

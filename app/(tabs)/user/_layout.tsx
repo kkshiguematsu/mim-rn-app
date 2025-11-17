@@ -1,4 +1,3 @@
-import { HeaderTab } from '@/components/Layout/HeaderTab';
 import { userMenuList } from '@/components/page/user/userMenuList';
 import { useTheme } from '@/context/themeContext';
 import { Stack } from 'expo-router';
@@ -12,9 +11,13 @@ export default function UserStackLayout() {
       <Stack.Screen
         name="index"
         options={{
-          title: 'Minha Conta',
-          header: ({ options }) => <HeaderTab title={options.title} />,
+          title: 'Perfil',
+          headerTitleStyle: {
+            color: theme === 'dark' ? 'white' : 'black',
+          },
+          headerShown: true,
           headerTransparent: true,
+          headerBlurEffect: theme === 'dark' ? 'dark' : 'light',
         }}
       />
       {userMenuList.map((menuItem) => (
@@ -22,9 +25,12 @@ export default function UserStackLayout() {
           name={menuItem.name}
           options={{
             title: menuItem.label,
-            header: ({ options }) => <HeaderTab title={options.title} />,
+            headerTitleStyle: {
+              color: theme === 'dark' ? 'white' : 'black',
+            },
             headerShown: true,
             headerTransparent: true,
+            headerBlurEffect: theme === 'dark' ? 'dark' : 'light',
           }}
         />
       ))}
