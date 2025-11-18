@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
+import { CustomAnimatedTabButton } from '@/components/Layout/BottomTabNavigator/CustomAnimatedTabButton';
 import { useTheme } from '@/context/themeContext';
 import { BlurView } from 'expo-blur';
 import { CarFront, EvCharger, FileClock, Map, User } from 'lucide-react-native';
@@ -8,7 +9,7 @@ import { CarFront, EvCharger, FileClock, Map, User } from 'lucide-react-native';
 const tabs = [
   {
     name: 'charging/index',
-    title: 'Carregamento',
+    title: 'Carregar',
     icon: EvCharger,
   },
   {
@@ -41,10 +42,12 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerTransparent: true,
+        tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
           backgroundColor: 'transparent',
           borderTopWidth: 0,
+          paddingTop: 5,
           elevation: 0,
         },
 
@@ -66,11 +69,19 @@ export default function TabLayout() {
           name={item.name}
           options={{
             title: item.title,
-            tabBarIcon: ({ color, size }) => {
-              const IconComponent = item.icon;
-              return <IconComponent color={color} size={size} />;
-            },
+            tabBarButton: (props) => <CustomAnimatedTabButton {...props} item={item} />,
             headerShown: item.headerShown ?? true,
+            headerTransparent: true,
+            headerBackground: () => (
+              <BlurView
+                tint={theme === 'dark' ? 'dark' : 'light'}
+                intensity={50}
+                style={{ flex: 1 }}
+              />
+            ),
+            headerTitleStyle: {
+              color: theme === 'dark' ? 'white' : 'black',
+            },
           }}
         />
       ))}
