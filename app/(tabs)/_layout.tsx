@@ -57,7 +57,8 @@ export default function TabLayout() {
             intensity={60}
             style={{
               flex: 1,
-              borderRadius: 30,
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
               overflow: 'hidden',
             }}
           />

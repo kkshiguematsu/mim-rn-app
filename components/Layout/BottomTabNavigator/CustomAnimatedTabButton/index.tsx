@@ -32,7 +32,7 @@ export function CustomAnimatedTabButton({ item, ...props }: CustomBottomTabBarBu
 
   return (
     <Pressable onPress={props.onPress} style={{ flex: 1, alignItems: 'center' }}>
-      <Animated.View style={{ transform: [{ scale }] }} className="pt-2">
+      <Animated.View style={{ transform: [{ scale }] }} className="pt-3">
         <Icon as={item.icon} size="xl" className={focused ? 'text-blue-600' : ''} />
 
         {/* <Animated.Text
@@ -46,12 +46,4 @@ export function CustomAnimatedTabButton({ item, ...props }: CustomBottomTabBarBu
       </Animated.View>
     </Pressable>
   );
-}
-function useAnimatedLayout(
-  arg0: () => {
-    transform: ({ scale: any; translateY?: undefined } | { translateY: any; scale?: undefined })[];
-  },
-  arg1: boolean[]
-) {
-  throw new Error('Function not implemented.');
 }
