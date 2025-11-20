@@ -1,11 +1,16 @@
-import { InputTypes, LoginInput } from '@/components/form/LoginForm/loginForm.types';
 import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
+import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
-export interface DynamicInputProps extends LoginInput {
-  control: Control<FieldValues, any, FieldValues>;
+export interface DynamicInputProps {
+  type: InputTypes;
+  label: string;
+  name: string;
+  placeholder: string;
+  rules: any;
+  control?: Control<FieldValues, any, FieldValues>;
 }
 
 const sizeInput = 'xl';

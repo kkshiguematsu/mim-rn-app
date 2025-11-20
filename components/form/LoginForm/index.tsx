@@ -1,12 +1,12 @@
-import { DynamicInput } from '@/components/shared/DynamicInput';
+import { DynamicInput, DynamicInputProps } from '@/components/shared/DynamicInput';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
+import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { InputTypes, LoginInput } from './loginForm.types';
 
-const loginInputs: LoginInput[] = [
+const loginInputs: DynamicInputProps[] = [
   {
     type: InputTypes.TEXT,
     label: 'Email',
