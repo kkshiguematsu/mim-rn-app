@@ -33,7 +33,7 @@ export function CustomAnimatedTabButton({ item, ...props }: CustomBottomTabBarBu
   return (
     <Pressable onPress={props.onPress} style={{ flex: 1, alignItems: 'center' }}>
       <Animated.View style={{ transform: [{ scale }] }} className="pt-3">
-        <Icon as={item.icon} size="xl" className={focused ? 'text-blue-600' : ''} />
+        <Icon as={item.icon} size="xl" className={focused ? 'text-white' : 'text-gray-500'} />
 
         {/* <Animated.Text
             style={{

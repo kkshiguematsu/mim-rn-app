@@ -5,6 +5,7 @@ import { CustomAnimatedTabButton } from '@/components/Layout/BottomTabNavigator/
 import { useTheme } from '@/context/themeContext';
 import { BlurView } from 'expo-blur';
 import { CarFront, EvCharger, FileClock, Map, User } from 'lucide-react-native';
+import { View } from 'react-native';
 
 const tabs = [
   {
@@ -45,19 +46,21 @@ export default function TabLayout() {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: 'transparent',
+          // backgroundColor: 'red',
           borderTopWidth: 0,
           paddingTop: 5,
           elevation: 0,
         },
 
         tabBarBackground: () => (
-          <BlurView
-            tint={theme}
-            intensity={60}
+          <View
+            // tint={theme}
+            // intensity={60}
+            className="bg-primary-600"
             style={{
               flex: 1,
               borderTopLeftRadius: 20,
+              // backgroundColor: '#033045',
               borderTopRightRadius: 20,
               overflow: 'hidden',
             }}
