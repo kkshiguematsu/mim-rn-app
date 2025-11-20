@@ -1,11 +1,18 @@
-import { LoginForm } from '@/components/form/LoginForm';
 import { Page } from '@/components/shared/Page';
+import React, { useRef } from 'react';
+import PagerView from 'react-native-pager-view';
+
+import { LoginForm } from '@/components/form/LoginForm';
 import { Heading } from '@/components/ui/heading';
-import { Image } from '@/components/ui/image';
-import React from 'react';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 export default function Index() {
+  const pagerRef = useRef<PagerView>(null);
+
+  const goToPage = (index: number) => {
+    pagerRef.current?.setPage(index);
+  };
+
   return (
     <Page
       background="primary"
@@ -14,13 +21,6 @@ export default function Index() {
       needsSafeArea={false}
       needsPadding={false}
     >
-      <Image
-        source={require('../assets/images/mim-logo-tec.webp')}
-        className="mb-14 mt-32 rounded-2xl"
-        alt="Logo"
-        size="xl"
-      />
-
       <Animated.View
         entering={FadeInDown.duration(400).springify()}
         className="h-full w-full rounded-3xl bg-gray-200 p-7 pb-32 dark:bg-zinc-800"

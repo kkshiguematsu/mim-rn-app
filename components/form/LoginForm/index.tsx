@@ -67,8 +67,8 @@ export const LoginForm = () => {
         </Button>
         <View className="flex flex-row items-center justify-center gap-2">
           <Text>Não tem uma conta?</Text>
-          <Button variant="link">
-            <ButtonText className="text-blue-500">Registre-se</ButtonText>
+          <Button variant="link" onPress={() => navigate('/register')}>
+            <ButtonText className="text-blue-500 dark:text-blue-400">Registre-se</ButtonText>
           </Button>
         </View>
       </View>
