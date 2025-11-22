@@ -1,6 +1,7 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
+import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface PageProps {
@@ -65,8 +66,9 @@ export const Page = ({
   const headerHeight = useHeaderHeight();
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    <KeyboardAvoidingScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={{ flex: 1 }}
       className={pageStyled({ background })}
     >
@@ -81,6 +83,6 @@ export const Page = ({
       >
         {children}
       </ScrollView>
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingScrollView>
   );
 };

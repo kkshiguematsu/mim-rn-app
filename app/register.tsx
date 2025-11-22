@@ -1,18 +1,11 @@
-import { Page } from '@/components/shared/Page';
-import React, { useRef } from 'react';
-import PagerView from 'react-native-pager-view';
+import React from 'react';
 
-import { LoginForm } from '@/components/form/LoginForm';
+import { RegisterForm } from '@/components/form/registerForm';
+import { Page } from '@/components/shared/Page';
 import { Heading } from '@/components/ui/heading';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 export default function Index() {
-  const pagerRef = useRef<PagerView>(null);
-
-  const goToPage = (index: number) => {
-    pagerRef.current?.setPage(index);
-  };
-
   return (
     <Page
       background="primary"
@@ -25,8 +18,8 @@ export default function Index() {
         entering={FadeInDown.duration(400).springify()}
         className="h-full w-full rounded-3xl bg-gray-200 p-7 pb-32 dark:bg-zinc-800"
       >
-        <Heading className="my-10 text-center text-2xl font-bold">Login</Heading>
-        <LoginForm />
+        <Heading className="my-3 text-3xl font-bold">Cadastro</Heading>
+        <RegisterForm />
       </Animated.View>
     </Page>
   );
