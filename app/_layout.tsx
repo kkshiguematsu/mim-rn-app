@@ -4,6 +4,7 @@ import React from 'react';
 import 'react-native-reanimated';
 
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 import { ThemeProvider, useTheme } from '@/context/themeContext';
 import '@/global.css';
@@ -17,13 +18,18 @@ function LayoutContent() {
 
   return (
     <GluestackUIProvider mode={theme}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false, animation: 'slide_from_left' }} />
-        <Stack.Screen name="register" options={{ animation: 'slide_from_right' }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar />
+      <KeyboardProvider>
+        <Stack>
+          <Stack.Screen
+            name="index"
+            options={{ headerShown: false, animation: 'slide_from_left' }}
+          />
+          <Stack.Screen name="register" options={{ animation: 'slide_from_right' }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+        </Stack>
+        <StatusBar />
+      </KeyboardProvider>
     </GluestackUIProvider>
   );
 }

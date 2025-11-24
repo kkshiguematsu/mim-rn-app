@@ -3,8 +3,10 @@ import { Button, ButtonText } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { useRouter } from 'expo-router';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import PagerView from 'react-native-pager-view';
 
 const loginInputs: DynamicInputProps[] = [
   {
@@ -24,6 +26,9 @@ const loginInputs: DynamicInputProps[] = [
 ];
 
 export const LoginForm = () => {
+  const pagerRef = useRef<PagerView>(null);
+  const [page, setPage] = useState(0);
+
   const { navigate, replace } = useRouter();
   const {
     control,
@@ -36,7 +41,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <View className="w-full gap-5">
+    <View>
       {loginInputs.map(({ type, label, name, placeholder, rules }) => (
         <View key={`view-${label}`} className="gap-1">
           <Text key={`text-${label}`} size="md" className="ms-2">
@@ -53,7 +58,8 @@ export const LoginForm = () => {
           />
         </View>
       ))}
-      <View className="-mt-2 flex w-full items-end pe-3">
+
+      <View className="mt-2 flex w-full items-end">
         <Button variant="link">
           <ButtonText>
             <Text underline>Esqueci minha senha</Text>

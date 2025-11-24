@@ -16,7 +16,7 @@ export default function Index() {
     >
       <Animated.View
         entering={FadeInDown.duration(400).springify()}
-        className="h-full w-full rounded-3xl bg-gray-200 p-7 pb-32 dark:bg-zinc-800"
+        className="w-full flex-1 bg-gray-200 p-7 dark:bg-zinc-800"
       >
         <Heading className="my-3 text-3xl font-bold">Cadastro</Heading>
         <RegisterForm />

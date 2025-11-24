@@ -1,7 +1,7 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { ScrollView } from 'react-native';
-import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface PageProps {
@@ -19,7 +19,6 @@ const pageStyled = tva({
     background: {
       normal: 'bg-neutral-300 dark:bg-zinc-800',
       primary: 'bg-[#0A4669]',
-      // primary: 'bg-primary-400',
     },
   },
   defaultVariants: {
@@ -28,7 +27,7 @@ const pageStyled = tva({
 });
 
 const scrollViewStyled = tva({
-  base: 'flex-grow ',
+  base: '',
   variants: {
     needsPadding: {
       true: 'p-7',
@@ -65,24 +64,23 @@ export const Page = ({
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
 
+  const paddingTop = needsSafeArea ? headerHeight : 0;
+  const paddingBottom = needsSafeArea ? insets.bottom : 0;
+
   return (
-    <KeyboardAvoidingScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
-      // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1 }}
+    <KeyboardAwareScrollView
       className={pageStyled({ background })}
+      bottomOffset={60}
+      keyboardShouldPersistTaps="handled"
+      contentContainerClassName="flex-grow"
+      contentContainerStyle={{
+        paddingTop,
+        paddingBottom,
+      }}
     >
-      <ScrollView
-        className={'w-full'}
-        keyboardShouldPersistTaps="handled"
-        contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
-        contentContainerStyle={{
-          paddingTop: needsSafeArea ? headerHeight : 0,
-          paddingBottom: needsSafeArea ? insets.bottom : 0,
-        }}
-      >
+      <View className={scrollViewStyled({ alignItems, justifyContent, needsPadding })}>
         {children}
-      </ScrollView>
-    </KeyboardAvoidingScrollView>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
