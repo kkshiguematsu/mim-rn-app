@@ -1,56 +1,26 @@
-import { Image } from 'expo-image';
-import { StyleSheet, View } from 'react-native';
-
-import ParallaxScrollView from '@/components/parallax-scroll-view';
+import { Page } from '@/components/shared/Page';
 import { Button, ButtonText } from '@/components/ui/button';
+import { Heading } from '@/components/ui/heading';
+import { Icon } from '@/components/ui/icon';
+import { EvCharger } from 'lucide-react-native';
+import { View } from 'react-native';
 
 export default function ChargingPage() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <View className="d-flex w-52 gap-2">
-        <Button variant="solid" size="xl" action="negative">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="primary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="secondary">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl" action="positive">
-          <ButtonText>Click me</ButtonText>
-        </Button>
-        <Button variant="solid" size="xl">
-          <ButtonText>Click me</ButtonText>
+    <Page needsPadding needsSafeArea alignItems="center" justifyContent="center">
+      <View className="flex w-[70%] items-center justify-center gap-10">
+        <View className="h-56 w-56 rounded-full bg-primary-200/50 p-14">
+          <Icon as={EvCharger} className="h-full w-full text-primary-400" />
+        </View>
+        <Heading size="xl" className="flex-wrap text-center text-neutral-700">
+          Nenhum carregamento em andamento
+        </Heading>
+      </View>
+      <View className="flex h-[30%] w-full justify-end">
+        <Button className="" size="xl">
+          <ButtonText>Iniciar Carregamento</ButtonText>
         </Button>
       </View>
-    </ParallaxScrollView>
+    </Page>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
