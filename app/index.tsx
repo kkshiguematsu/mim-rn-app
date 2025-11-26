@@ -3,8 +3,10 @@ import { Page } from '@/components/shared/Page';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Image } from '@/components/ui/image';
+import { Text } from '@/components/ui/text';
 import React, { useState } from 'react';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import { View } from 'react-native';
+import Animated, { BounceIn, Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function Index() {
   const [isLoginCardVisible, seIsLoginCardVisible] = useState(false);
@@ -17,12 +19,13 @@ export default function Index() {
       needsSafeArea={false}
       needsPadding={false}
     >
-      <Image
-        source={require('../assets/images/mim-logo-tec.webp')}
-        className="absolute top-32 h-48 rounded-2xl"
-        alt="Logo"
-        size="2xl"
-      />
+      <Animated.View
+        key="loginLogo"
+        entering={BounceIn.duration(800).easing(Easing.ease)}
+        className="absolute top-32 flex h-48 justify-center overflow-hidden rounded-2xl"
+      >
+        <Image source={require('../assets/images/mim-logo-tec.webp')} alt="Logo" size="2xl" />
+      </Animated.View>
       {isLoginCardVisible ? (
         <Animated.View
           key="loginCard"
@@ -38,8 +41,16 @@ export default function Index() {
           key="buttonCard"
           entering={FadeInDown.duration(400).springify()}
           exiting={FadeInDown.duration(400)}
-          className="flex h-[55%] w-full items-center justify-end pb-24"
+          className="flex h-[55%] w-full items-center justify-between pb-24"
         >
+          <View className="flex w-full flex-col items-center gap-7">
+            <Heading className="text-center font-bold text-white" size="2xl">
+              Bem-vindo de volta!
+            </Heading>
+            <Text className="w-[75%] text-center text-gray-400" size="lg">
+              Conecte-se e encontre o melhor ponto para carregar seu carro elétrico.
+            </Text>
+          </View>
           <Button
             onPress={() => seIsLoginCardVisible(true)}
             className="lg w-[90%] bg-white"
