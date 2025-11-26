@@ -9,7 +9,13 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Precisamos de sua localização para mostrar você no mapa."
+      },
+      "config": {
+        "googleMapsApiKey": "SUA_CHAVE_IOS_SE_FOR_USAR_GOOGLE"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -39,7 +45,14 @@
           }
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-maps",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
