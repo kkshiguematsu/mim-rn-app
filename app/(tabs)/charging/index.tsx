@@ -16,7 +16,7 @@ export default function ChargingPage() {
           Nenhum carregamento em andamento
         </Heading>
       </View>
-      <View className="flex h-[30%] w-full justify-end">
+      <View className="flex h-[40%] w-full justify-end">
         <Button className="" size="xl">
           <ButtonText>Iniciar Carregamento</ButtonText>
         </Button>
