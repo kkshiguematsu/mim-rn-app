@@ -16,7 +16,7 @@ const pageStyled = tva({
   base: 'flex-1 w-full ',
   variants: {
     background: {
-      normal: 'bg-neutral-300 dark:bg-zinc-800',
+      normal: 'bg-neutral-300/50 dark:bg-zinc-800',
       primary: 'bg-[#0A4669]',
     },
   },
@@ -26,7 +26,7 @@ const pageStyled = tva({
 });
 
 const scrollViewStyled = tva({
-  base: 'flex-grow',
+  base: 'flex-grow ',
   variants: {
     needsPadding: {
       true: 'p-7',
@@ -63,7 +63,7 @@ export const Page = ({
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
 
-  const paddingTop = needsSafeArea ? headerHeight : 0;
+  const paddingTop = needsSafeArea ? (headerHeight !== 0 ? headerHeight : insets.top) : 0;
   const paddingBottom = needsSafeArea ? insets.bottom : 0;
 
   return (

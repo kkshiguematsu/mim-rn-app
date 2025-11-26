@@ -24,7 +24,10 @@ function LayoutContent() {
             name="index"
             options={{ headerShown: false, animation: 'slide_from_left' }}
           />
-          <Stack.Screen name="register" options={{ animation: 'slide_from_right' }} />
+          <Stack.Screen
+            name="register"
+            options={{ animation: 'slide_from_right', headerShown: false }}
+          />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
         </Stack>

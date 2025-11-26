@@ -8,17 +8,18 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 export default function Index() {
   return (
     <Page
-      background="primary"
+      // background="primary"
       alignItems="center"
       justifyContent="start"
-      needsSafeArea={false}
-      needsPadding={false}
+      needsSafeArea={true}
+      needsPadding={true}
     >
       <Animated.View
         entering={FadeInDown.duration(400).springify()}
-        className="w-full flex-1 bg-gray-200 p-7 dark:bg-zinc-800"
+        // className="w-full flex-1 bg-gray-200 p-7 dark:bg-zinc-800"
+        className="w-full flex-1"
       >
-        <Heading className="my-3 text-3xl font-bold">Cadastro</Heading>
+        <Heading className="text-3xl font-bold">Cadastro</Heading>
         <RegisterForm />
       </Animated.View>
     </Page>

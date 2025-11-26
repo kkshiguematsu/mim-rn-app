@@ -2,7 +2,8 @@ import { DynamicInput, DynamicInputProps } from '@/components/shared/DynamicInpu
 import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
-import { ChevronLeft, ChevronRight } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
+import { ChevronRight } from 'lucide-react-native';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView, View } from 'react-native';
@@ -55,13 +56,14 @@ const registerInputs: DynamicInputProps[] = [
 
 const formSteps = [
   ['name', 'cpf', 'phoneNumber'],
-  ['name', 'cpf', 'phoneNumber', 'email', 'password', 'confirmPassword'],
+  ['email', 'password', 'confirmPassword'],
 ];
 
 export const RegisterForm = () => {
   const pagerRef = useRef<PagerView>(null);
   const [page, setPage] = useState(0);
 
+  const { navigate } = useRouter();
   const {
     control,
     handleSubmit,
@@ -78,66 +80,63 @@ export const RegisterForm = () => {
     if (page < totalPages - 1) pagerRef.current?.setPage(page + 1);
   };
 
-  const backPage = () => {
-    pagerRef.current?.setPage(page - 1);
-  };
-
   return (
-    <PagerView
-      ref={pagerRef}
-      initialPage={0}
-      scrollEnabled={false}
-      onPageSelected={(e) => setPage(e.nativeEvent.position)}
-      style={{ flex: 1 }}
-    >
-      {formSteps.map((inputNamesSteps, index) => {
-        const currentStepInputs = registerInputs.filter(({ name }) =>
-          inputNamesSteps.includes(name)
-        );
+    <View className="flex-1">
+      <PagerView
+        ref={pagerRef}
+        initialPage={0}
+        scrollEnabled={false}
+        overdrag={false}
+        onPageSelected={(e) => setPage(e.nativeEvent.position)}
+        style={{ flex: 1 }}
+      >
+        {formSteps.map((inputNamesSteps, index) => {
+          const currentStepInputs = registerInputs.filter(({ name }) =>
+            inputNamesSteps.includes(name)
+          );
 
-        return (
-          <ScrollView key={`pager-view-${index}`}>
-            <View className="w-full gap-7 pt-5">
-              {currentStepInputs.map(({ type, label, name, placeholder, rules }, index2) => (
-                <View key={`view-pager-${index2}`} className="flex flex-col gap-2">
-                  <Text key={`text-${label}`} size="md" className="ms-2">
-                    {label}
-                  </Text>
-                  <DynamicInput
-                    key={`input-${label}`}
-                    control={control}
-                    type={type}
-                    label={label}
-                    name={name}
-                    placeholder={placeholder}
-                    rules={rules}
-                  />
-                </View>
-              ))}
-            </View>
-
-            <View className="mt-5 flex w-full flex-col gap-3">
-              {page > 0 ? (
-                <Button onPress={backPage}>
-                  <ButtonIcon as={ChevronLeft} />
-                </Button>
-              ) : (
-                <View />
-              )}
-
-              {page < totalPages - 1 ? (
-                <Button onPress={nextPage}>
-                  <ButtonIcon as={ChevronRight} />
-                </Button>
-              ) : (
-                <Button onPress={onSubmit}>
-                  <ButtonText>Finalizar</ButtonText>
-                </Button>
-              )}
-            </View>
-          </ScrollView>
-        );
-      })}
-    </PagerView>
+          return (
+            <ScrollView key={`pager-view-${index}`}>
+              <View className="w-full gap-7 pt-5">
+                {currentStepInputs.map(({ type, label, name, placeholder, rules }, index2) => (
+                  <View key={`view-pager-${index2}`} className="flex flex-col gap-2">
+                    <Text key={`text-${label}`} size="md" className="ms-2">
+                      {label}
+                    </Text>
+                    <DynamicInput
+                      key={`input-${label}`}
+                      control={control}
+                      type={type}
+                      label={label}
+                      name={name}
+                      placeholder={placeholder}
+                      rules={rules}
+                    />
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
+          );
+        })}
+      </PagerView>
+      <View className="mt-5 flex w-full flex-col justify-center gap-3">
+        {page < totalPages - 1 ? (
+          <Button onPress={nextPage} size="xl">
+            <ButtonText>Próximo</ButtonText>
+            <ButtonIcon as={ChevronRight} />
+          </Button>
+        ) : (
+          <Button onPress={onSubmit} size="xl">
+            <ButtonText>Finalizar</ButtonText>
+          </Button>
+        )}
+        <View className="flex flex-row items-center justify-center gap-2">
+          <Text>Já tem uma conta?</Text>
+          <Button variant="link" onPress={() => navigate('/')}>
+            <ButtonText className="text-blue-500 dark:text-blue-400">Entre</ButtonText>
+          </Button>
+        </View>
+      </View>
+    </View>
   );
 };
