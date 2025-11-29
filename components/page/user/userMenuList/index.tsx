@@ -1,4 +1,5 @@
 import { MenuList } from '@/components/shared/MenuList';
+import { AddPaymentCardButton } from '@/components/shared/buttons/AddPaymentCardButton';
 import { Box } from '@/components/ui/box';
 import { CarFront, CreditCard, Headset, LogOut, Settings, User } from 'lucide-react-native';
 import { UserMenuItem, UserMenuItemProps } from '../userMenuItem';
@@ -21,6 +22,7 @@ export const userMenuList: UserMenuItemProps[] = [
     name: 'payments',
     icon: CreditCard,
     link: '/(tabs)/user/payments',
+    rightButton: <AddPaymentCardButton />,
   },
   {
     label: 'Suporte',

@@ -31,6 +31,7 @@ export default function UserStackLayout() {
             headerShown: true,
             headerTransparent: true,
             headerBlurEffect: theme === 'dark' ? 'dark' : 'light',
+            headerRight: () => menuItem.rightButton ?? undefined,
           }}
         />
       ))}

@@ -6,8 +6,12 @@ import 'react-native-reanimated';
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
+import { ModalRenderer } from '@/components/shared/modals/ModalRenderer';
+import { BottomSheet } from '@/components/ui/bottomsheet';
+import { ModalProvider, useModal } from '@/context/modalContext';
 import { ThemeProvider, useTheme } from '@/context/themeContext';
 import '@/global.css';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -15,33 +19,42 @@ export const unstable_settings = {
 
 function LayoutContent() {
   const { theme } = useTheme();
+  const { disableModal } = useModal();
 
   return (
-    <GluestackUIProvider mode={theme}>
-      <KeyboardProvider>
-        <Stack>
-          <Stack.Screen
-            name="index"
-            options={{ headerShown: false, animation: 'slide_from_left' }}
-          />
-          <Stack.Screen
-            name="register"
-            options={{ animation: 'slide_from_right', headerShown: false }}
-          />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-        </Stack>
-        <StatusBar />
-      </KeyboardProvider>
-    </GluestackUIProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <GluestackUIProvider mode={theme}>
+        <KeyboardProvider>
+          <BottomSheet onClose={disableModal}>
+            <Stack>
+              <Stack.Screen
+                name="index"
+                options={{ headerShown: false, animation: 'slide_from_left' }}
+              />
+              <Stack.Screen
+                name="register"
+                options={{ animation: 'slide_from_right', headerShown: false }}
+              />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+            </Stack>
+
+            <StatusBar />
+
+            <ModalRenderer />
+          </BottomSheet>
+        </KeyboardProvider>
+      </GluestackUIProvider>
+    </GestureHandlerRootView>
   );
 }
 
 export default function RootLayout() {
   return (
-    // 💡 O ThemeProvider deve envolver o conteúdo principal.
     <ThemeProvider>
-      <LayoutContent />
+      <ModalProvider>
+        <LayoutContent />
+      </ModalProvider>
     </ThemeProvider>
   );
 }

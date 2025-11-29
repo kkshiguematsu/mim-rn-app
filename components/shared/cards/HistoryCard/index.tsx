@@ -53,7 +53,6 @@ export const HistoryCard = ({ data }: HistoryCardProps) => {
 
         <View className="flex flex-row items-center gap-2">
           <View className="flex flex-1 flex-row items-center justify-evenly gap-2">
-            <Divider className="h-[50px]" orientation={'vertical'} />
             <View className="items-center">
               <Heading className="text-blue-500">{data.max_power}</Heading>
               <Text size="sm">Max. Power</Text>

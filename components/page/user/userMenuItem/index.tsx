@@ -11,6 +11,7 @@ export type UserMenuItemProps = {
   icon: React.ElementType;
   link: Href;
   forceColor?: string;
+  rightButton?: React.ReactNode;
 };
 export const UserMenuItem = ({ label, icon, link, forceColor }: UserMenuItemProps) => {
   const router = useRouter();

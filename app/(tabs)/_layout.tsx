@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { CustomAnimatedTabButton } from '@/components/Layout/BottomTabNavigator/CustomAnimatedTabButton';
+import { CustomAnimatedTabButton } from '@/components/layout/BottomTabNavigator/CustomAnimatedTabButton';
 import { useTheme } from '@/context/themeContext';
 import { BlurView } from 'expo-blur';
 import { CarFront, EvCharger, FileClock, Map, User } from 'lucide-react-native';
