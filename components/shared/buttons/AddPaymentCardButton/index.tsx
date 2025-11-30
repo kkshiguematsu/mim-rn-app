@@ -1,24 +1,29 @@
-import { Text } from '@/components/ui/text';
 import React, { useContext } from 'react';
 
 import { BottomSheetContext, BottomSheetTrigger } from '@/components/ui/bottomsheet';
 import { Icon } from '@/components/ui/icon';
 import { useModal } from '@/context/modalContext';
+import { useRotation } from '@/hooks/animations/useRotation';
 import { ModalNames } from '@/types/modal/modalsComponents';
-import { CirclePlus } from 'lucide-react-native';
+import { Plus } from 'lucide-react-native';
+import Animated from 'react-native-reanimated';
+
 export const AddPaymentCardButton = () => {
   const { enableModal } = useModal();
   const { handleOpen } = useContext(BottomSheetContext);
+  const { animateRotation, animationStyle } = useRotation();
 
   const openModal = () => {
+    animateRotation();
     enableModal(ModalNames.PaymenentModal);
     handleOpen();
   };
 
   return (
     <BottomSheetTrigger onPress={openModal} className="flex-row items-center">
-      <Text>Hello</Text>
-      <Icon as={CirclePlus} size="xl" />
+      <Animated.View style={animationStyle} className="p-2">
+        <Icon as={Plus} size="2xl" />
+      </Animated.View>
     </BottomSheetTrigger>
   );
 };
