@@ -1,3 +1,4 @@
+import { useTheme } from '@/context/themeContext';
 import { FocusScope } from '@gluestack-ui/utils/aria';
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 import GorhomBottomSheet, {
@@ -19,14 +20,14 @@ const bottomSheetBackdropStyle = tva({
 });
 
 const bottomSheetContentStyle = tva({
-  base: 'mt-2',
+  base: 'px-7',
 });
 const bottomSheetTriggerStyle = tva({
   base: '',
 });
 
 const bottomSheetIndicatorStyle = tva({
-  base: 'py-1 w-full items-center rounded-t-lg ',
+  base: 'w-full items-center rounded-t-lg bg-white dark:bg-zinc-800',
 });
 
 const bottomSheetItemStyle = tva({
@@ -98,6 +99,7 @@ export const BottomSheetPortal = ({
   snapPoints: string[];
 }) => {
   const { bottomSheetRef, handleClose } = useContext(BottomSheetContext);
+  const { theme } = useTheme();
 
   const handleSheetChanges = useCallback(
     (index: number) => {
@@ -117,6 +119,9 @@ export const BottomSheetPortal = ({
       onChange={handleSheetChanges}
       handleComponent={DragIndicator}
       enablePanDownToClose={true}
+      backgroundStyle={{
+        backgroundColor: theme === 'light' ? '#FFFFFF' : 'rgba(39,39,42)',
+      }}
       {...props}
     >
       {props.children}
@@ -174,6 +179,8 @@ export const BottomSheetDragIndicator = ({
   className,
   ...props
 }: Partial<IBottomSheetDragIndicator> & { className?: string }) => {
+  const { theme } = useTheme();
+
   return (
     <BottomSheetHandle
       {...props}
@@ -181,6 +188,7 @@ export const BottomSheetDragIndicator = ({
       className={bottomSheetIndicatorStyle({
         className: className,
       })}
+      indicatorStyle={{ backgroundColor: theme === 'light' ? 'black' : 'white' }}
     >
       {children}
     </BottomSheetHandle>

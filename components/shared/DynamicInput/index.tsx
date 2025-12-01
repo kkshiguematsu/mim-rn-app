@@ -1,19 +1,51 @@
 import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
+import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
+import clsx from 'clsx';
 import { useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
+import { View } from 'react-native';
 
 export interface DynamicInputProps {
-  type: InputTypes;
-  label: string;
-  name: string;
-  placeholder: string;
-  rules: any;
+  type?: InputTypes;
+  label?: string;
+  name?: string;
+  placeholder?: string;
+  rules?: any;
   control?: Control<FieldValues, any, FieldValues>;
+  className?: string;
+  group?: DynamicInputProps[];
 }
 
 const sizeInput = 'xl';
+
+export const renderInput = (
+  control: Control<FieldValues, any, FieldValues>,
+  input: DynamicInputProps
+) => (
+  <View key={`view-${input.label}`} className={clsx(['gap-1', input.className && input.className])}>
+    <Text key={`text-${input.label}`} size="md">
+      {input.label}
+    </Text>
+    <DynamicInput
+      key={`input-${input.label}`}
+      control={control}
+      type={input.type}
+      label={input.label}
+      name={input.name}
+      placeholder={input.placeholder}
+      rules={input.rules}
+    />
+  </View>
+);
+
+export const renderInputGroup = (
+  control: Control<FieldValues, any, FieldValues>,
+  group: DynamicInputProps[]
+) => (
+  <View className="flex flex-row gap-2">{group.map((input) => renderInput(control, input))}</View>
+);
 
 export const DynamicInput = ({
   control,
@@ -23,7 +55,11 @@ export const DynamicInput = ({
   placeholder,
   rules,
 }: DynamicInputProps) => {
-  const renderInput = (onBlur: () => void, onChange: (text: string) => void, value: string) => {
+  const handleSelectInput = (
+    onBlur: () => void,
+    onChange: (text: string) => void,
+    value: string
+  ) => {
     switch (type) {
       case InputTypes.TEXT:
         return (
@@ -61,6 +97,20 @@ export const DynamicInput = ({
           </Input>
         );
 
+      case InputTypes.NUMBER:
+        return (
+          <Input size={sizeInput}>
+            <InputField
+              keyboardType="numeric"
+              type={'text'}
+              placeholder={placeholder}
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+            />
+          </Input>
+        );
+
       default:
         return <></>;
     }
@@ -69,9 +119,11 @@ export const DynamicInput = ({
   return (
     <Controller
       control={control}
-      name={name}
+      name={name ?? ''}
       rules={rules}
-      render={({ field: { onBlur, onChange, value } }) => renderInput(onBlur, onChange, value)}
+      render={({ field: { onBlur, onChange, value } }) =>
+        handleSelectInput(onBlur, onChange, value)
+      }
     />
   );
 };
