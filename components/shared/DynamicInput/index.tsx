@@ -11,6 +11,7 @@ export interface DynamicInputProps {
   type?: InputTypes;
   label?: string;
   name?: string;
+  icon?: React.ElementType;
   placeholder?: string;
   rules?: any;
   control?: Control<FieldValues, any, FieldValues>;
@@ -34,6 +35,7 @@ export const renderInput = (
       type={input.type}
       label={input.label}
       name={input.name}
+      icon={input?.icon ?? undefined}
       placeholder={input.placeholder}
       rules={input.rules}
     />
@@ -51,6 +53,7 @@ export const DynamicInput = ({
   control,
   type,
   label,
+  icon,
   name,
   placeholder,
   rules,
@@ -64,6 +67,11 @@ export const DynamicInput = ({
       case InputTypes.TEXT:
         return (
           <Input size={sizeInput}>
+            {icon && (
+              <InputSlot className="pl-3">
+                <InputIcon as={icon} />
+              </InputSlot>
+            )}
             <InputField
               type="text"
               className="font-[Poppins_400Regular]"
@@ -100,6 +108,11 @@ export const DynamicInput = ({
       case InputTypes.NUMBER:
         return (
           <Input size={sizeInput}>
+            {icon && (
+              <InputSlot className="pl-3">
+                <InputIcon as={icon} />
+              </InputSlot>
+            )}
             <InputField
               keyboardType="numeric"
               type={'text'}

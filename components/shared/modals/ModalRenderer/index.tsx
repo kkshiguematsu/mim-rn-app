@@ -32,7 +32,6 @@ export const ModalRenderer = () => {
       snapPoints={['25%', '50%', '75%', maxSnap]}
       backdropComponent={BottomSheetBackdrop}
       handleComponent={BottomSheetDragIndicator}
-      // backgroundComponent={() => <View className="bg-neutral-300/50 dark:bg-zinc-800 flex-1" />}
     >
       <BottomSheetContent className="">{ModalComponent && <ModalComponent />}</BottomSheetContent>
     </BottomSheetPortal>
