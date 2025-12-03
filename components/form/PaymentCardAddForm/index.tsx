@@ -1,6 +1,10 @@
 import { Button, ButtonText } from '@/components/ui/button';
 
-import { DynamicInputProps, renderInput, renderInputGroup } from '@/components/shared/DynamicInput';
+import {
+  DynamicInputProps,
+  renderDynamicInput,
+  renderInputGroup,
+} from '@/components/shared/DynamicInput';
 import { PaymentCardUi } from '@/components/shared/payment/paymentCardUi';
 import { Checkbox, CheckboxIcon, CheckboxIndicator, CheckboxLabel } from '@/components/ui/checkbox';
 import { CheckIcon } from '@/components/ui/icon';
@@ -78,12 +82,12 @@ export const PaymentCardAddForm = () => {
           <PaymentCardUi watch={watch} />
         </View>
 
-        <View className="fl0oex mt-5 w-full gap-3">
+        <View className="mt-5 flex w-full gap-3">
           {mockPaymentCardForm.map((input: DynamicInputProps) => (
             <View key={`view-input-${input.label}`}>
               {input.group && input.group?.length > 0
                 ? renderInputGroup(control, input.group)
-                : renderInput(control, input)}
+                : renderDynamicInput(control, input)}
             </View>
           ))}
         </View>

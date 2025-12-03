@@ -1,8 +1,9 @@
-import { DynamicInput, DynamicInputProps } from '@/components/shared/DynamicInput';
+import { DynamicInputProps, renderDynamicInput } from '@/components/shared/DynamicInput';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { useRouter } from 'expo-router';
+import { Lock, Mail } from 'lucide-react-native';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
@@ -13,6 +14,7 @@ const loginInputs: DynamicInputProps[] = [
     type: InputTypes.TEXT,
     label: 'Email',
     name: 'email',
+    icon: Mail,
     placeholder: 'Digite o email',
     rules: { required: 'O email é obrigatório' },
   },
@@ -20,6 +22,7 @@ const loginInputs: DynamicInputProps[] = [
     type: InputTypes.PASSWORD,
     label: 'Senha',
     name: 'password',
+    icon: Lock,
     placeholder: 'Digite a senha',
     rules: { required: 'A senha é obrigatória' },
   },
@@ -42,22 +45,9 @@ export const LoginForm = () => {
 
   return (
     <View>
-      {loginInputs.map(({ type, label, name, placeholder, rules }) => (
-        <View key={`view-${label}`} className="gap-1">
-          <Text key={`text-${label}`} size="md" className="ms-2">
-            {label}
-          </Text>
-          <DynamicInput
-            key={`input-${label}`}
-            control={control}
-            type={type}
-            label={label}
-            name={name}
-            placeholder={placeholder}
-            rules={rules}
-          />
-        </View>
-      ))}
+      <View className="flex gap-3">
+        {loginInputs.map((input) => renderDynamicInput(control, input))}
+      </View>
 
       <View className="mt-2 flex w-full items-end">
         <Button variant="link">

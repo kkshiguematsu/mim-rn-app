@@ -21,7 +21,7 @@ export interface DynamicInputProps {
 
 const sizeInput = 'xl';
 
-export const renderInput = (
+export const renderDynamicInput = (
   control: Control<FieldValues, any, FieldValues>,
   input: DynamicInputProps
 ) => (
@@ -38,7 +38,7 @@ export const renderInputGroup = (
   group: DynamicInputProps[]
 ) => (
   <View key={`view-group-${group}`} className="flex flex-row gap-2">
-    {group.map((input) => renderInput(control, input))}
+    {group.map((input) => renderDynamicInput(control, input))}
   </View>
 );
 
@@ -89,6 +89,8 @@ export const DynamicInput = ({
 
         return (
           <Input size={sizeInput}>
+            {icon && renderIcon(icon)}
+
             <InputField
               type={isPasswordVisible ? 'text' : 'password'}
               placeholder={placeholder}
