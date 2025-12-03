@@ -3,7 +3,7 @@ import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import clsx from 'clsx';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 import { View } from 'react-native';
 
@@ -11,7 +11,7 @@ export interface DynamicInputProps {
   type?: InputTypes;
   label?: string;
   name?: string;
-  icon?: React.ElementType;
+  icon?: React.ElementType | React.ReactNode;
   placeholder?: string;
   rules?: any;
   control?: Control<FieldValues, any, FieldValues>;
@@ -29,16 +29,7 @@ export const renderInput = (
     <Text key={`text-${input.label}`} size="md">
       {input.label}
     </Text>
-    <DynamicInput
-      key={`input-${input.label}`}
-      control={control}
-      type={input.type}
-      label={input.label}
-      name={input.name}
-      icon={input?.icon ?? undefined}
-      placeholder={input.placeholder}
-      rules={input.rules}
-    />
+    <DynamicInput key={`input-${input.label}`} control={control} {...input} />
   </View>
 );
 
@@ -46,8 +37,18 @@ export const renderInputGroup = (
   control: Control<FieldValues, any, FieldValues>,
   group: DynamicInputProps[]
 ) => (
-  <View className="flex flex-row gap-2">{group.map((input) => renderInput(control, input))}</View>
+  <View key={`view-group-${group}`} className="flex flex-row gap-2">
+    {group.map((input) => renderInput(control, input))}
+  </View>
 );
+
+export const renderIcon = (icon: React.ElementType | React.ReactNode) => {
+  return (
+    <InputSlot className="pl-3">
+      {React.isValidElement(icon) ? icon : <InputIcon as={icon as React.ElementType} />}
+    </InputSlot>
+  );
+};
 
 export const DynamicInput = ({
   control,
@@ -67,11 +68,7 @@ export const DynamicInput = ({
       case InputTypes.TEXT:
         return (
           <Input size={sizeInput}>
-            {icon && (
-              <InputSlot className="pl-3">
-                <InputIcon as={icon} />
-              </InputSlot>
-            )}
+            {icon && renderIcon(icon)}
             <InputField
               type="text"
               className="font-[Poppins_400Regular]"
@@ -108,11 +105,7 @@ export const DynamicInput = ({
       case InputTypes.NUMBER:
         return (
           <Input size={sizeInput}>
-            {icon && (
-              <InputSlot className="pl-3">
-                <InputIcon as={icon} />
-              </InputSlot>
-            )}
+            {icon && renderIcon(icon)}
             <InputField
               keyboardType="numeric"
               type={'text'}

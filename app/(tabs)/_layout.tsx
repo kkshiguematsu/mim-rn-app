@@ -5,6 +5,7 @@ import { CustomAnimatedTabButton } from '@/components/layout/BottomTabNavigator/
 import { useTheme } from '@/context/themeContext';
 import { BlurView } from 'expo-blur';
 import { CarFront, EvCharger, FileClock, Map, User } from 'lucide-react-native';
+
 import { View } from 'react-native';
 
 const tabs = [
