@@ -1,5 +1,6 @@
 import { DynamicInputProps, renderDynamicInput } from '@/components/shared/DynamicInput';
 import { Button, ButtonText } from '@/components/ui/button';
+import { Link, LinkText } from '@/components/ui/link';
 import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { useRouter } from 'expo-router';
@@ -49,23 +50,21 @@ export const LoginForm = () => {
         {loginInputs.map((input) => renderDynamicInput(control, input))}
       </View>
 
-      <View className="mt-2 flex w-full items-end">
-        <Button variant="link">
-          <ButtonText>
-            <Text underline>Esqueci minha senha</Text>
-          </ButtonText>
-        </Button>
+      <View className="my-7 flex w-full items-end">
+        <Link href="">
+          <LinkText className="font-bold text-blue-500 no-underline">Esqueci minha senha</LinkText>
+        </Link>
       </View>
 
-      <View className="mt-7 flex gap-2">
+      <View className="flex gap-2">
         <Button size="xl" variant="solid" onPress={() => replace('/(tabs)/map')}>
           <ButtonText className="text-white">Login</ButtonText>
         </Button>
         <View className="flex flex-row items-center justify-center gap-2">
           <Text>Não tem uma conta?</Text>
-          <Button variant="link" onPress={() => navigate('/register')}>
-            <ButtonText className="text-blue-500 dark:text-blue-400">Registre-se</ButtonText>
-          </Button>
+          <Link href="" onPress={() => navigate('/register')}>
+            <LinkText className="font-bold text-blue-500 no-underline">Registre-se</LinkText>
+          </Link>
         </View>
       </View>
     </View>
