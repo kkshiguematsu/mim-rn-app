@@ -12,6 +12,7 @@ export default function SettingsPage() {
     <Page>
       <MenuList>
         <MenuItem
+          disabled
           label={theme === 'light' ? 'Claro' : 'Escuro'}
           icon={theme === 'light' ? Sun : Moon}
           content={

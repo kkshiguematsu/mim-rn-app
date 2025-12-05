@@ -1,10 +1,11 @@
-import { MenuList } from '@/components/shared/MenuList';
+import { MenuItem, MenuItemProps } from '@/components/shared/MenuList/MenuItem';
 import { AddPaymentCardButton } from '@/components/shared/buttons/AddPaymentCardButton';
 import { Box } from '@/components/ui/box';
+import { useRouter } from 'expo-router';
 import { CarFront, CreditCard, Headset, LogOut, Settings, User } from 'lucide-react-native';
-import { UserMenuItem, UserMenuItemProps } from '../userMenuItem';
+import { UserMenuItemProps } from '../userMenuItem';
 
-export const userMenuList: UserMenuItemProps[] = [
+export const userMenuList: MenuItemProps[] = [
   {
     label: 'Informações pessoais',
     name: '[userId]',
@@ -46,16 +47,26 @@ const Logout: UserMenuItemProps = {
 };
 
 export const UserMenuList = () => {
+  const router = useRouter();
+
   return (
     <Box className="mt-10 flex gap-7">
-      <MenuList>
-        {userMenuList.map((menuItem) => (
-          <UserMenuItem key={menuItem.label} {...menuItem} />
-        ))}
-      </MenuList>
-      <MenuList>
-        <UserMenuItem key={Logout.label} {...Logout} forceColor="text-red-500" />
-      </MenuList>
+      <Box className="gap-3">
+        {userMenuList.map((menuItem) => {
+          const goTo = () => {
+            if (!menuItem.link) return;
+
+            if (menuItem.link === '/') {
+              router.replace('/');
+            }
+
+            router.navigate(menuItem.link);
+          };
+
+          return <MenuItem key={menuItem.label} {...menuItem} action={goTo} />;
+        })}
+      </Box>
+      <MenuItem className="mt-5" key={Logout.label} {...Logout} forceColor="text-red-500" />
     </Box>
   );
 };
