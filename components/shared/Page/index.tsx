@@ -1,4 +1,5 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -63,8 +64,20 @@ export const Page = ({
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
 
+  let bottomTabBarHeight = 0;
+
+  try {
+    bottomTabBarHeight = useBottomTabBarHeight();
+  } catch {
+    bottomTabBarHeight = 0;
+  }
+
   const paddingTop = needsSafeArea ? (headerHeight !== 0 ? headerHeight : insets.top) : 0;
-  const paddingBottom = needsSafeArea ? insets.bottom : 0;
+  const paddingBottom = needsSafeArea
+    ? bottomTabBarHeight !== 0
+      ? bottomTabBarHeight
+      : insets.bottom
+    : 0;
 
   return (
     <KeyboardAwareScrollView

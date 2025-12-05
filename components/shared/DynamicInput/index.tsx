@@ -10,6 +10,7 @@ import { View } from 'react-native';
 export interface DynamicInputProps {
   type?: InputTypes;
   label?: string;
+  defaultValue?: string;
   name?: string;
   icon?: React.ElementType | React.ReactNode;
   placeholder?: string;
