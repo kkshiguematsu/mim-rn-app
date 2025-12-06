@@ -1,0 +1,12 @@
+import { Control, FieldValues } from 'react-hook-form';
+import { View } from 'react-native';
+import { DynamicInputProps, renderDynamicInput } from '.';
+
+export const renderInputGroup = (
+  control: Control<FieldValues, any, FieldValues>,
+  group: DynamicInputProps[]
+) => (
+  <View key={`view-group-${group}`} className="flex flex-row gap-2">
+    {group.map((input) => renderDynamicInput(control, input))}
+  </View>
+);

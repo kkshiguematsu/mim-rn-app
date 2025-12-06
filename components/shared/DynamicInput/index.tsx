@@ -1,12 +1,12 @@
 import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
-import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
-import clsx from 'clsx';
 import React, { useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
-import { View } from 'react-native';
-
+import { renderIcon } from './renderIcon';
+export * from './renderDynamicInput';
+export * from './renderIcon';
+export * from './renderInputGroup';
 export interface DynamicInputProps {
   type?: InputTypes;
   label?: string;
@@ -21,35 +21,6 @@ export interface DynamicInputProps {
 }
 
 const sizeInput = 'xl';
-
-export const renderDynamicInput = (
-  control: Control<FieldValues, any, FieldValues>,
-  input: DynamicInputProps
-) => (
-  <View key={`view-${input.label}`} className={clsx(['gap-1', input.className && input.className])}>
-    <Text key={`text-${input.label}`} size="md">
-      {input.label}
-    </Text>
-    <DynamicInput key={`input-${input.label}`} control={control} {...input} />
-  </View>
-);
-
-export const renderInputGroup = (
-  control: Control<FieldValues, any, FieldValues>,
-  group: DynamicInputProps[]
-) => (
-  <View key={`view-group-${group}`} className="flex flex-row gap-2">
-    {group.map((input) => renderDynamicInput(control, input))}
-  </View>
-);
-
-export const renderIcon = (icon: React.ElementType | React.ReactNode) => {
-  return (
-    <InputSlot className="pl-3">
-      {React.isValidElement(icon) ? icon : <InputIcon as={icon as React.ElementType} />}
-    </InputSlot>
-  );
-};
 
 export const DynamicInput = ({
   control,
@@ -72,7 +43,6 @@ export const DynamicInput = ({
             {icon && renderIcon(icon)}
             <InputField
               type="text"
-              className="font-[Poppins_400Regular]"
               placeholder={placeholder}
               value={value}
               onBlur={onBlur}
@@ -119,6 +89,24 @@ export const DynamicInput = ({
             />
           </Input>
         );
+
+      case InputTypes.EMAIL:
+        return (
+          <Input size={sizeInput}>
+            {icon && renderIcon(icon)}
+            <InputField
+              type="text"
+              keyboardType="email-address"
+              placeholder={placeholder}
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+            />
+          </Input>
+        );
+
+      case InputTypes.SELECT:
+      case InputTypes.DATE:
 
       default:
         return <></>;
