@@ -1,5 +1,6 @@
 import { UserAvatarInfo } from '@/components/page/user/UserAvatarInfo';
-import { DynamicInputProps, renderDynamicInput } from '@/components/shared/DynamicInput';
+import { DynamicInputProps } from '@/components/shared/DynamicInput';
+import { renderDynamicInput } from '@/components/shared/DynamicInput/renderDynamicInput';
 import { Page } from '@/components/shared/Page';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { User } from '@/types/user/user.type';
@@ -20,7 +21,7 @@ const user: User = {
   coverPhotoUrl: 'url_photo',
 
   birthDate: '17/10/1997',
-  gender: 'Masculino',
+  gender: 'male',
 
   location: {
     country: 'Brasil',
@@ -69,7 +70,7 @@ const userInputs: DynamicInputProps[] = [
     type: InputTypes.DATE,
     label: 'Data de Nascimento',
     name: 'birthDate',
-    placeholder: '17/10/1997',
+    placeholder: 'dd/mm/aaaa',
     defaultValue: user.birthDate,
   },
   {
@@ -78,6 +79,20 @@ const userInputs: DynamicInputProps[] = [
     name: 'gender',
     placeholder: 'Selecione o gênero',
     defaultValue: user.gender,
+    selectItems: [
+      {
+        label: 'Masculino',
+        value: 'male',
+      },
+      {
+        label: 'Feminino',
+        value: 'female',
+      },
+      {
+        label: 'Outro',
+        value: 'Outro',
+      },
+    ],
   },
   {
     type: InputTypes.TEXT,
@@ -112,7 +127,6 @@ export default function UserIdPage() {
   return (
     <Page needsSafeArea>
       <UserAvatarInfo showInfos={false} />
-      <View className="gap-3">{userInputs.map((input) => renderDynamicInput(control, input))}</View>
       <View className="gap-3">{userInputs.map((input) => renderDynamicInput(control, input))}</View>
     </Page>
   );

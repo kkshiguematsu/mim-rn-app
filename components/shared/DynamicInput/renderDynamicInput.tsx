@@ -12,6 +12,6 @@ export const renderDynamicInput = (
     <Text key={`text-${input.label}`} size="md">
       {input.label}
     </Text>
-    <DynamicInput key={`input-${input.label}`} control={control} {...input} />
+    <DynamicInput key={`input-${input.label}`} {...input} control={control} />
   </View>
 );

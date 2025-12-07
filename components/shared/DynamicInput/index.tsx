@@ -1,13 +1,14 @@
 import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
+import { formatDateInput } from '@/utils/formatDate';
 import React, { useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 import { renderIcon } from './renderIcon';
-export * from './renderDynamicInput';
-export * from './renderIcon';
-export * from './renderInputGroup';
+import { type DynamicSelectInputItem, renderSelectInput } from './renderSelectInput';
 export interface DynamicInputProps {
+  className?: string;
+  control?: Control<FieldValues, any, FieldValues>;
   type?: InputTypes;
   label?: string;
   defaultValue?: string;
@@ -15,12 +16,11 @@ export interface DynamicInputProps {
   icon?: React.ElementType | React.ReactNode;
   placeholder?: string;
   rules?: any;
-  control?: Control<FieldValues, any, FieldValues>;
-  className?: string;
+  selectItems?: DynamicSelectInputItem[];
   group?: DynamicInputProps[];
 }
 
-const sizeInput = 'xl';
+export const sizeInput = 'xl';
 
 export const DynamicInput = ({
   control,
@@ -29,6 +29,8 @@ export const DynamicInput = ({
   icon,
   name,
   placeholder,
+  defaultValue,
+  selectItems,
   rules,
 }: DynamicInputProps) => {
   const handleSelectInput = (
@@ -44,6 +46,23 @@ export const DynamicInput = ({
             <InputField
               type="text"
               placeholder={placeholder}
+              value={value}
+              defaultValue={defaultValue}
+              onBlur={onBlur}
+              onChangeText={onChange}
+            />
+          </Input>
+        );
+
+      case InputTypes.EMAIL:
+        return (
+          <Input size={sizeInput}>
+            {icon && renderIcon(icon)}
+            <InputField
+              type="text"
+              keyboardType="email-address"
+              placeholder={placeholder}
+              defaultValue={defaultValue}
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -66,6 +85,7 @@ export const DynamicInput = ({
               type={isPasswordVisible ? 'text' : 'password'}
               placeholder={placeholder}
               value={value}
+              defaultValue={defaultValue}
               onBlur={onBlur}
               onChangeText={onChange}
             />
@@ -83,21 +103,7 @@ export const DynamicInput = ({
               keyboardType="numeric"
               type={'text'}
               placeholder={placeholder}
-              value={value}
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-          </Input>
-        );
-
-      case InputTypes.EMAIL:
-        return (
-          <Input size={sizeInput}>
-            {icon && renderIcon(icon)}
-            <InputField
-              type="text"
-              keyboardType="email-address"
-              placeholder={placeholder}
+              defaultValue={defaultValue}
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -106,12 +112,33 @@ export const DynamicInput = ({
         );
 
       case InputTypes.SELECT:
+        return renderSelectInput(onChange, placeholder ?? '', selectItems ?? [], defaultValue);
+
       case InputTypes.DATE:
+        return (
+          <Input size={sizeInput}>
+            {icon && renderIcon(icon)}
+
+            <InputField
+              keyboardType="numeric"
+              placeholder={placeholder ?? 'dd/mm/aaaa'}
+              value={value}
+              defaultValue={defaultValue}
+              onBlur={onBlur}
+              onChangeText={(text) => {
+                const formatted = formatDateInput(text);
+                onChange(formatted);
+              }}
+              maxLength={10}
+            />
+          </Input>
+        );
 
       default:
         return <></>;
     }
   };
+  console.log('DynamicInput render', { name, type });
 
   return (
     <Controller
@@ -119,7 +146,7 @@ export const DynamicInput = ({
       name={name ?? ''}
       rules={rules}
       render={({ field: { onBlur, onChange, value } }) =>
-        handleSelectInput(onBlur, onChange, value)
+        handleSelectInput(onBlur, onChange, value ?? '')
       }
     />
   );

@@ -17,3 +17,17 @@ export function formatTimeToHM(timestamp: number): string {
     hour12: false,
   }).format(dateObject);
 }
+
+export const formatDateInput = (value: string) => {
+  const numbers = value.replace(/\D/g, '');
+  const limited = numbers.slice(0, 8);
+
+  let formatted = limited;
+  if (limited.length >= 5) {
+    formatted = `${limited.slice(0, 2)}/${limited.slice(2, 4)}/${limited.slice(4, 8)}`;
+  } else if (limited.length >= 3) {
+    formatted = `${limited.slice(0, 2)}/${limited.slice(2, 4)}`;
+  }
+
+  return formatted;
+};

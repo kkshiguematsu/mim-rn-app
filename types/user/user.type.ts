@@ -14,7 +14,7 @@ export type User = {
   website?: string;
 
   birthDate?: string;
-  gender?: 'Masculino' | 'Feminino' | 'Outros';
+  gender?: 'male' | 'female' | 'other';
 
   location?: {
     country?: string;

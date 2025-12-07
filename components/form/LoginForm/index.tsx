@@ -1,18 +1,17 @@
-import { DynamicInputProps, renderDynamicInput } from '@/components/shared/DynamicInput';
+import { DynamicInputProps } from '@/components/shared/DynamicInput';
+import { renderDynamicInput } from '@/components/shared/DynamicInput/renderDynamicInput';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Link, LinkText } from '@/components/ui/link';
 import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { useRouter } from 'expo-router';
 import { Lock, Mail } from 'lucide-react-native';
-import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import PagerView from 'react-native-pager-view';
 
 const loginInputs: DynamicInputProps[] = [
   {
-    type: InputTypes.TEXT,
+    type: InputTypes.EMAIL,
     label: 'Email',
     name: 'email',
     icon: Mail,
@@ -27,12 +26,30 @@ const loginInputs: DynamicInputProps[] = [
     placeholder: 'Digite a senha',
     rules: { required: 'A senha é obrigatória' },
   },
+  {
+    type: InputTypes.SELECT,
+    label: 'Gênero',
+    name: 'gender',
+    placeholder: 'Selecione o gênero',
+    defaultValue: 'male',
+    selectItems: [
+      {
+        label: 'Masculino',
+        value: 'male',
+      },
+      {
+        label: 'Feminino',
+        value: 'female',
+      },
+      {
+        label: 'Outro',
+        value: 'other',
+      },
+    ],
+  },
 ];
 
 export const LoginForm = () => {
-  const pagerRef = useRef<PagerView>(null);
-  const [page, setPage] = useState(0);
-
   const { navigate, replace } = useRouter();
   const {
     control,

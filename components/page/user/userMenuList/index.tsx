@@ -66,7 +66,13 @@ export const UserMenuList = () => {
           return <MenuItem key={menuItem.label} {...menuItem} action={goTo} />;
         })}
       </Box>
-      <MenuItem className="mt-5" key={Logout.label} {...Logout} forceColor="text-red-500" />
+      <MenuItem
+        className="mt-5"
+        key={Logout.label}
+        {...Logout}
+        action={() => router.replace('/')}
+        forceColor="text-red-500"
+      />
     </Box>
   );
 };

@@ -1,6 +1,7 @@
 import { Control, FieldValues } from 'react-hook-form';
 import { View } from 'react-native';
-import { DynamicInputProps, renderDynamicInput } from '.';
+import { DynamicInputProps } from '.';
+import { renderDynamicInput } from './renderDynamicInput';
 
 export const renderInputGroup = (
   control: Control<FieldValues, any, FieldValues>,
