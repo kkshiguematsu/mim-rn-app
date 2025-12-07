@@ -26,27 +26,6 @@ const loginInputs: DynamicInputProps[] = [
     placeholder: 'Digite a senha',
     rules: { required: 'A senha é obrigatória' },
   },
-  {
-    type: InputTypes.SELECT,
-    label: 'Gênero',
-    name: 'gender',
-    placeholder: 'Selecione o gênero',
-    defaultValue: 'male',
-    selectItems: [
-      {
-        label: 'Masculino',
-        value: 'male',
-      },
-      {
-        label: 'Feminino',
-        value: 'female',
-      },
-      {
-        label: 'Outro',
-        value: 'other',
-      },
-    ],
-  },
 ];
 
 export const LoginForm = () => {

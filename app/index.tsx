@@ -1,4 +1,5 @@
 import { LoginForm } from '@/components/form/LoginForm';
+import { AnimatedSlideInViewCard } from '@/components/shared/cards/AnimatedViewCard';
 import { Page } from '@/components/shared/Page';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
@@ -27,20 +28,14 @@ export default function Index() {
         <Image source={require('../assets/images/mim-logo-tec.webp')} alt="Logo" size="2xl" />
       </Animated.View>
       {isLoginCardVisible ? (
-        <Animated.View
-          key="loginCard"
-          entering={FadeInDown.duration(800).springify()}
-          exiting={FadeInDown.duration(400)}
-          className="w-full rounded-3xl bg-gray-200 p-7 pb-24 dark:bg-zinc-800"
-        >
+        <AnimatedSlideInViewCard key="loginCard">
           <Heading className="my-10 text-center text-2xl font-bold">Login</Heading>
           <LoginForm />
-        </Animated.View>
+        </AnimatedSlideInViewCard>
       ) : (
         <Animated.View
           key="buttonCard"
           entering={FadeInDown.duration(400).springify()}
-          exiting={FadeInDown.duration(400)}
           className="flex h-[55%] w-full items-center justify-between pb-24"
         >
           <View className="flex w-full flex-col items-center gap-7">

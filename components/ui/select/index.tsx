@@ -44,7 +44,7 @@ const selectIconStyle = tva({
 });
 
 const selectStyle = tva({
-  base: 'rounded-2xl',
+  base: 'rounded-2xl bg-white dark:bg-zinc-900',
 });
 
 const selectTriggerStyle = tva({
@@ -52,7 +52,7 @@ const selectTriggerStyle = tva({
   variants: {
     size: {
       xl: 'h-14',
-      lg: 'h-11',
+      lg: 'h-12',
       md: 'h-10',
       sm: 'h-9',
     },
