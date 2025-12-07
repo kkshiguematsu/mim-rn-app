@@ -1,6 +1,9 @@
 import { UserAvatarInfo } from '@/components/page/user/UserAvatarInfo';
+import { AnimatedSlideInViewCard } from '@/components/shared/cards/AnimatedViewCard';
 import { DynamicInputProps } from '@/components/shared/DynamicInput';
 import { renderDynamicInput } from '@/components/shared/DynamicInput/renderDynamicInput';
+import { renderInputGroup } from '@/components/shared/DynamicInput/renderInputGroup';
+import { renderTitle } from '@/components/shared/DynamicInput/renderTitle';
 import { Page } from '@/components/shared/Page';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { User } from '@/types/user/user.type';
@@ -32,33 +35,38 @@ const user: User = {
 
 const userInputs: DynamicInputProps[] = [
   {
+    title: 'Informações Pessoais',
+  },
+  {
     type: InputTypes.TEXT,
-    label: 'Primeiro Nome',
+    label: 'Nome',
     name: 'firstName',
-    placeholder: 'Digite seu primeiro nome',
+    placeholder: 'Nome',
     defaultValue: user.firstName,
+    className: 'flex-1',
   },
   {
     type: InputTypes.TEXT,
     label: 'Sobrenome',
     name: 'lastName',
-    placeholder: 'Digite seu sobrenome',
+    placeholder: 'Sobrenome',
     defaultValue: user.lastName,
+    className: 'flex-1',
   },
-  {
-    type: InputTypes.EMAIL,
-    label: 'E-mail',
-    name: 'email',
-    placeholder: 'Digite seu e-mail',
-    defaultValue: user.email,
-  },
-  {
-    type: InputTypes.PASSWORD,
-    label: 'Senha',
-    name: 'password',
-    placeholder: 'Digite sua senha',
-    defaultValue: user.password,
-  },
+  // {
+  //   type: InputTypes.EMAIL,
+  //   label: 'E-mail',
+  //   name: 'email',
+  //   placeholder: 'Digite seu e-mail',
+  //   defaultValue: user.email,
+  // },
+  // {
+  //   type: InputTypes.PASSWORD,
+  //   label: 'Senha',
+  //   name: 'password',
+  //   placeholder: 'Digite sua senha',
+  //   defaultValue: user.password,
+  // },
   {
     type: InputTypes.TEXT,
     label: 'Telefone',
@@ -67,32 +75,42 @@ const userInputs: DynamicInputProps[] = [
     defaultValue: user.phone,
   },
   {
-    type: InputTypes.DATE,
-    label: 'Data de Nascimento',
-    name: 'birthDate',
-    placeholder: 'dd/mm/aaaa',
-    defaultValue: user.birthDate,
-  },
-  {
-    type: InputTypes.SELECT,
-    label: 'Gênero',
-    name: 'gender',
-    placeholder: 'Selecione o gênero',
-    defaultValue: user.gender,
-    selectItems: [
+    group: [
       {
-        label: 'Masculino',
-        value: 'male',
+        type: InputTypes.DATE,
+        label: 'Data de Nascimento',
+        name: 'birthDate',
+        placeholder: 'dd/mm/aaaa',
+        defaultValue: user.birthDate,
+        className: 'flex-1',
       },
       {
-        label: 'Feminino',
-        value: 'female',
-      },
-      {
-        label: 'Outro',
-        value: 'Outro',
+        type: InputTypes.SELECT,
+        label: 'Gênero',
+        name: 'gender',
+        placeholder: 'Selecione o gênero',
+        defaultValue: user.gender,
+        className: 'flex-1',
+        selectItems: [
+          {
+            label: 'Masculino',
+            value: 'male',
+          },
+          {
+            label: 'Feminino',
+            value: 'female',
+          },
+          {
+            label: 'Outro',
+            value: 'Outro',
+          },
+        ],
       },
     ],
+  },
+  {
+    title: 'Localização',
+    className: '!mt-12',
   },
   {
     type: InputTypes.TEXT,
@@ -125,9 +143,19 @@ export default function UserIdPage() {
   } = useForm();
 
   return (
-    <Page needsSafeArea>
-      <UserAvatarInfo showInfos={false} />
-      <View className="gap-3">{userInputs.map((input) => renderDynamicInput(control, input))}</View>
+    <Page needsPadding={false} needsSafeArea background="primary">
+      <UserAvatarInfo backgroundDark={true} />
+      <AnimatedSlideInViewCard className="gap-5 rounded-b-none">
+        {userInputs.map((input) => (
+          <View key={`view-row-${Math.random()}`}>
+            {input.title
+              ? renderTitle(input.title, input.className)
+              : input.group && input.group?.length > 0
+                ? renderInputGroup(control, input.group)
+                : renderDynamicInput(control, input)}
+          </View>
+        ))}
+      </AnimatedSlideInViewCard>
     </Page>
   );
 }

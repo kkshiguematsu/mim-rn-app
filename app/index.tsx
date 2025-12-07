@@ -28,7 +28,7 @@ export default function Index() {
         <Image source={require('../assets/images/mim-logo-tec.webp')} alt="Logo" size="2xl" />
       </Animated.View>
       {isLoginCardVisible ? (
-        <AnimatedSlideInViewCard key="loginCard">
+        <AnimatedSlideInViewCard key="loginCard" className="pb-24">
           <Heading className="my-10 text-center text-2xl font-bold">Login</Heading>
           <LoginForm />
         </AnimatedSlideInViewCard>

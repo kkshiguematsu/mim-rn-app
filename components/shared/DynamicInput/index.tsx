@@ -7,6 +7,7 @@ import { Control, Controller, FieldValues } from 'react-hook-form';
 import { renderIcon } from './renderIcon';
 import { type DynamicSelectInputItem, renderSelectInput } from './renderSelectInput';
 export interface DynamicInputProps {
+  title?: string;
   className?: string;
   control?: Control<FieldValues, any, FieldValues>;
   type?: InputTypes;

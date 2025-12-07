@@ -1,10 +1,8 @@
 import { Button, ButtonText } from '@/components/ui/button';
 
-import {
-  DynamicInputProps,
-  renderDynamicInput,
-  renderInputGroup,
-} from '@/components/shared/DynamicInput';
+import { DynamicInputProps } from '@/components/shared/DynamicInput';
+import { renderDynamicInput } from '@/components/shared/DynamicInput/renderDynamicInput';
+import { renderInputGroup } from '@/components/shared/DynamicInput/renderInputGroup';
 import { PaymentCardUi } from '@/components/shared/payment/paymentCardUi';
 import { Checkbox, CheckboxIcon, CheckboxIndicator, CheckboxLabel } from '@/components/ui/checkbox';
 import { CheckIcon } from '@/components/ui/icon';

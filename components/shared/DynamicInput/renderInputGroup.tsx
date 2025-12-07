@@ -7,7 +7,7 @@ export const renderInputGroup = (
   control: Control<FieldValues, any, FieldValues>,
   group: DynamicInputProps[]
 ) => (
-  <View key={`view-group-${group}`} className="flex flex-row gap-2">
+  <View key={`view-group-${Math.random()}`} className="flex flex-row gap-2">
     {group.map((input) => renderDynamicInput(control, input))}
   </View>
 );
