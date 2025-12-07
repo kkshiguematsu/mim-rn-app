@@ -138,7 +138,6 @@ export const DynamicInput = ({
         return <></>;
     }
   };
-  console.log('DynamicInput render', { name, type });
 
   return (
     <Controller
