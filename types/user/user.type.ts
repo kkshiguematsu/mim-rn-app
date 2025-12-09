@@ -13,7 +13,7 @@ export type User = {
 
   website?: string;
 
-  birthDate?: string;
+  birthDate?: number;
   gender?: 'male' | 'female' | 'other';
 
   location?: {

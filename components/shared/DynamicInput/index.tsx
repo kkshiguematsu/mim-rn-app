@@ -5,7 +5,7 @@ import { formatDateInput } from '@/utils/formatDate';
 import React, { useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 import { renderIcon } from './renderIcon';
-import { type DynamicSelectInputItem, renderSelectInput } from './renderSelectInput';
+import { renderSelectInput, type DynamicSelectInputItem } from './renderSelectInput';
 export interface DynamicInputProps {
   title?: string;
   className?: string;
@@ -47,8 +47,7 @@ export const DynamicInput = ({
             <InputField
               type="text"
               placeholder={placeholder}
-              value={value}
-              defaultValue={defaultValue}
+              value={defaultValue ?? ''}
               onBlur={onBlur}
               onChangeText={onChange}
             />
@@ -63,8 +62,7 @@ export const DynamicInput = ({
               type="text"
               keyboardType="email-address"
               placeholder={placeholder}
-              defaultValue={defaultValue}
-              value={value}
+              value={defaultValue ?? ''}
               onBlur={onBlur}
               onChangeText={onChange}
             />
@@ -104,8 +102,7 @@ export const DynamicInput = ({
               keyboardType="numeric"
               type={'text'}
               placeholder={placeholder}
-              defaultValue={defaultValue}
-              value={value}
+              value={defaultValue ?? ''}
               onBlur={onBlur}
               onChangeText={onChange}
             />
@@ -123,8 +120,7 @@ export const DynamicInput = ({
             <InputField
               keyboardType="numeric"
               placeholder={placeholder ?? 'dd/mm/aaaa'}
-              value={value}
-              defaultValue={defaultValue}
+              value={defaultValue ?? ''}
               onBlur={onBlur}
               onChangeText={(text) => {
                 const formatted = formatDateInput(text);

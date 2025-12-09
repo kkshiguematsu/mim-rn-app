@@ -44,11 +44,11 @@ const selectIconStyle = tva({
 });
 
 const selectStyle = tva({
-  base: 'rounded-2xl bg-neutral-300 dark:bg-zinc-900',
+  base: 'rounded-2xl bg-transparent',
 });
 
 const selectTriggerStyle = tva({
-  base: ' border border-background-300 rounded-2xl flex-row items-center overflow-hidden data-[hover=true]:border-outline-400 data-[focus=true]:border-primary-700 data-[disabled=true]:opacity-40 data-[disabled=true]:data-[hover=true]:border-background-300',
+  base: 'bg-neutral-300 dark:bg-zinc-900 border border-background-300 rounded-2xl flex-row items-center overflow-hidden data-[hover=true]:border-outline-400 data-[focus=true]:border-primary-700 data-[disabled=true]:opacity-40 data-[disabled=true]:border-background-300',
   variants: {
     size: {
       xl: 'h-14',
@@ -260,5 +260,6 @@ export {
   SelectSectionHeaderText,
   SelectSectionList,
   SelectTrigger,
-  SelectVirtualizedList,
+  SelectVirtualizedList
 };
+

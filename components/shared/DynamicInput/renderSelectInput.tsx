@@ -26,8 +26,10 @@ export const renderSelectInput = (
   selectItems: DynamicSelectInputItem[],
   defaultValue?: string
 ) => {
+  const selectedItem = selectItems.find((item) => item.value === defaultValue);
+
   return (
-    <Select isDisabled={false} defaultValue={defaultValue} onValueChange={onChange}>
+    <Select isDisabled={false} defaultValue={selectedItem?.label} onValueChange={onChange}>
       <SelectTrigger size={sizeInput}>
         <SelectInput placeholder={placeholder} />
         <SelectIcon as={ChevronDown} />
@@ -40,12 +42,7 @@ export const renderSelectInput = (
           </SelectDragIndicatorWrapper>
 
           {selectItems.map((item) => (
-            <SelectItem
-              key={item.value}
-              label={item.label}
-              value={item.value}
-              isDisabled={item.isDisabled ?? false}
-            />
+            <SelectItem key={item.value} label={item.label} value={item.value} />
           ))}
         </SelectContent>
       </SelectPortal>
