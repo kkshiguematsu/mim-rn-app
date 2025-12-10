@@ -1,7 +1,7 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface PageProps {
@@ -80,17 +80,23 @@ export const Page = ({
     : 0;
 
   return (
-    <KeyboardAwareScrollView
-      className={pageStyled({ background })}
-      bottomOffset={60}
-      keyboardShouldPersistTaps="handled"
-      contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
-      contentContainerStyle={{
-        paddingTop,
-        paddingBottom,
-      }}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      {children}
-    </KeyboardAwareScrollView>
+      <View style={{ flex: 1 }} className="">
+        <ScrollView
+          style={{ paddingTop }}
+          className={pageStyled({ background })}
+          contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
+          contentContainerStyle={{
+            paddingBottom,
+          }}
+          keyboardShouldPersistTaps="handled"
+        >
+          {children}
+        </ScrollView>
+      </View>
+    </KeyboardAvoidingView>
   );
 };

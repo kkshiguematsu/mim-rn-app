@@ -20,9 +20,9 @@ export const AddPaymentCardButton = () => {
   };
 
   return (
-    <BottomSheetTrigger onPress={openModal} className="flex-row items-center">
-      <Animated.View style={animationStyle} className="p-2">
-        <Icon as={Plus} size="2xl" />
+    <BottomSheetTrigger onPress={openModal}>
+      <Animated.View style={animationStyle} className="">
+        <Icon as={Plus} size="2xl" className="ml-1" />
       </Animated.View>
     </BottomSheetTrigger>
   );
