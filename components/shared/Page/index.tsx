@@ -84,7 +84,7 @@ export const Page = ({
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <View style={{ flex: 1 }} className="">
+      <View style={{ flex: 1 }}>
         <ScrollView
           style={{ paddingTop }}
           className={pageStyled({ background })}

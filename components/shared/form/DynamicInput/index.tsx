@@ -1,3 +1,4 @@
+import { BottomSheetInput } from '@/components/ui/bottomsheet';
 import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
@@ -19,6 +20,7 @@ export interface DynamicInputProps {
   rules?: any;
   selectItems?: DynamicSelectInputItem[];
   group?: DynamicInputProps[];
+  isBottomSheetInput?: boolean;
 }
 
 export const sizeInput = 'xl';
@@ -33,6 +35,7 @@ export const DynamicInput = ({
   defaultValue,
   selectItems,
   rules,
+  isBottomSheetInput,
 }: DynamicInputProps) => {
   const handleSelectInput = (
     onBlur: () => void,
@@ -136,13 +139,49 @@ export const DynamicInput = ({
     }
   };
 
+  const handleSelectBottomSheetInput = (
+    onBlur: () => void,
+    onChange: (text: string) => void,
+    value: string
+  ) => {
+    switch (type) {
+      case InputTypes.TEXT:
+        return (
+          <BottomSheetInput
+            keyboardType={'default'}
+            size={sizeInput}
+            placeholder={placeholder}
+            value={defaultValue ?? ''}
+            onBlur={onBlur}
+            onChangeText={onChange}
+          />
+        );
+      case InputTypes.NUMBER:
+        return (
+          <BottomSheetInput
+            keyboardType={'numeric'}
+            size={sizeInput}
+            placeholder={placeholder}
+            value={defaultValue ?? ''}
+            onBlur={onBlur}
+            onChangeText={onChange}
+          />
+        );
+      default:
+        return <></>;
+    }
+  };
+  console.log({ isBottomSheetInput });
+
   return (
     <Controller
       control={control}
       name={name ?? ''}
       rules={rules}
       render={({ field: { onBlur, onChange, value } }) =>
-        handleSelectInput(onBlur, onChange, value ?? '')
+        isBottomSheetInput
+          ? handleSelectBottomSheetInput(onBlur, onChange, value ?? '')
+          : handleSelectInput(onBlur, onChange, value ?? '')
       }
     />
   );

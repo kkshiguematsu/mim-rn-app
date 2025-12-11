@@ -29,7 +29,7 @@ cssInterop(PrimitiveIcon, {
   },
 });
 
-const inputStyle = tva({
+export const inputStyle = tva({
   base: 'bg-neutral-300 dark:bg-zinc-900 border-background-300 flex-row overflow-hidden content-center data-[hover=true]:border-outline-400 data-[focus=true]:border-primary-700 data-[focus=true]:hover:border-primary-700 data-[disabled=true]:opacity-40 data-[disabled=true]:hover:border-background-300 items-center',
 
   variants: {
@@ -53,7 +53,7 @@ const inputStyle = tva({
   },
 });
 
-const inputIconStyle = tva({
+export const inputIconStyle = tva({
   base: 'justify-center items-center text-typography-400 fill-none',
   parentVariants: {
     size: {
@@ -71,7 +71,7 @@ const inputSlotStyle = tva({
   base: 'justify-center items-center web:disabled:cursor-not-allowed',
 });
 
-const inputFieldStyle = tva({
+export const inputFieldStyle = tva({
   base: 'flex-1 text-typography-900 py-0 px-3 placeholder:text-typography-500 h-full ios:leading-[0px] web:cursor-text web:data-[disabled=true]:cursor-not-allowed',
 
   parentVariants: {

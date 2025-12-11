@@ -1,4 +1,4 @@
-import { DynamicInput, DynamicInputProps } from '@/components/shared/DynamicInput';
+import { DynamicInput, DynamicInputProps } from '@/components/shared/form/DynamicInput';
 import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';

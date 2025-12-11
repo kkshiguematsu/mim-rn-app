@@ -13,10 +13,10 @@ interface PaymentCardUiProps {
 export const PaymentCardUi = ({}: PaymentCardUiProps) => {
   const { control } = useFormContext();
 
-  const cardNumber = useWatch({ control, name: 'cardNumber' });
-  const expireDate = useWatch({ control, name: 'expireDate' });
-  const cvv = useWatch({ control, name: 'cvv' });
-  const nameCard = useWatch({ control, name: 'nameCard' });
+  const [cardNumber, expireDate, cvv, nameCard] = useWatch({
+    control,
+    name: ['cardNumber', 'expireDate', 'cvv', 'nameCard'],
+  });
 
   const cardFlag = getCardBrand(cardNumber);
 

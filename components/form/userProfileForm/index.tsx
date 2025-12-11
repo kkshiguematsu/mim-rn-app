@@ -1,8 +1,8 @@
-import { DynamicInputProps } from '@/components/shared/DynamicInput';
-import { renderDynamicInput } from '@/components/shared/DynamicInput/renderDynamicInput';
-import { renderInputGroup } from '@/components/shared/DynamicInput/renderInputGroup';
-import { renderTitle } from '@/components/shared/DynamicInput/renderTitle';
 import { AnimatedSlideInViewCard } from '@/components/shared/cards/AnimatedViewCard';
+import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
+import { renderDynamicInput } from '@/components/shared/form/DynamicInput/renderDynamicInput';
+import { renderInputGroup } from '@/components/shared/form/DynamicInput/renderInputGroup';
+import { renderTitle } from '@/components/shared/form/DynamicInput/renderTitle';
 import { FormControl } from '@/components/ui/form-control';
 import { Icon } from '@/components/ui/icon';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';

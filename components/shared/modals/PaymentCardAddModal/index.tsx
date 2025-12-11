@@ -4,11 +4,10 @@ import { View } from 'react-native';
 
 export const PaymentCardAddModal = () => {
   return (
-    <View className="flex-1">
+    <View className="flex-1 px-4">
       <Heading className="text-center" size="xl">
         Adicionar Cartão
       </Heading>
-
       <PaymentCardAddForm />
     </View>
   );

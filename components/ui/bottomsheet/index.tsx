@@ -1,6 +1,6 @@
 import { useTheme } from '@/context/themeContext';
 import { FocusScope } from '@gluestack-ui/utils/aria';
-import { tva } from '@gluestack-ui/utils/nativewind-utils';
+import { VariantProps, tva } from '@gluestack-ui/utils/nativewind-utils';
 import GorhomBottomSheet, {
   BottomSheetHandle,
   BottomSheetBackdrop as GorhomBottomSheetBackdrop,
@@ -13,7 +13,8 @@ import GorhomBottomSheet, {
 import { cssInterop } from 'nativewind';
 import React, { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import type { PressableProps, TextProps } from 'react-native';
-import { Platform, Pressable, Text } from 'react-native';
+import { Platform, Pressable, Text, View } from 'react-native';
+import { InputIcon, InputSlot, inputFieldStyle, inputStyle } from '../input';
 
 const bottomSheetBackdropStyle = tva({
   base: 'absolute inset-0 flex-1 touch-none select-none bg-black opacity-0',
@@ -27,7 +28,7 @@ const bottomSheetTriggerStyle = tva({
 });
 
 const bottomSheetIndicatorStyle = tva({
-  base: 'w-full items-center rounded-t-lg bg-white dark:bg-zinc-800',
+  base: 'w-full items-center rounded-t-lg',
 });
 
 const bottomSheetItemStyle = tva({
@@ -120,7 +121,7 @@ export const BottomSheetPortal = ({
       handleComponent={DragIndicator}
       enablePanDownToClose={true}
       backgroundStyle={{
-        backgroundColor: theme === 'light' ? '#FFFFFF' : 'rgba(39,39,42)',
+        backgroundColor: theme === 'light' ? '#e5e5e5' : 'rgba(39,39,42)',
       }}
       {...props}
     >
@@ -284,9 +285,49 @@ export const BottomSheetItemText = ({ ...props }: TextProps) => {
 export const BottomSheetScrollView = GorhomBottomSheetScrollView;
 export const BottomSheetFlatList = GorhomBottomSheetFlatList;
 export const BottomSheetSectionList = GorhomBottomSheetSectionList;
-export const BottomSheetTextInput = GorhomBottomSheetInput;
 
 cssInterop(GorhomBottomSheetInput, { className: 'style' });
 cssInterop(GorhomBottomSheetScrollView, { className: 'style' });
 cssInterop(GorhomBottomSheetFlatList, { className: 'style' });
 cssInterop(GorhomBottomSheetSectionList, { className: 'style' });
+
+
+type IBottomSheetInputProps = React.ComponentProps<typeof GorhomBottomSheetInput> &
+  VariantProps<typeof inputStyle> & {
+    className?: string;
+    leftIcon?: React.ElementType;
+    rightIcon?: React.ElementType;
+  };
+
+  export const BottomSheetInput = React.forwardRef<
+  React.ComponentRef<typeof GorhomBottomSheetInput>,
+  IBottomSheetInputProps
+>(function BottomSheetInput({ className, variant = 'outline', size = 'md', leftIcon, rightIcon, ...props }, ref) {
+
+  return (
+    <View
+      className={inputStyle({ variant, size, class: className })}
+    >
+      {leftIcon && (
+        <InputSlot>
+          <InputIcon as={leftIcon} />
+        </InputSlot>
+      )}
+      <GorhomBottomSheetInput
+        ref={ref}
+        {...props}
+        className={inputFieldStyle({
+          parentVariants: {
+            variant,
+            size,
+          },
+        })}
+      />
+      {rightIcon && (
+        <InputSlot>
+          <InputIcon as={rightIcon} />
+        </InputSlot>
+      )}
+    </View>
+  );
+});

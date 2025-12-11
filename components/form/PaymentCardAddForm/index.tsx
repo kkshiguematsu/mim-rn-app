@@ -1,8 +1,7 @@
 import { Button, ButtonText } from '@/components/ui/button';
 
-import { DynamicInputProps } from '@/components/shared/DynamicInput';
-import { renderDynamicInput } from '@/components/shared/DynamicInput/renderDynamicInput';
-import { renderInputGroup } from '@/components/shared/DynamicInput/renderInputGroup';
+import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
+import { RenderForm } from '@/components/shared/form/RenderForm';
 import { PaymentCardUi } from '@/components/shared/payment/paymentCardUi';
 import { Checkbox, CheckboxIcon, CheckboxIndicator, CheckboxLabel } from '@/components/ui/checkbox';
 import { CheckIcon } from '@/components/ui/icon';
@@ -11,7 +10,6 @@ import { getCardBrand } from '@/utils/paymentCard';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { PaymentIcon } from 'react-native-payment-icons';
 
 export const PaymentCardAddForm = () => {
   const formMethods = useForm({
@@ -25,6 +23,7 @@ export const PaymentCardAddForm = () => {
   const { control, watch, handleSubmit } = formMethods;
 
   const cardNumber = watch('cardNumber');
+  console.log(cardNumber);
   const cardFlag = getCardBrand(cardNumber);
 
   const mockPaymentCardForm: DynamicInputProps[] = [
@@ -32,7 +31,6 @@ export const PaymentCardAddForm = () => {
       type: InputTypes.NUMBER,
       label: 'Número do cartão',
       name: 'cardNumber',
-      icon: cardFlag && <PaymentIcon type={cardFlag} />,
       placeholder: 'Número do cartão',
       rules: {
         required: 'O número do cartão é obrigatório',
@@ -74,21 +72,13 @@ export const PaymentCardAddForm = () => {
   ];
 
   return (
-    <View>
+    <View className="">
       <FormProvider {...formMethods}>
         <View className="flex w-full flex-col items-center justify-center">
           <PaymentCardUi watch={watch} />
         </View>
 
-        <View className="mt-5 flex w-full gap-3">
-          {mockPaymentCardForm.map((input: DynamicInputProps) => (
-            <View key={`view-input-${input.label}`}>
-              {input.group && input.group?.length > 0
-                ? renderInputGroup(control, input.group)
-                : renderDynamicInput(control, input)}
-            </View>
-          ))}
-        </View>
+        <RenderForm inputList={mockPaymentCardForm} isBottomSheetInput={true} />
 
         <Checkbox size={'lg'} value="checkbox-id" className="my-10">
           <CheckboxIndicator>

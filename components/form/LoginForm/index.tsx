@@ -1,5 +1,5 @@
-import { DynamicInputProps } from '@/components/shared/DynamicInput';
-import { renderDynamicInput } from '@/components/shared/DynamicInput/renderDynamicInput';
+import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
+import { renderDynamicInput } from '@/components/shared/form/DynamicInput/renderDynamicInput';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Link, LinkText } from '@/components/ui/link';
 import { Text } from '@/components/ui/text';
