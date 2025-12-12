@@ -50,7 +50,7 @@ export const DynamicInput = ({
             <InputField
               type="text"
               placeholder={placeholder}
-              value={defaultValue ?? ''}
+              value={value ?? ''}
               onBlur={onBlur}
               onChangeText={onChange}
             />
@@ -65,7 +65,7 @@ export const DynamicInput = ({
               type="text"
               keyboardType="email-address"
               placeholder={placeholder}
-              value={defaultValue ?? ''}
+              value={value ?? ''}
               onBlur={onBlur}
               onChangeText={onChange}
             />
@@ -105,7 +105,7 @@ export const DynamicInput = ({
               keyboardType="numeric"
               type={'text'}
               placeholder={placeholder}
-              value={defaultValue ?? ''}
+              value={value ?? ''}
               onBlur={onBlur}
               onChangeText={onChange}
             />
@@ -113,7 +113,7 @@ export const DynamicInput = ({
         );
 
       case InputTypes.SELECT:
-        return renderSelectInput(onChange, placeholder ?? '', selectItems ?? [], defaultValue);
+        return renderSelectInput(value, placeholder ?? '', selectItems ?? [], onChange);
 
       case InputTypes.DATE:
         return (
@@ -123,7 +123,7 @@ export const DynamicInput = ({
             <InputField
               keyboardType="numeric"
               placeholder={placeholder ?? 'dd/mm/aaaa'}
-              value={defaultValue ?? ''}
+              value={value ?? ''}
               onBlur={onBlur}
               onChangeText={(text) => {
                 const formatted = formatDateInput(text);
@@ -151,7 +151,7 @@ export const DynamicInput = ({
             keyboardType={'default'}
             size={sizeInput}
             placeholder={placeholder}
-            value={defaultValue ?? ''}
+            value={value ?? ''}
             onBlur={onBlur}
             onChangeText={onChange}
           />
@@ -162,7 +162,7 @@ export const DynamicInput = ({
             keyboardType={'numeric'}
             size={sizeInput}
             placeholder={placeholder}
-            value={defaultValue ?? ''}
+            value={value ?? ''}
             onBlur={onBlur}
             onChangeText={onChange}
           />
@@ -171,7 +171,6 @@ export const DynamicInput = ({
         return <></>;
     }
   };
-  console.log({ isBottomSheetInput });
 
   return (
     <Controller

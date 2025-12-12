@@ -16,7 +16,7 @@ export const RenderForm = ({ inputList, isBottomSheetInput = false }: RenderForm
   return (
     <View className="flex w-full flex-1 gap-3">
       {inputList.map((input: DynamicInputProps) => (
-        <View key={`view-input-${input.label}`}>
+        <View key={`view-input-${input.label}-${Math.random()}`}>
           {input.group && input.group?.length > 0
             ? renderInputGroup(control, input.group, isBottomSheetInput)
             : renderDynamicInput(control, input, isBottomSheetInput)}

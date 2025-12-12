@@ -21,12 +21,13 @@ export type DynamicSelectInputItem = {
 };
 
 export const renderSelectInput = (
-  onChange: (text: string) => void,
+  value: string,
   placeholder: string,
   selectItems: DynamicSelectInputItem[],
-  defaultValue?: string
+  onChange: (text: string) => void
 ) => {
-  const selectedItem = selectItems.find((item) => item.value === defaultValue);
+  console.log(value);
+  const selectedItem = selectItems.find((item) => item.value === value);
 
   return (
     <Select isDisabled={false} defaultValue={selectedItem?.label} onValueChange={onChange}>
