@@ -87,7 +87,6 @@ export const DynamicInput = ({
               type={isPasswordVisible ? 'text' : 'password'}
               placeholder={placeholder}
               value={value}
-              defaultValue={defaultValue}
               onBlur={onBlur}
               onChangeText={onChange}
             />

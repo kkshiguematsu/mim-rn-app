@@ -1,3 +1,4 @@
 export enum ModalNames {
-  PaymenentModal,
+  PaymenentCardAddModal,
+  PaymentCardViewModal,
 }

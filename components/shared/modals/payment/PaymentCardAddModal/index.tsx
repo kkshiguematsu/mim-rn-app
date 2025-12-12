@@ -1,4 +1,4 @@
-import { PaymentCardAddForm } from '@/components/form/PaymentCardAddForm';
+import { PaymentCardForm } from '@/components/form/PaymentCardForm';
 import { Heading } from '@/components/ui/heading';
 import { View } from 'react-native';
 
@@ -8,7 +8,7 @@ export const PaymentCardAddModal = () => {
       <Heading className="text-center" size="xl">
         Adicionar Cartão
       </Heading>
-      <PaymentCardAddForm />
+      <PaymentCardForm />
     </View>
   );
 };

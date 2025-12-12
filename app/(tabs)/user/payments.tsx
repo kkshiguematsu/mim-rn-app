@@ -6,51 +6,57 @@ import { Page } from '@/components/shared/Page';
 import { PaymentCard } from '@/components/shared/cards/PaymentCard';
 import { Heading } from '@/components/ui/heading';
 import { VStack } from '@/components/ui/vstack';
+import { useModal } from '@/context/modalContext';
+import { ModalNames } from '@/types/modal/modalsComponents';
 import { View } from 'react-native';
 
 const mockPaymentCards: PaymentCardType[] = [
   {
-    user_name: 'Kassiano Shiguematsu',
+    userName: 'Kassiano Shiguematsu',
     code: '1234 5678 9012',
     flag: 'visa',
-    expired_date: '10/10/2026',
-    vcc_code: '241',
+    expiredDate: '10/10/2026',
+    cvvCode: '241',
   },
   {
-    user_name: 'Kassiano Shiguematsu',
+    userName: 'Kassiano Shiguematsu',
     code: '4321  8765 1234',
     flag: 'mastercard',
-    expired_date: '10/10/2026',
-    vcc_code: '241',
+    expiredDate: '10/10/2026',
+    cvvCode: '241',
   },
 ];
 
 const mockOthersPaymentsMethods: PaymentCardType[] = [
   {
-    user_name: 'Kassiano Shiguematsu',
+    userName: 'Kassiano Shiguematsu',
     code: '1234 5678 9012',
     flag: 'paypal',
-    expired_date: '10/10/2026',
-    vcc_code: '241',
+    expiredDate: '10/10/2026',
+    cvvCode: '241',
   },
   // {
-  //   user_name: 'Kassiano Shiguematsu',
+  //   userName: 'Kassiano Shiguematsu',
   //   code: '4321  8765 1234',
   //   flag: '',
-  //   expired_date: '10/10/2026',
-  //   vcc_code: '241',
+  //   expiredDate: '10/10/2026',
+  //   cvvCode: '241',
   // },
   // {
-  //   user_name: 'Kassiano Shiguematsu',
+  //   userName: 'Kassiano Shiguematsu',
   //   code: '4321  8765 1234',
   //   flag: 'mastercard',
-  //   expired_date: '10/10/2026',
-  //   vcc_code: '241',
+  //   expiredDate: '10/10/2026',
+  //   cvvCode: '241',
   // },
 ];
 
 export default function PaymentsPage() {
-  const showPaymentCardDetails = () => {};
+  const { enableModal } = useModal();
+
+  const showPaymentCardDetails = (paymentCard: PaymentCardType) => {
+    enableModal(ModalNames.PaymentCardViewModal, paymentCard);
+  };
 
   return (
     <Page>
@@ -60,8 +66,7 @@ export default function PaymentsPage() {
           {mockPaymentCards.map((card, index) => (
             <PaymentCard
               key={`card-${card.flag}-${index}`}
-              code={card.code}
-              flag={card.flag}
+              paymentCard={card}
               onAction={showPaymentCardDetails}
             />
           ))}
@@ -73,8 +78,7 @@ export default function PaymentsPage() {
           {mockOthersPaymentsMethods.map((card, index) => (
             <PaymentCard
               key={`card-${card.flag}-${index}`}
-              code={card.code}
-              flag={card.flag}
+              paymentCard={card}
               onAction={showPaymentCardDetails}
             />
           ))}

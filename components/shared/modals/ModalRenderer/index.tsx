@@ -9,12 +9,14 @@ import { ModalNames } from '@/types/modal/modalsComponents';
 
 import { Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { PaymentCardAddModal } from '../PaymentCardAddModal';
+import { PaymentCardAddModal } from '../payment/PaymentCardAddModal';
+import { PaymentCardViewModal } from '../payment/PaymentCardViewModal';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const MODAL_COMPONENTS = {
-  [ModalNames.PaymenentModal]: PaymentCardAddModal,
+  [ModalNames.PaymenentCardAddModal]: PaymentCardAddModal,
+  [ModalNames.PaymentCardViewModal]: PaymentCardViewModal,
 };
 
 export const ModalRenderer = () => {

@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { BottomSheetContext, BottomSheetTrigger } from '@/components/ui/bottomsheet';
+import { BottomSheetTrigger } from '@/components/ui/bottomsheet';
 import { Icon } from '@/components/ui/icon';
 import { useModal } from '@/context/modalContext';
 import { useRotation } from '@/hooks/animations/useRotation';
@@ -10,13 +10,11 @@ import Animated from 'react-native-reanimated';
 
 export const AddPaymentCardButton = () => {
   const { enableModal } = useModal();
-  const { handleOpen } = useContext(BottomSheetContext);
   const { animateRotation, animationStyle } = useRotation();
 
   const openModal = () => {
     animateRotation();
-    enableModal(ModalNames.PaymenentModal);
-    handleOpen();
+    enableModal(ModalNames.PaymenentCardAddModal);
   };
 
   return (

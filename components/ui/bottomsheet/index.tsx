@@ -291,7 +291,6 @@ cssInterop(GorhomBottomSheetScrollView, { className: 'style' });
 cssInterop(GorhomBottomSheetFlatList, { className: 'style' });
 cssInterop(GorhomBottomSheetSectionList, { className: 'style' });
 
-
 type IBottomSheetInputProps = React.ComponentProps<typeof GorhomBottomSheetInput> &
   VariantProps<typeof inputStyle> & {
     className?: string;
@@ -299,15 +298,15 @@ type IBottomSheetInputProps = React.ComponentProps<typeof GorhomBottomSheetInput
     rightIcon?: React.ElementType;
   };
 
-  export const BottomSheetInput = React.forwardRef<
+export const BottomSheetInput = React.forwardRef<
   React.ComponentRef<typeof GorhomBottomSheetInput>,
   IBottomSheetInputProps
->(function BottomSheetInput({ className, variant = 'outline', size = 'md', leftIcon, rightIcon, ...props }, ref) {
-
+>(function BottomSheetInput(
+  { className, variant = 'outline', size = 'md', leftIcon, rightIcon, ...props },
+  ref
+) {
   return (
-    <View
-      className={inputStyle({ variant, size, class: className })}
-    >
+    <View className={inputStyle({ variant, size, class: className })}>
       {leftIcon && (
         <InputSlot>
           <InputIcon as={leftIcon} />

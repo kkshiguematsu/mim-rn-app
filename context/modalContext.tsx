@@ -1,9 +1,11 @@
+import { BottomSheetContext } from '@/components/ui/bottomsheet';
 import { ModalNames } from '@/types/modal/modalsComponents';
 import React, { createContext, useContext, useMemo, useState } from 'react';
 
 interface ModalContextType {
   activeModal: ModalNames | null;
-  enableModal: (name: ModalNames) => void;
+  modalData: any;
+  enableModal: (name: ModalNames, modalData?: any) => void;
   disableModal: () => void;
 }
 
@@ -11,22 +13,31 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [activeModal, setActiveModal] = useState<ModalNames | null>(null);
+  const [modalData, setModalData] = useState<any>(null);
 
-  const enableModal = (name: ModalNames) => {
+  const { handleOpen: handleOpenBottomSheet } = useContext(BottomSheetContext);
+
+  const enableModal = (name: ModalNames, modalData: any) => {
+    handleOpenBottomSheet();
     setActiveModal(name);
+    if (modalData) {
+      setModalData(modalData);
+    }
   };
 
   const disableModal = () => {
     setActiveModal(null);
+    setModalData(null);
   };
 
   const contextValue = useMemo(
     () => ({
       activeModal,
+      modalData,
       enableModal,
       disableModal,
     }),
-    [activeModal]
+    [activeModal, modalData]
   );
 
   return <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>;

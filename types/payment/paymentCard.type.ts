@@ -19,9 +19,9 @@ export type FlagCard =
   | 'visa';
 
 export type PaymentCardType = {
-  user_name: string;
-  expired_date: string;
-  vcc_code: string;
+  userName: string;
+  expiredDate: string;
+  cvvCode: string;
   code: string;
   flag: FlagCard;
 };
