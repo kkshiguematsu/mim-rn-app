@@ -6,8 +6,10 @@ import 'react-native-reanimated';
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
+import { FloatingChargingView } from '@/components/layout/FloatingChargingView';
 import { ModalRenderer } from '@/components/shared/modals/ModalRenderer';
 import { BottomSheet } from '@/components/ui/bottomsheet';
+import { ChargingProvider } from '@/context/ChargingContext';
 import { ModalProvider } from '@/context/modalContext';
 import { ThemeProvider, useTheme } from '@/context/themeContext';
 import '@/global.css';
@@ -26,22 +28,25 @@ function LayoutContent() {
         <KeyboardProvider>
           <BottomSheet>
             <ModalProvider>
-              <Stack>
-                <Stack.Screen
-                  name="index"
-                  options={{ headerShown: false, animation: 'slide_from_left' }}
-                />
-                <Stack.Screen
-                  name="register"
-                  options={{ animation: 'slide_from_right', headerShown: false }}
-                />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-              </Stack>
+              <ChargingProvider>
+                <Stack>
+                  <Stack.Screen
+                    name="index"
+                    options={{ headerShown: false, animation: 'slide_from_left' }}
+                  />
+                  <Stack.Screen
+                    name="register"
+                    options={{ animation: 'slide_from_right', headerShown: false }}
+                  />
+                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                  <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+                </Stack>
 
-              <StatusBar />
+                <StatusBar />
 
-              <ModalRenderer />
+                <ModalRenderer />
+                <FloatingChargingView />
+              </ChargingProvider>
             </ModalProvider>
           </BottomSheet>
         </KeyboardProvider>

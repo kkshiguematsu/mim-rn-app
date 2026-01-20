@@ -31,11 +31,15 @@ export const ModalRenderer = () => {
 
   return (
     <BottomSheetPortal
-      snapPoints={['25%', '50%', '75%', maxSnap]}
+      // snapPoints={['25%', '50%', '75%', maxSnap]}
+      enableDynamicSizing
+      enablePanDownToClose
       backdropComponent={BottomSheetBackdrop}
       handleComponent={BottomSheetDragIndicator}
     >
-      <BottomSheetContent className="">{ModalComponent && <ModalComponent />}</BottomSheetContent>
+      <BottomSheetContent style={{ paddingBottom: insets.bottom }}>
+        {ModalComponent && <ModalComponent />}
+      </BottomSheetContent>
     </BottomSheetPortal>
   );
 };

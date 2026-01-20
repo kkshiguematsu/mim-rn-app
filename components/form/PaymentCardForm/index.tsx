@@ -96,7 +96,11 @@ export const PaymentCardForm = ({ paymentCard, isDisableForm = false }: PaymentC
           <PaymentCardUi />
         </View>
 
-        <RenderForm inputList={mockPaymentCardForm} isBottomSheetInput={true} />
+        <RenderForm
+          inputList={mockPaymentCardForm}
+          isDisableForm={isDisableForm}
+          isBottomSheetInput={true}
+        />
 
         <Checkbox size={'lg'} value="checkbox-id">
           <CheckboxIndicator>

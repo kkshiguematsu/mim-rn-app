@@ -7,7 +7,8 @@ import { DynamicInput, DynamicInputProps } from '.';
 export const renderDynamicInput = (
   control: Control<FieldValues, any, FieldValues>,
   input: DynamicInputProps,
-  isBottomSheetInput?: boolean
+  isBottomSheetInput?: boolean,
+  isDisabled?: boolean
 ) => (
   <View key={`view-${input.label}`} className={clsx(['gap-1', input.className && input.className])}>
     <Text key={`text-${input.label}`} size="md">
@@ -18,6 +19,7 @@ export const renderDynamicInput = (
       key={`input-${input.label}`}
       control={control}
       isBottomSheetInput={isBottomSheetInput}
+      isDisabled={isDisabled}
     />
   </View>
 );

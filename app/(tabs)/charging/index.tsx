@@ -1,26 +1,93 @@
+import ChargingMonitorScreen from '@/components/screen/charging/ChargingMonitorScreen';
 import { Page } from '@/components/shared/Page';
-import { Button, ButtonText } from '@/components/ui/button';
-import { Heading } from '@/components/ui/heading';
-import { Icon } from '@/components/ui/icon';
-import { EvCharger } from 'lucide-react-native';
-import { View } from 'react-native';
+import { QrCodeScannerModal } from '@/components/shared/modals/QrCodeScannerModal';
+import { Text } from '@/components/ui/text';
+import { EmptyActivityWidget } from '@/components/widget/EmptyActivityWidget';
+import { useCharging } from '@/context/ChargingContext';
+import { useCameraPermissions } from 'expo-camera';
+import { useState } from 'react';
+import { Alert } from 'react-native';
 
 export default function ChargingPage() {
+  const [permission, requestPermission] = useCameraPermissions();
+  const [isScannerVisible, setIsScannerVisible] = useState(false);
+  const [scannedData, setScannedData] = useState('');
+  const { activeSession, startCharging } = useCharging();
+
+  const handleStartScan = async () => {
+    if (!permission?.granted) {
+      const result = await requestPermission();
+
+      if (!result.granted) {
+        Alert.alert(
+          'Permissão Necessária',
+          'Precisamos acessar sua câmera para escanear o QR Code do carregador.',
+          [{ text: 'OK' }]
+        );
+        return;
+      }
+    }
+
+    setIsScannerVisible(true);
+  };
+
+  const handleQrCodeScanned = (data: string) => {
+    setIsScannerVisible(false);
+
+    Alert.alert(
+      'Carregador Identificado',
+      `Deseja iniciar o carregamento?\n\nID: ${data.substring(0, 20)}...`,
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Iniciar',
+          onPress: () => {
+            setScannedData(data);
+            setIsScannerVisible(false);
+            startCharging({
+              id: 'session-123',
+              chargerId: data,
+              batteryLevel: 45,
+              isCharging: true,
+              currentPower: 7.4,
+              time: {
+                remaining: 1800,
+                elapsed: 200,
+              },
+              energyAdded: 10,
+              cost: 12.5,
+              location: 'Shopping Iguatemi',
+            });
+          },
+        },
+      ]
+    );
+  };
+
+  if (!permission) {
+    return (
+      <Page needsPadding needsSafeArea alignItems="center" justifyContent="center">
+        <Text>Carregando...</Text>
+      </Page>
+    );
+  }
+
+  if (activeSession) return <ChargingMonitorScreen />;
+
   return (
-    <Page needsPadding needsSafeArea alignItems="center" justifyContent="center">
-      <View className="flex w-[70%] items-center justify-center gap-10">
-        <View className="h-56 w-56 rounded-full bg-primary-200/50 p-14 dark:bg-primary-900">
-          <Icon as={EvCharger} className="h-full w-full text-primary-400" />
-        </View>
-        <Heading size="xl" className="flex-wrap text-center text-neutral-700 dark:text-neutral-300">
-          Nenhum carregamento em andamento
-        </Heading>
-      </View>
-      <View className="flex h-[40%] w-full justify-end">
-        <Button className="" size="xl">
-          <ButtonText>Iniciar Carregamento</ButtonText>
-        </Button>
-      </View>
-    </Page>
+    <>
+      <Page needsPadding>
+        <EmptyActivityWidget onStartScan={handleStartScan} />
+      </Page>
+
+      <QrCodeScannerModal
+        isVisible={isScannerVisible}
+        onClose={() => setIsScannerVisible(false)}
+        onQrCodeScanned={handleQrCodeScanned}
+      />
+    </>
   );
 }

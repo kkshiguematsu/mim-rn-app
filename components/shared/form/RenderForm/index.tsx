@@ -7,9 +7,14 @@ import { renderInputGroup } from '../DynamicInput/renderInputGroup';
 interface RenderFormProps {
   inputList: DynamicInputProps[];
   isBottomSheetInput?: boolean;
+  isDisableForm?: boolean;
 }
 
-export const RenderForm = ({ inputList, isBottomSheetInput = false }: RenderFormProps) => {
+export const RenderForm = ({
+  inputList,
+  isBottomSheetInput = false,
+  isDisableForm,
+}: RenderFormProps) => {
   const { control, watch, formState } = useFormContext();
   const { errors } = formState;
 
@@ -18,8 +23,8 @@ export const RenderForm = ({ inputList, isBottomSheetInput = false }: RenderForm
       {inputList.map((input: DynamicInputProps) => (
         <View key={`view-input-${input.label}-${Math.random()}`}>
           {input.group && input.group?.length > 0
-            ? renderInputGroup(control, input.group, isBottomSheetInput)
-            : renderDynamicInput(control, input, isBottomSheetInput)}
+            ? renderInputGroup(control, input.group, isBottomSheetInput, isDisableForm)
+            : renderDynamicInput(control, input, isBottomSheetInput, isDisableForm)}
         </View>
       ))}
     </View>

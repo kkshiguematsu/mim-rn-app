@@ -8,13 +8,13 @@ import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 export const PaymentCardViewModal = () => {
-  const [isEditingForm, setIsEditingForm] = useState(false);
+  const [isDisableForm, setIsDisableForm] = useState(true);
 
   const { modalData } = useModal();
   const data: PaymentCardType = modalData;
 
   const toogleEditPaymentCard = () => {
-    setIsEditingForm((old) => !old);
+    setIsDisableForm((old) => !old);
   };
 
   return (
@@ -29,7 +29,7 @@ export const PaymentCardViewModal = () => {
         </Pressable>
       </View>
 
-      <PaymentCardForm paymentCard={data} isDisableForm={!isEditingForm} />
+      <PaymentCardForm paymentCard={data} isDisableForm={isDisableForm} />
     </View>
   );
 };

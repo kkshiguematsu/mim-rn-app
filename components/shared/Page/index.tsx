@@ -1,8 +1,10 @@
-import { tva } from '@gluestack-ui/utils/nativewind-utils';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { useCharging } from '@/context/ChargingContext';
+import { useBottomMenuHeight } from '@/hooks/layout/useBottomMenuHeight';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import { Platform, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { pageStyled, scrollViewStyled } from './styles';
 
 interface PageProps {
   children: React.ReactNode;
@@ -11,47 +13,8 @@ interface PageProps {
   alignItems?: 'start' | 'center' | 'end';
   justifyContent?: 'start' | 'center' | 'end' | 'around' | 'between' | 'evenly';
   background?: 'normal' | 'primary';
+  className?: string;
 }
-
-const pageStyled = tva({
-  base: 'flex-1 w-full ',
-  variants: {
-    background: {
-      normal: 'bg-neutral-200 dark:bg-zinc-800',
-      primary: 'bg-[#0A4669]',
-    },
-  },
-  defaultVariants: {
-    background: 'normal',
-  },
-});
-
-const scrollViewStyled = tva({
-  base: 'flex-grow ',
-  variants: {
-    needsPadding: {
-      true: 'p-7',
-      false: '',
-    },
-    alignItems: {
-      start: '',
-      center: 'items-center ',
-      end: 'items-end',
-    },
-    justifyContent: {
-      start: '',
-      center: 'justify-center',
-      end: 'justify-end',
-      around: 'justify-around',
-      between: 'justify-between',
-      evenly: 'justify-evenly',
-    },
-  },
-  defaultVariants: {
-    alignItems: 'start',
-    justifyContent: 'start',
-  },
-});
 
 export const Page = ({
   children,
@@ -60,43 +23,39 @@ export const Page = ({
   alignItems = 'start',
   justifyContent = 'start',
   background = 'normal',
+  className,
 }: PageProps) => {
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
-
-  let bottomTabBarHeight = 0;
-
-  try {
-    bottomTabBarHeight = useBottomTabBarHeight();
-  } catch {
-    bottomTabBarHeight = 0;
-  }
+  const bottomTabBarHeight = useBottomMenuHeight();
+  const { activeSession } = useCharging();
 
   const paddingTop = needsSafeArea ? (headerHeight !== 0 ? headerHeight : insets.top) : 0;
+
   const paddingBottom = needsSafeArea
-    ? bottomTabBarHeight !== 0
-      ? bottomTabBarHeight
-      : insets.bottom
-    : 0;
+    ? (bottomTabBarHeight !== 0 ? bottomTabBarHeight : insets.bottom) + (needsPadding ? 12 : 0)
+    : needsPadding
+      ? 12
+      : 0;
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-      <View style={{ flex: 1 }}>
-        <ScrollView
-          style={{ paddingTop }}
-          className={pageStyled({ background })}
-          contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
-          contentContainerStyle={{
-            paddingBottom,
-          }}
-          keyboardShouldPersistTaps="handled"
-        >
-          {children}
-        </ScrollView>
-      </View>
-    </KeyboardAvoidingView>
+    <View className={pageStyled({ background, class: className })}>
+      <KeyboardAwareScrollView
+        style={{ paddingTop }}
+        className={pageStyled({ background })}
+        contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
+        contentContainerStyle={{
+          paddingBottom: activeSession ? paddingBottom + 100 : paddingBottom,
+        }}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid={true}
+        enableAutomaticScroll={Platform.OS === 'ios'}
+        extraScrollHeight={20}
+        extraHeight={20}
+        enableResetScrollToCoords={false}
+      >
+        {children}
+      </KeyboardAwareScrollView>
+    </View>
   );
 };

@@ -71,6 +71,7 @@ export default function TabLayout() {
     >
       {tabs.map((item) => (
         <Tabs.Screen
+          key={item.name}
           name={item.name}
           options={{
             title: item.title,

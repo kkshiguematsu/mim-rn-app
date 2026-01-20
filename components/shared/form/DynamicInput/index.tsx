@@ -1,12 +1,9 @@
-import { BottomSheetInput } from '@/components/ui/bottomsheet';
-import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
-import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
-import { formatDateInput } from '@/utils/formatDate';
-import React, { useState } from 'react';
+import React from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
-import { renderIcon } from './renderIcon';
-import { renderSelectInput, type DynamicSelectInputItem } from './renderSelectInput';
+import { renderBottomSheetInput } from './renderBottomSheetInputType';
+import { renderInput } from './renderInputType';
+import { type DynamicSelectInputItem } from './renderSelectInput';
 export interface DynamicInputProps {
   title?: string;
   className?: string;
@@ -14,6 +11,7 @@ export interface DynamicInputProps {
   type?: InputTypes;
   label?: string;
   defaultValue?: string;
+  isDisabled?: boolean;
   name?: string;
   icon?: React.ElementType | React.ReactNode;
   placeholder?: string;
@@ -23,7 +21,7 @@ export interface DynamicInputProps {
   isBottomSheetInput?: boolean;
 }
 
-export const sizeInput = 'xl';
+export const sizeInput = 'lg';
 
 export const DynamicInput = ({
   control,
@@ -36,150 +34,35 @@ export const DynamicInput = ({
   selectItems,
   rules,
   isBottomSheetInput,
+  isDisabled,
 }: DynamicInputProps) => {
-  const handleSelectInput = (
-    onBlur: () => void,
-    onChange: (text: string) => void,
-    value: string
-  ) => {
-    switch (type) {
-      case InputTypes.TEXT:
-        return (
-          <Input size={sizeInput}>
-            {icon && renderIcon(icon)}
-            <InputField
-              type="text"
-              placeholder={placeholder}
-              value={value ?? ''}
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-          </Input>
-        );
-
-      case InputTypes.EMAIL:
-        return (
-          <Input size={sizeInput}>
-            {icon && renderIcon(icon)}
-            <InputField
-              type="text"
-              keyboardType="email-address"
-              placeholder={placeholder}
-              value={value ?? ''}
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-          </Input>
-        );
-
-      case InputTypes.PASSWORD:
-        const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-        const handleShowPassoword = () => {
-          setIsPasswordVisible((old) => !old);
-        };
-
-        return (
-          <Input size={sizeInput}>
-            {icon && renderIcon(icon)}
-
-            <InputField
-              type={isPasswordVisible ? 'text' : 'password'}
-              placeholder={placeholder}
-              value={value}
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-            <InputSlot className="pr-3" onPress={handleShowPassoword}>
-              <InputIcon as={isPasswordVisible ? EyeIcon : EyeOffIcon} />
-            </InputSlot>
-          </Input>
-        );
-
-      case InputTypes.NUMBER:
-        return (
-          <Input size={sizeInput}>
-            {icon && renderIcon(icon)}
-            <InputField
-              keyboardType="numeric"
-              type={'text'}
-              placeholder={placeholder}
-              value={value ?? ''}
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-          </Input>
-        );
-
-      case InputTypes.SELECT:
-        return renderSelectInput(value, placeholder ?? '', selectItems ?? [], onChange);
-
-      case InputTypes.DATE:
-        return (
-          <Input size={sizeInput}>
-            {icon && renderIcon(icon)}
-
-            <InputField
-              keyboardType="numeric"
-              placeholder={placeholder ?? 'dd/mm/aaaa'}
-              value={value ?? ''}
-              onBlur={onBlur}
-              onChangeText={(text) => {
-                const formatted = formatDateInput(text);
-                onChange(formatted);
-              }}
-              maxLength={10}
-            />
-          </Input>
-        );
-
-      default:
-        return <></>;
-    }
-  };
-
-  const handleSelectBottomSheetInput = (
-    onBlur: () => void,
-    onChange: (text: string) => void,
-    value: string
-  ) => {
-    switch (type) {
-      case InputTypes.TEXT:
-        return (
-          <BottomSheetInput
-            keyboardType={'default'}
-            size={sizeInput}
-            placeholder={placeholder}
-            value={value ?? ''}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        );
-      case InputTypes.NUMBER:
-        return (
-          <BottomSheetInput
-            keyboardType={'numeric'}
-            size={sizeInput}
-            placeholder={placeholder}
-            value={value ?? ''}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        );
-      default:
-        return <></>;
-    }
-  };
-
   return (
     <Controller
       control={control}
+      disabled={isDisabled}
       name={name ?? ''}
       rules={rules}
       render={({ field: { onBlur, onChange, value } }) =>
         isBottomSheetInput
-          ? handleSelectBottomSheetInput(onBlur, onChange, value ?? '')
-          : handleSelectInput(onBlur, onChange, value ?? '')
+          ? renderBottomSheetInput({
+              type,
+              value,
+              placeholder,
+              icon,
+              selectItems,
+              isDisabled,
+              onBlur: onBlur,
+              onChange: onChange,
+            })
+          : renderInput({
+              type,
+              value,
+              icon,
+              placeholder,
+              selectItems,
+              onBlur: onBlur,
+              onChange: onChange,
+            })
       }
     />
   );

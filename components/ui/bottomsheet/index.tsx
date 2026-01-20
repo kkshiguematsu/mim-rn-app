@@ -14,7 +14,7 @@ import { cssInterop } from 'nativewind';
 import React, { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import type { PressableProps, TextProps } from 'react-native';
 import { Platform, Pressable, Text, View } from 'react-native';
-import { InputIcon, InputSlot, inputFieldStyle, inputStyle } from '../input';
+import { InputIcon, InputSlot, inputFieldStyle } from '../input';
 
 const bottomSheetBackdropStyle = tva({
   base: 'absolute inset-0 flex-1 touch-none select-none bg-black opacity-0',
@@ -64,10 +64,10 @@ export const BottomSheet = ({
   const [visible, setVisible] = useState(false);
 
   const handleOpen = useCallback(() => {
-    bottomSheetRef.current?.snapToIndex(snapToIndex);
+    bottomSheetRef.current?.expand();
     setVisible(true);
-    onOpen && onOpen();
-  }, [onOpen, snapToIndex]);
+    onOpen?.();
+  }, [onOpen]);
 
   const handleClose = useCallback(() => {
     bottomSheetRef.current?.close();
@@ -97,14 +97,14 @@ export const BottomSheetPortal = ({
 }: Partial<IBottomSheetProps> & {
   defaultIsOpen?: boolean;
   snapToIndex?: number;
-  snapPoints: string[];
+  snapPoints?: string[];
 }) => {
   const { bottomSheetRef, handleClose } = useContext(BottomSheetContext);
   const { theme } = useTheme();
 
   const handleSheetChanges = useCallback(
     (index: number) => {
-      if (index === 0 || index === -1) {
+      if (index === -1) {
         handleClose();
       }
     },
@@ -291,30 +291,106 @@ cssInterop(GorhomBottomSheetScrollView, { className: 'style' });
 cssInterop(GorhomBottomSheetFlatList, { className: 'style' });
 cssInterop(GorhomBottomSheetSectionList, { className: 'style' });
 
+export const inputStyle = tva({
+  base: `
+    flex-row items-center overflow-hidden
+    bg-neutral-300 dark:bg-zinc-900
+    border border-background-300
+  `,
+
+  variants: {
+    size: {
+      xl: 'h-14',
+      lg: 'h-12',
+      md: 'h-10',
+      sm: 'h-9',
+    },
+
+    variant: {
+      outline: 'rounded-2xl',
+      underlined: 'rounded-none border-b',
+      rounded: 'rounded-full',
+    },
+
+    disabled: {
+      true: 'opacity-40 border-background-300',
+      false: '',
+    },
+
+    invalid: {
+      true: 'border-error-700',
+      false: '',
+    },
+
+    focused: {
+      true: 'border-primary-700 web:ring-1 web:ring-indicator-primary',
+      false: '',
+    },
+  },
+
+  compoundVariants: [
+    // INVALID + FOCUS
+    {
+      invalid: true,
+      focused: true,
+      class: 'border-error-700 web:ring-indicator-error',
+    },
+
+    // INVALID + DISABLED
+    {
+      invalid: true,
+      disabled: true,
+      class: 'border-error-700 opacity-40',
+    },
+  ],
+
+  defaultVariants: {
+    size: 'md',
+    variant: 'outline',
+    disabled: false,
+    invalid: false,
+    focused: false,
+  },
+});
+
 type IBottomSheetInputProps = React.ComponentProps<typeof GorhomBottomSheetInput> &
   VariantProps<typeof inputStyle> & {
     className?: string;
     leftIcon?: React.ElementType;
     rightIcon?: React.ElementType;
+    c?: boolean;
   };
 
 export const BottomSheetInput = React.forwardRef<
   React.ComponentRef<typeof GorhomBottomSheetInput>,
   IBottomSheetInputProps
 >(function BottomSheetInput(
-  { className, variant = 'outline', size = 'md', leftIcon, rightIcon, ...props },
+  { className, variant = 'outline', size = 'md', leftIcon, rightIcon, disabled, ...props },
   ref
 ) {
   return (
-    <View className={inputStyle({ variant, size, class: className })}>
+    <View
+      data-disabled={disabled}
+      pointerEvents={disabled ? 'none' : 'auto'}
+      className={inputStyle({
+        variant,
+        size,
+        disabled,
+        class: className,
+      })}
+    >
       {leftIcon && (
         <InputSlot>
           <InputIcon as={leftIcon} />
         </InputSlot>
       )}
+
       <GorhomBottomSheetInput
         ref={ref}
         {...props}
+        editable={!disabled}
+        focusable={!disabled}
+        showSoftInputOnFocus={!disabled}
         className={inputFieldStyle({
           parentVariants: {
             variant,
@@ -322,6 +398,7 @@ export const BottomSheetInput = React.forwardRef<
           },
         })}
       />
+
       {rightIcon && (
         <InputSlot>
           <InputIcon as={rightIcon} />
