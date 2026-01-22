@@ -1,4 +1,4 @@
-import { DynamicInput, DynamicInputProps } from '@/components/shared/form/DynamicInput';
+import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
 import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import PagerView from 'react-native-pager-view';
 
 const registerInputs: DynamicInputProps[] = [
@@ -82,7 +82,7 @@ export const RegisterForm = () => {
 
   return (
     <View className="flex-1">
-      <PagerView
+      {/* <PagerView
         ref={pagerRef}
         initialPage={0}
         scrollEnabled={false}
@@ -118,7 +118,7 @@ export const RegisterForm = () => {
             </ScrollView>
           );
         })}
-      </PagerView>
+      </PagerView> */}
       <View className="mt-5 flex w-full flex-col justify-center gap-3">
         {page < totalPages - 1 ? (
           <Button onPress={nextPage} size="xl">

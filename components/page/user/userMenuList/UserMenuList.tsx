@@ -1,32 +1,32 @@
 import { userMenuList } from '@/app/(tabs)/user/_layout';
-import { MenuItem } from '@/components/shared/MenuList/MenuItem';
+import { MenuItem, MenuItemProps } from '@/components/shared/MenuList/MenuItem';
 import { Box } from '@/components/ui/box';
 import { useRouter } from 'expo-router';
 
 export const UserMenuList = () => {
   const router = useRouter();
 
+  const goTo = (route: MenuItemProps) => {
+    if (!route.link) return;
+
+    if (route.link === '/') {
+      router.replace('/');
+    }
+
+    router.navigate(route.link);
+  };
+
   return (
     <Box className="mt-10 flex gap-7">
       <Box className="gap-3">
         {userMenuList.map((menuItem) => {
-          const goTo = () => {
-            if (!menuItem.link) return;
-
-            if (menuItem.link === '/') {
-              router.replace('/');
-            }
-
-            router.navigate(menuItem.link);
-          };
-
-          return <MenuItem key={menuItem.label} {...menuItem} action={goTo} />;
+          return <MenuItem key={menuItem.label} {...menuItem} action={() => goTo(menuItem)} />;
         })}
       </Box>
       <MenuItem
         className="mt-5"
-        key={Logout.label}
-        {...Logout}
+        key={'logut'}
+        label={'Logout'}
         action={() => router.replace('/')}
         forceColor="text-red-500"
       />

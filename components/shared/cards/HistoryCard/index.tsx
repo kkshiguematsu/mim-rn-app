@@ -1,32 +1,12 @@
 import { Card } from '@/components/ui/card';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
+import { HistoryResponse } from '@/types/history/historyResponse';
 import { formatDateToDMY, formatTimeToHM } from '@/utils/formatDate';
 import { useRouter } from 'expo-router';
 import { Battery, Calendar, Clock, Zap } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-
-export interface HistoryResponse {
-  date: number;
-  id: string;
-  duration: number;
-  max_power: string;
-  batteryPercent: number;
-  kwh: number;
-  location: {
-    city: string;
-    address: string;
-  };
-  price: {
-    value: number;
-    token: string;
-  };
-  car: {
-    model: string;
-    license_plate: string;
-  };
-}
 
 export interface HistoryCardProps {
   data: HistoryResponse;

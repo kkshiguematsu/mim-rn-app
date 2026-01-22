@@ -17,7 +17,7 @@ export const scrollViewStyled = tva({
   base: 'flex-grow',
   variants: {
     needsPadding: {
-      true: 'p-7', // ✅ Removido pb-12 daqui
+      true: 'p-7',
       false: '',
     },
     alignItems: {

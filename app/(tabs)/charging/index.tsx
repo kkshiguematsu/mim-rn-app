@@ -1,8 +1,8 @@
 import ChargingMonitorScreen from '@/components/screen/charging/ChargingMonitorScreen';
+import { InitiateScanScreen } from '@/components/screen/charging/InitiateScanScreen';
 import { Page } from '@/components/shared/Page';
 import { QrCodeScannerModal } from '@/components/shared/modals/QrCodeScannerModal';
 import { Text } from '@/components/ui/text';
-import { EmptyActivityWidget } from '@/components/widget/EmptyActivityWidget';
 import { useCharging } from '@/context/ChargingContext';
 import { useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
@@ -79,9 +79,7 @@ export default function ChargingPage() {
 
   return (
     <>
-      <Page needsPadding>
-        <EmptyActivityWidget onStartScan={handleStartScan} />
-      </Page>
+      <InitiateScanScreen handleStartScan={handleStartScan} />
 
       <QrCodeScannerModal
         isVisible={isScannerVisible}

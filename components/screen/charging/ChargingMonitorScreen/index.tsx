@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { HistorySectionWidget } from '@/components/widget/HistorySection';
+import { HistorySectionWidget } from '@/components/widget/HistorySectionWidget';
 import { useCharging } from '@/context/ChargingContext';
 import { Clock, DollarSign, Gauge, MapPin, Settings2, Zap } from 'lucide-react-native';
 import { useEffect, useState } from 'react';

@@ -30,7 +30,7 @@ cssInterop(PrimitiveIcon, {
 });
 
 export const inputStyle = tva({
-  base: 'bg-neutral-300 dark:bg-zinc-900 border-background-300 flex-row overflow-hidden content-center data-[hover=true]:border-outline-400 data-[focus=true]:border-primary-700 data-[focus=true]:hover:border-primary-700 data-[disabled=true]:opacity-40 data-[disabled=true]:hover:border-background-300 items-center',
+  base: 'bg-neutral-300 dark:bg-zinc-900 border-background-300 flex-row overflow-hidden content-center data-[hover=true]:border-outline-400 data-[focus=true]:border-primary-500/50  data-[focus=true]:hover:border-primary-500/50  data-[disabled=true]:opacity-40 data-[disabled=true]:hover:border-background-300 items-center',
 
   variants: {
     size: {
