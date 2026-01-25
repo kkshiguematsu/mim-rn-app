@@ -22,8 +22,8 @@ export const HistoryCard = ({ data }: HistoryCardProps) => {
   const dateFormatted = formatDateToDMY(Number(data.date));
   const timeFormatted = formatTimeToHM(Number(data.date));
 
-  const navigateToDetails = () => {
-    // router.push(`/(tabs)/activity/details/${data.id}`);
+  const navigateToDetails = (historyId: string) => {
+    router.push(`/(tabs)/history/[historyId]`);
   };
 
   const formatDuration = (minutes: number) => {
@@ -45,12 +45,16 @@ export const HistoryCard = ({ data }: HistoryCardProps) => {
 
   return (
     <Animated.View style={animatedStyle}>
-      <Pressable onPress={navigateToDetails} onPressIn={handlePressIn} onPressOut={handlePressOut}>
+      <Pressable
+        onPress={() => navigateToDetails(data.id)}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+      >
         <Card className="p-4">
           <View className="mb-3 flex-row items-start justify-between">
             <View className="flex-1 flex-row items-start gap-3">
-              <View className="mt-1 h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800">
-                <Icon as={Battery} className="h-5 w-5 text-neutral-600 dark:text-neutral-400" />
+              <View className="mt-1 h-10 w-10 items-center justify-center rounded-lg bg-blue-100/50 dark:bg-primary-800">
+                <Icon as={Battery} className="h-5 w-5 text-primary-600 dark:text-primary-400" />
               </View>
               <View className="flex-1">
                 <Text className="font-semibold text-neutral-900 dark:text-neutral-100">
@@ -70,23 +74,23 @@ export const HistoryCard = ({ data }: HistoryCardProps) => {
               </Text>
             </View>
           </View>
-          <View className="flex-row items-center gap-5 border-t border-neutral-200 pt-3 dark:border-neutral-800">
+          <View className="flex-row items-center justify-between gap-5 border-t border-neutral-200 pt-3 dark:border-neutral-800">
             <View className="flex-row items-center gap-1">
-              <Icon as={Clock} className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+              <Icon as={Clock} className="h-4 w-4 text-primary-400" />
               <Text className="text-sm text-neutral-600 dark:text-neutral-400">
                 {formatDuration(data.duration)}
               </Text>
             </View>
             <View className="flex-row items-center gap-1">
-              <Icon as={Zap} className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+              <Icon as={Zap} className="h-4 w-4 text-primary-400" />
               <Text className="text-sm text-neutral-600 dark:text-neutral-400">
                 {data.kwh.toFixed(1)} kWh
               </Text>
             </View>
             <View className="flex-row items-center gap-1">
-              <Icon as={Calendar} className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+              <Icon as={Calendar} className="h-4 w-4 text-primary-400" />
               <Text className="text-sm text-neutral-600 dark:text-neutral-400">
-                {dateFormatted} às {timeFormatted}
+                {dateFormatted}
               </Text>
             </View>
           </View>

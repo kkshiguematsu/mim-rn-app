@@ -8,14 +8,14 @@ interface UseFadeInProps {
 export const useFadeIn = ({ direction = 'right', duration = 500 }: UseFadeInProps) => {
   switch (direction) {
     case 'left':
-      return FadeInLeft.duration(duration).springify();
+      return FadeInLeft.duration(duration);
     case 'right':
-      return FadeInRight.duration(duration).springify();
+      return FadeInRight.duration(duration);
     case 'up':
-      return FadeInUp.duration(duration).springify();
+      return FadeInUp.duration(duration);
     case 'down':
-      return FadeInDown.duration(duration).springify();
+      return FadeInDown.duration(duration);
     default:
-      return FadeInRight.duration(duration).springify();
+      return FadeInRight.duration(duration);
   }
 };

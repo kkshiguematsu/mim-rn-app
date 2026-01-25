@@ -14,7 +14,7 @@ export const UserMenuList = () => {
       router.replace('/');
     }
 
-    router.navigate(route.link);
+    router.push(route.link);
   };
 
   return (

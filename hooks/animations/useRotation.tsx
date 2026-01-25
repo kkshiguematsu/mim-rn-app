@@ -1,10 +1,10 @@
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
-export const useRotation = () => {
+export const useRotation = (degree: number) => {
   const rotation = useSharedValue(0);
 
   const animateRotation = () => {
-    rotation.value = withTiming(rotation.value + 180, {
+    rotation.value = withTiming(rotation.value === degree ? 0 : degree, {
       duration: 500,
     });
   };

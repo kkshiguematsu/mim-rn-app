@@ -4,7 +4,7 @@ import React from 'react';
 import { CustomAnimatedTabButton } from '@/components/layout/BottomTabNavigator/CustomAnimatedTabButton';
 import { useTheme } from '@/context/themeContext';
 import { BlurView } from 'expo-blur';
-import { CarFront, EvCharger, FileClock, Map, User } from 'lucide-react-native';
+import { EvCharger, FileClock, Map, User } from 'lucide-react-native';
 
 import { View } from 'react-native';
 
@@ -14,20 +14,22 @@ const tabs = [
     title: 'Carregar',
     icon: EvCharger,
   },
-  {
-    name: 'vehicle/index',
-    title: 'Veículos',
-    icon: CarFront,
-  },
+  // {
+  //   name: 'vehicle/index',
+  //   title: 'Veículos',
+  //   icon: CarFront,
+  //   disabled: true,
+  // },
   {
     name: 'map/index',
     title: 'Map',
     icon: Map,
   },
   {
-    name: 'history/index',
+    name: 'history',
     title: 'Histórico',
     icon: FileClock,
+    headerShown: false,
   },
   {
     name: 'user',
@@ -39,7 +41,7 @@ const tabs = [
 
 export default function TabLayout() {
   const { theme } = useTheme();
-
+  // const enabledTabs = tabs.filter((tab) => !tab.disabled);
   return (
     <Tabs
       screenOptions={{

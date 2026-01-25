@@ -1,9 +1,9 @@
-import { mockHistoryitems } from '@/app/(tabs)/history';
 import { HistoryCard } from '@/components/shared/cards/HistoryCard';
 import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
 import { Text } from '@/components/ui/text';
+import { mockHistoryCards } from '@/data/mock/history/historyCard';
 import { useRouter } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
 import { View } from 'react-native';
@@ -22,8 +22,8 @@ export const HistorySectionWidget = () => {
       </Heading>
 
       <View className="gap-3">
-        {mockHistoryitems.length > 0 ? (
-          mockHistoryitems.slice(0, 5).map((item, index) => <HistoryCard key={index} data={item} />)
+        {mockHistoryCards.length > 0 ? (
+          mockHistoryCards.slice(0, 5).map((item, index) => <HistoryCard key={index} data={item} />)
         ) : (
           <Card className="p-6">
             <Text className="text-center text-neutral-500 dark:text-neutral-400">
@@ -33,7 +33,7 @@ export const HistorySectionWidget = () => {
         )}
       </View>
 
-      {mockHistoryitems && mockHistoryitems.length > 3 && (
+      {mockHistoryCards && mockHistoryCards.length > 3 && (
         <Button variant="link" size="md" className="mt-4" onPress={navigateAction}>
           <ButtonText className="text-neutral-600 dark:text-neutral-300">Ver mais</ButtonText>
           <ButtonIcon className="text-neutral-600 dark:text-neutral-300" as={ChevronRight} />

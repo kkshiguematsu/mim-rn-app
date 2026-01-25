@@ -10,7 +10,7 @@ import Animated from 'react-native-reanimated';
 
 export const AddPaymentCardButton = () => {
   const { enableModal } = useModal();
-  const { animateRotation, animationStyle } = useRotation();
+  const { animateRotation, animationStyle } = useRotation(180);
 
   const openModal = () => {
     animateRotation();

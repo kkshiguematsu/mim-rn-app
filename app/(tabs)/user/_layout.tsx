@@ -58,6 +58,7 @@ export default function UserStackLayout() {
       />
       {userMenuList.map((menuItem) => (
         <Stack.Screen
+          key={menuItem.name}
           name={menuItem.name}
           options={{
             title: menuItem.label,
