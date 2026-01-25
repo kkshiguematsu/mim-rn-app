@@ -34,6 +34,8 @@ export const ModalRenderer = () => {
       // snapPoints={['25%', '50%', '75%', maxSnap]}
       enableDynamicSizing
       enablePanDownToClose
+      keyboardBehavior="interactive"
+      keyboardBlurBehavior="restore"
       backdropComponent={BottomSheetBackdrop}
       handleComponent={BottomSheetDragIndicator}
     >

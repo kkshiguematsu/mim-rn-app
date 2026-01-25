@@ -1,4 +1,3 @@
-import { Page } from '@/components/shared/Page';
 import { HistoryResponse } from '@/types/history/historyResponse';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
@@ -63,7 +62,12 @@ const HistoryDetailsCard = () => {
   };
 
   return (
-    <Page needsPadding needsSafeArea>
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      // scrollEventThrottle={16}
+      showsVerticalScrollIndicator={false}
+      // bounces
+    >
       <StatusBar barStyle="light-content" />
 
       {/* Header */}
@@ -233,7 +237,7 @@ const HistoryDetailsCard = () => {
           </View>
         </View>
       </ScrollView>
-    </Page>
+    </ScrollView>
   );
 };
 
