@@ -1,12 +1,12 @@
-import { Icon } from '@/components/ui/icon';
+import { HeaderBackButtonIcon } from '@/components/shared/buttons/HeaderBackButtonIcon';
 import { useTheme } from '@/context/themeContext';
-import { Stack, useRouter } from 'expo-router';
-import { ChevronLeft } from 'lucide-react-native';
-import { Pressable, View } from 'react-native';
+import { Stack } from 'expo-router';
 
 export default function HistoryStackLayout() {
   const { theme } = useTheme();
-  const router = useRouter();
+
+  const titleColor = theme === 'dark' ? 'white' : 'black';
+  const blurEffectColor = theme === 'dark' ? 'dark' : 'light';
 
   return (
     <Stack>
@@ -15,11 +15,11 @@ export default function HistoryStackLayout() {
         options={{
           title: 'Histórico',
           headerTitleStyle: {
-            color: theme === 'dark' ? 'white' : 'black',
+            color: titleColor,
           },
           headerShown: true,
           headerTransparent: true,
-          headerBlurEffect: theme === 'dark' ? 'dark' : 'light',
+          headerBlurEffect: blurEffectColor,
         }}
       />
       <Stack.Screen
@@ -28,23 +28,20 @@ export default function HistoryStackLayout() {
           title: 'Detalhes',
           headerLargeTitle: true,
           headerTitleStyle: {
-            color: theme === 'dark' ? 'white' : 'black',
+            color: titleColor,
           },
           headerLargeTitleStyle: {
-            color: theme === 'dark' ? 'white' : 'black',
+            color: titleColor,
           },
+          headerTransparent: true,
           headerLargeStyle: {
             backgroundColor: 'transparent',
           },
           headerLargeTitleEnabled: true,
           headerLargeTitleShadowVisible: true,
-          headerLeft: () => (
-            <View className="w-9 items-center justify-center">
-              <Pressable onPress={() => router.back()}>
-                <Icon as={ChevronLeft} size="2xl" />
-              </Pressable>
-            </View>
-          ),
+          headerBlurEffect: blurEffectColor,
+
+          headerLeft: () => <HeaderBackButtonIcon />,
         }}
       />
     </Stack>

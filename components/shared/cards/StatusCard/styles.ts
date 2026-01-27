@@ -1,7 +1,7 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 
 export const cardStyles = tva({
-  base: 'p-4 rounded-2xl',
+  base: 'p-10 rounded-2xl',
 
   variants: {
     size: {
@@ -72,4 +72,12 @@ export const iconStyles = tva({
   defaultVariants: {
     color: 'primary',
   },
+});
+
+export const titleStyles = tva({
+  base: 'font-medium text-neutral-500 dark:text-neutral-400',
+});
+
+export const contentStyle = tva({
+  base: 'font-bold text-neutral-900 dark:text-neutral-100',
 });

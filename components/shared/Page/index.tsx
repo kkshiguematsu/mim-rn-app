@@ -1,7 +1,7 @@
 import { useCharging } from '@/context/ChargingContext';
 import { useBottomMenuHeight } from '@/hooks/layout/useBottomMenuHeight';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { Platform, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { pageStyled, scrollViewStyled } from './styles';
@@ -13,6 +13,7 @@ interface PageProps {
   alignItems?: 'start' | 'center' | 'end';
   justifyContent?: 'start' | 'center' | 'end' | 'around' | 'between' | 'evenly';
   background?: 'normal' | 'primary';
+  componentRender?: 'view' | 'scrollview' | 'keyboard';
   className?: string;
 }
 
@@ -23,6 +24,7 @@ export const Page = ({
   alignItems = 'start',
   justifyContent = 'start',
   background = 'normal',
+  componentRender = 'keyboard',
   className,
 }: PageProps) => {
   const insets = useSafeAreaInsets();
@@ -37,6 +39,23 @@ export const Page = ({
     : needsPadding
       ? 12
       : 0;
+
+  if (componentRender === 'view') return <></>;
+
+  if (componentRender === 'scrollview')
+    return (
+      <ScrollView
+        className={pageStyled({ background, class: className })}
+        contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
+        contentContainerStyle={{
+          paddingBottom: activeSession ? paddingBottom + 100 : paddingBottom,
+        }}
+        contentInsetAdjustmentBehavior="automatic"
+        showsVerticalScrollIndicator={false}
+      >
+        {children}
+      </ScrollView>
+    );
 
   return (
     <View className={pageStyled({ background, class: className })}>

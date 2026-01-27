@@ -1,6 +1,6 @@
 import { Page } from '@/components/shared/Page';
 import { ActiveChargingCard } from '@/components/shared/cards/ActiveChargingCard';
-import { MainChargingCard } from '@/components/shared/cards/MainChargingCard';
+import { StatusCard } from '@/components/shared/cards/StatusCard';
 import { Card } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
@@ -68,25 +68,25 @@ export default function ChargingMonitorPage() {
       <View className="pb-6">
         <View className="flex-row flex-wrap gap-3">
           <ActiveChargingCard onStopCharging={handleStopCharging} />
-          <MainChargingCard
+          <StatusCard
             title="Potência"
             icon={Zap}
             color="primary"
             content={`${currentPower.toFixed(1)} kW`}
           />
-          <MainChargingCard
+          <StatusCard
             title="Tempo Restante"
             color="blue"
             icon={Clock}
             content={`${Math.floor(timeRemaining)} min`}
           />
-          <MainChargingCard
+          <StatusCard
             title="Custo Atual"
             icon={DollarSign}
             color="green"
             content={`R$ ${cost.toFixed(2)}`}
           />
-          <MainChargingCard
+          <StatusCard
             title="Autonomia"
             icon={Gauge}
             color="purple"

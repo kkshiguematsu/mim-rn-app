@@ -1,22 +1,22 @@
+import { Page } from '@/components/shared/Page';
+import { BatteryChargedCard } from '@/components/shared/cards/BatteryChargedCard';
+import { DefaultCard } from '@/components/shared/cards/DefaultCard';
+import { GradientCard } from '@/components/shared/cards/GradientCard';
+import { PressableCard } from '@/components/shared/cards/PressableCard';
+import { StatusCard } from '@/components/shared/cards/StatusCard';
+import { contentStyle, titleStyles } from '@/components/shared/cards/StatusCard/styles';
+import { Icon } from '@/components/ui/icon';
+import { LinearGradient } from '@/components/ui/linear-gradient';
+import { Text } from '@/components/ui/text';
 import { HistoryResponse } from '@/types/history/historyResponse';
-import { LinearGradient } from 'expo-linear-gradient';
-import {
-  ArrowLeft,
-  Battery,
-  Car,
-  ChevronRight,
-  Clock,
-  Download,
-  Gauge,
-  MapPin,
-  Share2,
-  Wallet,
-  Zap,
-} from 'lucide-react-native';
-import React from 'react';
-import { ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from 'expo-router';
+import { Car, ChevronRight, Clock, Gauge, MapPin, Share2, Wallet } from 'lucide-react-native';
+import React, { useEffect } from 'react';
+import { Pressable, ScrollView, View } from 'react-native';
 
 const HistoryDetailsCard = () => {
+  const navigation = useNavigation();
+
   const session: HistoryResponse = {
     date: Date.now() - 86400000,
     id: 'CHG-2024-001234',
@@ -61,132 +61,60 @@ const HistoryDetailsCard = () => {
     return `${hours}h ${minutes}m`;
   };
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <Pressable className="w-9 items-center justify-center">
+            <Icon as={Share2} size="xl" className="" />
+          </Pressable>
+        );
+      },
+    });
+  }, [navigation]);
+
   return (
-    <ScrollView
-      contentInsetAdjustmentBehavior="automatic"
-      // scrollEventThrottle={16}
-      showsVerticalScrollIndicator={false}
-      // bounces
-    >
-      <StatusBar barStyle="light-content" />
-
-      {/* Header */}
-      <View className="">
-        <View className="flex-row items-center justify-between">
-          <TouchableOpacity className="h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10">
-            <ArrowLeft color="white" size={20} />
-          </TouchableOpacity>
-          <View className="flex-row gap-2">
-            <TouchableOpacity className="h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10">
-              <Share2 color="white" size={16} />
-            </TouchableOpacity>
-            <TouchableOpacity className="h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10">
-              <Download color="white" size={16} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-
+    <Page componentRender="scrollview" className="gap-2">
       <ScrollView
-        className="flex-1 px-6"
+        className="flex-1"
+        contentContainerClassName=" gap-5"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 32 }}
       >
-        {/* Hero Card - Energy Display */}
-        <LinearGradient
-          colors={['#10b981', '#14b8a6', '#06b6d4']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          className="mb-6 overflow-hidden rounded-3xl p-8"
-        >
-          <View className="mb-8 flex-row items-start justify-between">
-            <View>
-              <Text className="mb-1 text-sm font-medium text-white/80">Sessão Concluída</Text>
-              <Text className="font-mono text-xs text-white/60">{session.id}</Text>
-            </View>
-            <View className="h-12 w-12 items-center justify-center rounded-2xl bg-white/20">
-              <Zap color="white" size={24} fill="white" />
-            </View>
-          </View>
+        <BatteryChargedCard session={session} />
 
-          <View className="mb-6">
-            <View className="mb-2 flex-row items-baseline gap-2">
-              <Text className="text-6xl font-bold text-white">{session.kwh}</Text>
-              <Text className="text-2xl font-semibold text-white/80">kWh</Text>
-            </View>
-            <Text className="text-sm text-white/70">Energia consumida</Text>
-          </View>
-
-          {/* Battery Progress */}
-          <View className="gap-3">
-            <View className="flex-row items-center justify-between">
-              <View className="flex-row items-center gap-2">
-                <Battery color="white" size={16} />
-                <Text className="text-sm text-white/80">Nível de bateria</Text>
-              </View>
-              <Text className="text-lg font-bold text-white">{session.batteryPercent}%</Text>
-            </View>
-            <View className="h-3 overflow-hidden rounded-full bg-white/10">
-              <View
-                className="h-full rounded-full bg-white"
-                style={{ width: `${session.batteryPercent}%` }}
-              />
-            </View>
-          </View>
-        </LinearGradient>
-
-        {/* Stats Grid */}
-        <View className="mb-6 flex-row gap-4">
-          <View className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-5">
-            <Clock color="#60a5fa" size={20} className="mb-3" />
-            <Text className="mb-1 text-3xl font-bold text-white">
-              {formatDuration(session.duration)}
-            </Text>
-            <Text className="text-sm text-white/50">Duração</Text>
-          </View>
-
-          <View className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-5">
-            <Gauge color="#c084fc" size={20} className="mb-3" />
-            <Text className="mb-1 text-3xl font-bold text-white">{session.max_power}</Text>
-            <Text className="text-sm text-white/50">Potência máx</Text>
-          </View>
+        <View className="flex-row flex-wrap gap-4">
+          <StatusCard
+            title="Duração"
+            icon={Clock}
+            content={formatDuration(session.duration)}
+            color="blue"
+          />
+          <StatusCard
+            title="Potência máx"
+            icon={Gauge}
+            content={session.max_power}
+            color="purple"
+          />
         </View>
 
-        {/* Price Card */}
-        <LinearGradient
-          colors={['rgba(251,191,36,0.1)', 'rgba(249,115,22,0.1)']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          className="mb-6 rounded-2xl border border-amber-500/20 p-6"
-        >
-          <View className="flex-row items-center justify-between">
-            <View className="flex-row items-center gap-4">
-              <LinearGradient
-                colors={['#fbbf24', '#f97316']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                className="h-14 w-14 items-center justify-center rounded-2xl"
-              >
-                <Wallet color="white" size={28} />
-              </LinearGradient>
-              <View>
-                <Text className="mb-1 text-sm text-white/60">Valor total</Text>
-                <Text className="text-4xl font-bold text-white">
-                  {session.price.token} {session.price.value.toFixed(2)}
-                </Text>
-              </View>
-            </View>
-            <View className="items-end">
-              <Text className="mb-1 text-xs text-white/40">Por kWh</Text>
-              <Text className="font-semibold text-white/80">
-                {session.price.token} {(session.price.value / session.kwh).toFixed(2)}
-              </Text>
-            </View>
-          </View>
-        </LinearGradient>
+        <GradientCard
+          session={session}
+          gradient={{
+            color: 'blue',
+            start: { x: 0, y: 0 },
+            end: { x: 1, y: 1 },
+          }}
+          icon={{
+            element: Wallet,
+            gradient: {
+              color: 'blue',
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
+          }}
+        />
 
-        {/* Location Card */}
-        <TouchableOpacity className="mb-6 rounded-2xl border border-white/10 bg-white/5 p-6">
+        <PressableCard onPress={() => {}}>
           <View className="flex-row items-start gap-4">
             <LinearGradient
               colors={['#ef4444', '#ec4899']}
@@ -197,47 +125,54 @@ const HistoryDetailsCard = () => {
               <MapPin color="white" size={24} />
             </LinearGradient>
             <View className="flex-1">
-              <Text className="mb-1 text-xs font-medium text-white/50">LOCALIZAÇÃO</Text>
-              <Text className="mb-1 text-lg font-semibold text-white">
+              <Text size="xs" className={titleStyles({ class: 'mb-1' })}>
+                LOCALIZAÇÃO
+              </Text>
+              <Text size="lg" className={contentStyle({ class: 'mb-1' })}>
                 {session.location.address}
               </Text>
-              <Text className="text-sm text-white/60">{session.location.city}</Text>
+              <Text size="sm">{session.location.city}</Text>
             </View>
-            <ChevronRight color="rgba(255,255,255,0.3)" size={20} />
+            <Icon as={ChevronRight} size="lg" />
           </View>
-        </TouchableOpacity>
+        </PressableCard>
 
-        {/* Vehicle Card */}
-        <View className="mb-3 rounded-2xl border border-white/10 bg-white/5 p-5">
-          <View className="flex-row items-center gap-4">
-            <View className="h-11 w-11 items-center justify-center rounded-xl bg-white/10">
-              <Car color="rgba(255,255,255,0.8)" size={20} />
+        <View className="flex-row flex-wrap gap-4">
+          <DefaultCard size="full">
+            <View className="flex-row items-center gap-4">
+              <View className="items-center justify-center rounded-xl border border-neutral-500 bg-neutral-400 p-2 dark:bg-neutral-700">
+                <Icon as={Car} className="text-white" size="2xl" />
+              </View>
+              <View className="flex-1">
+                <Text size="xs" className="mb-1">
+                  VEÍCULO
+                </Text>
+                <Text className="font-semibold">{session.car.model}</Text>
+              </View>
+              <View className="rounded-xl border border-neutral-500 bg-neutral-400 p-2 px-4 py-2 dark:bg-neutral-700">
+                <Text size="sm" className="font-mono font-bold text-white">
+                  {session.car.license_plate}
+                </Text>
+              </View>
             </View>
-            <View className="flex-1">
-              <Text className="mb-1 text-xs text-white/50">VEÍCULO</Text>
-              <Text className="font-semibold text-white">{session.car.model}</Text>
-            </View>
-            <View className="rounded-xl border border-white/10 bg-white/10 px-4 py-2">
-              <Text className="font-mono text-sm font-bold text-white">
-                {session.car.license_plate}
-              </Text>
-            </View>
-          </View>
-        </View>
+          </DefaultCard>
 
-        {/* Date & Time */}
-        <View className="flex-row gap-3">
-          <View className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <Text className="mb-2 text-xs text-white/40">DATA</Text>
-            <Text className="font-semibold text-white">{formatDate(session.date)}</Text>
-          </View>
-          <View className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <Text className="mb-2 text-xs text-white/40">HORÁRIO</Text>
-            <Text className="font-semibold text-white">{formatTime(session.date)}</Text>
-          </View>
+          <DefaultCard size="md">
+            <Text size="xs" className="mb-2">
+              DATA
+            </Text>
+            <Text className="font-semibold">{formatDate(session.date)}</Text>
+          </DefaultCard>
+
+          <DefaultCard size="md">
+            <Text size="xs" className="mb-2">
+              HORÁRIO
+            </Text>
+            <Text className="font-semibold">{formatTime(session.date)}</Text>
+          </DefaultCard>
         </View>
       </ScrollView>
-    </ScrollView>
+    </Page>
   );
 };
 

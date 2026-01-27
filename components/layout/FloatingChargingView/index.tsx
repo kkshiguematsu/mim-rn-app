@@ -51,7 +51,7 @@ export const FloatingChargingView = () => {
       ]}
     >
       <Pressable onPress={handlePress} onPressIn={handlePressIn} onPressOut={handlePressOut}>
-        <Card className="overflow-hidden shadow-lg">
+        <Card className="overflow-hidden shadow-lg" variant="elevated">
           <View className="flex-row items-center justify-between">
             <View className="flex-1 flex-row items-center gap-3">
               <View className="rounded-full bg-primary-100 p-2.5 dark:bg-primary-900/30">

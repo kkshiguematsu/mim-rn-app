@@ -3,16 +3,19 @@ import { ColorSchemeName } from 'react-native';
 
 interface ThemeContextProps {
   theme: 'light' | 'dark';
+  isDark: boolean;
   toggleTheme: () => void;
 }
 
 export const ThemeContext = createContext<ThemeContextProps>({
   theme: 'light',
+  isDark: false,
   toggleTheme: () => {},
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setThemeState] = useState<'light' | 'dark'>('light');
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     setThemeState(theme);
@@ -26,11 +29,13 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   const toggleTheme = () => {
     setThemeState((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setIsDark((prevTheme) => !prevTheme);
   };
 
   const contextValue = useMemo(
     () => ({
       theme,
+      isDark,
       toggleTheme,
     }),
     [theme]

@@ -1,12 +1,13 @@
 import { Card } from '@/components/ui/card';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
+import { usePressableScale } from '@/hooks/animations/usePressableScale';
 import { HistoryResponse } from '@/types/history/historyResponse';
 import { formatDateToDMY, formatTimeToHM } from '@/utils/formatDate';
 import { useRouter } from 'expo-router';
 import { Battery, Calendar, Clock, Zap } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 export interface HistoryCardProps {
   data: HistoryResponse;
@@ -14,10 +15,7 @@ export interface HistoryCardProps {
 
 export const HistoryCard = ({ data }: HistoryCardProps) => {
   const router = useRouter();
-  const scale = useSharedValue(1);
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
+  const { animatedStyle, pressInScale, pressOutScale } = usePressableScale();
 
   const dateFormatted = formatDateToDMY(Number(data.date));
   const timeFormatted = formatTimeToHM(Number(data.date));
@@ -35,20 +33,12 @@ export const HistoryCard = ({ data }: HistoryCardProps) => {
     return `${mins} min`;
   };
 
-  const handlePressIn = () => {
-    scale.value = withSpring(0.95);
-  };
-
-  const handlePressOut = () => {
-    scale.value = withSpring(1);
-  };
-
   return (
     <Animated.View style={animatedStyle}>
       <Pressable
         onPress={() => navigateToDetails(data.id)}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
+        onPressIn={pressInScale}
+        onPressOut={pressOutScale}
       >
         <Card className="p-4">
           <View className="mb-3 flex-row items-start justify-between">
