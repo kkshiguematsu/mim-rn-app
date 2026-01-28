@@ -1,21 +1,12 @@
+import { SearchBar } from '@/components/shared/form/SearchBar';
 import { Button, ButtonText } from '@/components/ui/button';
 import { HStack } from '@/components/ui/hstack';
 import { Icon } from '@/components/ui/icon';
-import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
 import { Menu, MenuItem, MenuItemLabel } from '@/components/ui/menu';
 import { VStack } from '@/components/ui/vstack';
 import { useFadeIn } from '@/hooks/animations/useFadeIn';
 import { periodFiltersType } from '@/types/history/historyResponse';
-import clsx from 'clsx';
-import {
-  Calendar,
-  DollarSign,
-  ListFilter,
-  MoveDown,
-  MoveUp,
-  Search,
-  Zap,
-} from 'lucide-react-native';
+import { Calendar, DollarSign, ListFilter, MoveDown, MoveUp, Zap } from 'lucide-react-native';
 import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -68,58 +59,58 @@ export const HistoryForm = () => {
     setPeriodFilter(period);
   };
 
+  const handleChangeSearchText = (value: string) => {
+    setSearchText(value);
+  };
+
   return (
     <VStack className="pb-4" space="md">
       <HStack className="items-center px-7" space="md">
-        <Input size={'lg'} className="flex-1 rounded-full">
-          <InputSlot className="pl-3">
-            <InputIcon as={Search} />
-          </InputSlot>
-          <InputField
-            value={searchText}
-            onChange={(e) => setSearchText(e.nativeEvent.text)}
-            placeholder="Buscar"
-          />
-        </Input>
-        <Menu
-          placement="bottom right"
-          offset={5}
-          trigger={({ ...triggerProps }) => {
-            return (
-              <Pressable {...triggerProps}>
-                {({ pressed }) => (
-                  <View
-                    className={clsx('rounded-full bg-primary-500 p-3', pressed && 'bg-primary-800')}
-                  >
-                    <Icon as={ListFilter} />
-                  </View>
-                )}
-              </Pressable>
-            );
-          }}
-        >
-          {menuFilters.map((item) => (
-            <MenuItem
-              key={item.label}
-              textValue={item.label}
-              onPress={() => handleSort(item.value)}
-              className="gap-2"
+        <SearchBar
+          value={searchText}
+          placeholder={'Buscar'}
+          size="xl"
+          onChange={handleChangeSearchText}
+          hasFilter={
+            <Menu
+              placement="bottom right"
+              offset={5}
+              trigger={({ ...triggerProps }) => {
+                return (
+                  <Pressable {...triggerProps}>
+                    {({ pressed }) => (
+                      <View className="p-3">
+                        <Icon as={ListFilter} />
+                      </View>
+                    )}
+                  </Pressable>
+                );
+              }}
             >
-              {item.icon && <Icon as={item.icon} size="md" />}
-              <MenuItemLabel>{item.label}</MenuItemLabel>
-              {sortField === item.value && sortDirection === 'desc' && (
-                <Animated.View entering={fadeInDown}>
-                  <Icon as={MoveUp} size="md" />
-                </Animated.View>
-              )}
-              {sortField === item.value && sortDirection === 'asc' && (
-                <Animated.View entering={fadeInUp}>
-                  <Icon as={MoveDown} size="md" />
-                </Animated.View>
-              )}
-            </MenuItem>
-          ))}
-        </Menu>
+              {menuFilters.map((item) => (
+                <MenuItem
+                  key={item.label}
+                  textValue={item.label}
+                  onPress={() => handleSort(item.value)}
+                  className="gap-2"
+                >
+                  {item.icon && <Icon as={item.icon} size="md" />}
+                  <MenuItemLabel>{item.label}</MenuItemLabel>
+                  {sortField === item.value && sortDirection === 'desc' && (
+                    <Animated.View entering={fadeInDown}>
+                      <Icon as={MoveUp} size="md" />
+                    </Animated.View>
+                  )}
+                  {sortField === item.value && sortDirection === 'asc' && (
+                    <Animated.View entering={fadeInUp}>
+                      <Icon as={MoveDown} size="md" />
+                    </Animated.View>
+                  )}
+                </MenuItem>
+              ))}
+            </Menu>
+          }
+        />
       </HStack>
 
       <ScrollView

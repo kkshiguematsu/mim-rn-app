@@ -36,7 +36,7 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm();
 
-  const submitForm = (data: any) => {
+  const submitForm = () => {
     replace('/(tabs)/home');
   };
 
@@ -53,7 +53,7 @@ export const LoginForm = () => {
       </View>
 
       <View className="flex gap-2">
-        <Button size="xl" variant="solid" onPress={() => replace('/(tabs)/map')}>
+        <Button size="xl" variant="solid" onPress={() => submitForm()}>
           <ButtonText className="text-white">Login</ButtonText>
         </Button>
         <View className="flex flex-row items-center justify-center gap-2">

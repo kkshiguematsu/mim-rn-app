@@ -14,7 +14,7 @@ export const pageStyled = tva({
 });
 
 export const scrollViewStyled = tva({
-  base: 'flex-grow',
+  base: 'flex-grow flex-col',
   variants: {
     needsPadding: {
       true: 'p-7',
