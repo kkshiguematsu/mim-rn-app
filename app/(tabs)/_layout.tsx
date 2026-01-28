@@ -1,14 +1,17 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { CustomAnimatedTabButton } from '@/components/layout/BottomTabNavigator/CustomAnimatedTabButton';
+import { BottomTabNavigator } from '@/components/layout/BottomTabNavigator';
 import { useTheme } from '@/context/themeContext';
 import { BlurView } from 'expo-blur';
-import { EvCharger, FileClock, Map, User } from 'lucide-react-native';
-
-import { View } from 'react-native';
+import { EvCharger, FileClock, Home, Map, User } from 'lucide-react-native';
 
 const tabs = [
+  {
+    name: 'home/index',
+    title: 'Inicio',
+    icon: Home,
+  },
   {
     name: 'charging/index',
     title: 'Carregar',
@@ -44,6 +47,7 @@ export default function TabLayout() {
   // const enabledTabs = tabs.filter((tab) => !tab.disabled);
   return (
     <Tabs
+      tabBar={(props) => <BottomTabNavigator {...props} />}
       screenOptions={{
         headerTransparent: true,
         tabBarShowLabel: false,
@@ -55,20 +59,20 @@ export default function TabLayout() {
           elevation: 0,
         },
 
-        tabBarBackground: () => (
-          <View
-            // tint={theme}
-            // intensity={60}
-            className="bg-primary-600"
-            style={{
-              flex: 1,
-              borderTopLeftRadius: 20,
-              // backgroundColor: '#033045',
-              borderTopRightRadius: 20,
-              overflow: 'hidden',
-            }}
-          />
-        ),
+        // tabBarBackground: () => (
+        //   <View
+        //     // tint={theme}
+        //     // intensity={60}
+        //     className="bg-primary-600"
+        //     style={{
+        //       flex: 1,
+        //       borderTopLeftRadius: 20,
+        //       // backgroundColor: '#033045',
+        //       borderTopRightRadius: 20,
+        //       overflow: 'hidden',
+        //     }}
+        //   />
+        // ),
       }}
     >
       {tabs.map((item) => (
@@ -77,7 +81,8 @@ export default function TabLayout() {
           name={item.name}
           options={{
             title: item.title,
-            tabBarButton: (props) => <CustomAnimatedTabButton {...props} item={item} />,
+            // tabBarButton: (props) => <CustomAnimatedTabButton {...props} item={item} />,
+            tabBarIcon: item.icon,
             headerShown: item.headerShown ?? true,
             headerTransparent: true,
             headerBackground: () => (

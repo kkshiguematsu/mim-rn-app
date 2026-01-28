@@ -1,49 +1,43 @@
-// components/CustomAnimatedTabButton.tsx
 import { Icon } from '@/components/ui/icon';
-import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
-import { usePathname } from 'expo-router';
-import { LucideIcon } from 'lucide-react-native';
-import React, { useEffect } from 'react';
-import { Pressable } from 'react-native';
-import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
+import { useEffect } from 'react';
+import { Pressable, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
-export interface ItemBottomTabBar {
-  name: string;
-  title: string;
-  icon: LucideIcon;
-  headerShown?: boolean;
-}
-
-export interface CustomBottomTabBarButtonProps extends BottomTabBarButtonProps {
-  item: ItemBottomTabBar;
-}
-
-export function CustomAnimatedTabButton({ item, ...props }: CustomBottomTabBarButtonProps) {
-  const pathname = usePathname();
-
-  const currentRouteName = pathname.split('/')[1];
-  const focused = item.name.split('/')[0] === currentRouteName;
-
-  const scale = useSharedValue(focused ? 1.2 : 1);
+export const TabButton = ({ isFocused, onPress, onLongPress, icon, label }: any) => {
+  const scale = useSharedValue(isFocused ? 1 : 0.85);
+  const opacity = useSharedValue(isFocused ? 1 : 0.5);
+  const bgOpacity = useSharedValue(isFocused ? 1 : 0);
 
   useEffect(() => {
-    scale.value = withSpring(focused ? 1.2 : 1);
-  }, [focused]);
+    scale.value = withSpring(isFocused ? 1 : 0.85, { damping: 15 });
+    opacity.value = withSpring(isFocused ? 1 : 0.5);
+    bgOpacity.value = withSpring(isFocused ? 1 : 0);
+  }, [isFocused]);
+
+  const iconAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+  }));
+
+  const bgAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: bgOpacity.value,
+  }));
 
   return (
-    <Pressable onPress={props.onPress} style={{ flex: 1, alignItems: 'center' }}>
-      <Animated.View style={{ transform: [{ scale }] }} className="pt-3">
-        <Icon as={item.icon} size="xl" className={focused ? 'text-white' : 'text-gray-500'} />
-
-        {/* <Animated.Text
-            style={{
-              fontSize: 11,
-              color: focused ? '#fff' : '#999',
-            }}
-          >
-            {item.title}
-          </Animated.Text> */}
-      </Animated.View>
+    <Pressable
+      className="flex flex-grow items-center justify-center rounded-full"
+      onPress={onPress}
+      onLongPress={onLongPress}
+    >
+      <View className="relative rounded-full p-4">
+        <Animated.View
+          className="absolute inset-0 rounded-full bg-neutral-200/30"
+          style={bgAnimatedStyle}
+        />
+        <Animated.View style={iconAnimatedStyle}>
+          <Icon className="text-white" as={icon} size="xl" />
+        </Animated.View>
+      </View>
     </Pressable>
   );
-}
+};
