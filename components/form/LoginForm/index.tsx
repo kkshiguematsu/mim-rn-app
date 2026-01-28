@@ -37,7 +37,7 @@ export const LoginForm = () => {
   } = useForm();
 
   const submitForm = (data: any) => {
-    replace('/(tabs)/map');
+    replace('/(tabs)/home');
   };
 
   return (

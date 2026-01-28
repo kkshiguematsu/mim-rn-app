@@ -3,7 +3,7 @@ import { Text } from '@/components/ui/text';
 
 export default function Home() {
   return (
-    <Page>
+    <Page componentRender="scrollview">
       <Text>Home</Text>
     </Page>
   );

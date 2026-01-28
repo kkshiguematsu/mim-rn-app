@@ -3,48 +3,55 @@ import React from 'react';
 
 import { BottomTabNavigator } from '@/components/layout/BottomTabNavigator';
 import { useTheme } from '@/context/themeContext';
+import { TabConfig } from '@/types/layout/TabType';
 import { BlurView } from 'expo-blur';
 import { EvCharger, FileClock, Home, Map, User } from 'lucide-react-native';
 
-const tabs = [
+const tabs: TabConfig[] = [
   {
-    name: 'home/index',
-    title: 'Inicio',
-    icon: Home,
+    name: 'home',
+    options: {
+      title: 'Inicio',
+      tabBarIcon: Home,
+      headerShown: false,
+    },
   },
   {
     name: 'charging/index',
-    title: 'Carregar',
-    icon: EvCharger,
+    options: {
+      title: 'Carregar',
+      tabBarIcon: EvCharger,
+    },
   },
-  // {
-  //   name: 'vehicle/index',
-  //   title: 'Veículos',
-  //   icon: CarFront,
-  //   disabled: true,
-  // },
   {
     name: 'map/index',
-    title: 'Map',
-    icon: Map,
+    options: {
+      title: 'Map',
+      tabBarIcon: Map,
+    },
   },
   {
     name: 'history',
-    title: 'Histórico',
-    icon: FileClock,
-    headerShown: false,
+    options: {
+      title: 'Histórico',
+      tabBarIcon: FileClock,
+      headerShown: false,
+    },
   },
   {
     name: 'user',
-    title: 'Perfil',
-    icon: User,
-    headerShown: false,
+    options: {
+      title: 'Perfil',
+      tabBarIcon: User,
+      headerShown: false,
+    },
   },
 ];
 
 export default function TabLayout() {
-  const { theme } = useTheme();
-  // const enabledTabs = tabs.filter((tab) => !tab.disabled);
+  const { isDark } = useTheme();
+
+  const titleColor = isDark ? 'white' : 'black';
   return (
     <Tabs
       tabBar={(props) => <BottomTabNavigator {...props} />}
@@ -53,26 +60,10 @@ export default function TabLayout() {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
-          // backgroundColor: 'red',
           borderTopWidth: 0,
           paddingTop: 5,
           elevation: 0,
         },
-
-        // tabBarBackground: () => (
-        //   <View
-        //     // tint={theme}
-        //     // intensity={60}
-        //     className="bg-primary-600"
-        //     style={{
-        //       flex: 1,
-        //       borderTopLeftRadius: 20,
-        //       // backgroundColor: '#033045',
-        //       borderTopRightRadius: 20,
-        //       overflow: 'hidden',
-        //     }}
-        //   />
-        // ),
       }}
     >
       {tabs.map((item) => (
@@ -80,21 +71,15 @@ export default function TabLayout() {
           key={item.name}
           name={item.name}
           options={{
-            title: item.title,
-            // tabBarButton: (props) => <CustomAnimatedTabButton {...props} item={item} />,
-            tabBarIcon: item.icon,
-            headerShown: item.headerShown ?? true,
-            headerTransparent: true,
-            headerBackground: () => (
-              <BlurView
-                tint={theme === 'dark' ? 'dark' : 'light'}
-                intensity={50}
-                style={{ flex: 1 }}
-              />
-            ),
+            ...item.options,
+
             headerTitleStyle: {
-              color: theme === 'dark' ? 'white' : 'black',
+              color: titleColor,
             },
+
+            headerBackground: () => (
+              <BlurView tint={isDark ? 'dark' : 'light'} intensity={50} style={{ flex: 1 }} />
+            ),
           }}
         />
       ))}
