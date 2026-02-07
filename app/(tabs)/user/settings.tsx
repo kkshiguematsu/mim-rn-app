@@ -1,6 +1,6 @@
 import { MenuList } from '@/components/shared/MenuList';
 import { MenuItem } from '@/components/shared/MenuList/MenuItem';
-import { Page } from '@/components/shared/Page';
+import { Page } from '@/components/shared/page/Page';
 import { Switch } from '@/components/ui/switch';
 import { useTheme } from '@/context/themeContext';
 import { Moon, Sun } from 'lucide-react-native';
@@ -9,7 +9,7 @@ export default function SettingsPage() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Page>
+    <Page.Scroll>
       <MenuList>
         <MenuItem
           disabled
@@ -29,6 +29,6 @@ export default function SettingsPage() {
           }
         />
       </MenuList>
-    </Page>
+    </Page.Scroll>
   );
 }

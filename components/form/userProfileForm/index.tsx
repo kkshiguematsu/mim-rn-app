@@ -1,4 +1,3 @@
-import { AnimatedSlideInViewCard } from '@/components/shared/cards/AnimatedViewCard';
 import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
 import { RenderForm } from '@/components/shared/form/RenderForm';
 import { Button, ButtonText } from '@/components/ui/button';
@@ -174,21 +173,19 @@ export const UserProfileForm = () => {
   }, [navigation]);
 
   return (
-    <AnimatedSlideInViewCard className="rounded-b-none">
-      <FormControl
-        // isInvalid={isInvalid}
-        isDisabled={isDisabled}
-        isReadOnly={false}
-        isRequired={false}
-        className="gap-5"
-      >
-        <FormProvider {...formMethods}>
-          <RenderForm inputList={userInputs} />
-          <Button className="mt-5" isDisabled={isDisabled}>
-            <ButtonText>Salvar</ButtonText>
-          </Button>
-        </FormProvider>
-      </FormControl>
-    </AnimatedSlideInViewCard>
+    <FormControl
+      // isInvalid={isInvalid}
+      isDisabled={isDisabled}
+      isReadOnly={false}
+      isRequired={false}
+      className="gap-5"
+    >
+      <FormProvider {...formMethods}>
+        <RenderForm inputList={userInputs} />
+        <Button className="mt-5" isDisabled={isDisabled}>
+          <ButtonText>Salvar</ButtonText>
+        </Button>
+      </FormProvider>
+    </FormControl>
   );
 };

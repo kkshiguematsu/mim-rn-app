@@ -32,7 +32,7 @@ export const StatusCard = ({
   children,
   icon,
   color,
-  size = 'md',
+  size,
   padding,
   variant = 'default',
   className,

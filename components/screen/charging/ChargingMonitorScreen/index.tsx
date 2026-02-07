@@ -1,6 +1,6 @@
-import { Page } from '@/components/shared/Page';
 import { ActiveChargingCard } from '@/components/shared/cards/ActiveChargingCard';
 import { StatusCard } from '@/components/shared/cards/StatusCard';
+import { Page } from '@/components/shared/page/Page';
 import { Card } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
@@ -53,7 +53,7 @@ export default function ChargingMonitorPage() {
   if (!activeSession) return;
 
   return (
-    <Page needsSafeArea>
+    <Page.Scroll needsPadding>
       <View className="pb-4 pt-2">
         <View className="flex-row items-center justify-between">
           <View>
@@ -147,6 +147,6 @@ export default function ChargingMonitorPage() {
       </View>
 
       <HistorySectionWidget />
-    </Page>
+    </Page.Scroll>
   );
 }

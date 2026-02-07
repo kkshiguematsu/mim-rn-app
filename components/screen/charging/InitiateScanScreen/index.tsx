@@ -1,4 +1,4 @@
-import { Page } from '@/components/shared/Page';
+import { Page } from '@/components/shared/page/Page';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';

@@ -1,14 +1,14 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 
 export const cardStyles = tva({
-  base: 'p-10 rounded-2xl',
+  base: 'shadow-sm shadow-neutral-400/60 rounded-2xl',
 
   variants: {
     size: {
-      sm: 'min-w-[30%] flex-1',
-      md: 'min-w-[45%] flex-1',
-      lg: 'min-w-[60%] flex-1',
-      full: 'w-full',
+      sm: 'min-w-[31%] ',
+      md: 'min-w-[47%] ',
+      lg: 'min-w-[60%] ',
+      full: 'min-w-[100%]',
     },
 
     variant: {

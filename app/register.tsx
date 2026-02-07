@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { RegisterForm } from '@/components/form/RegisterForm';
-import { Page } from '@/components/shared/Page';
+import { Page } from '@/components/shared/page';
 import { Heading } from '@/components/ui/heading';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 

@@ -67,6 +67,7 @@ export const HistoryForm = () => {
     <VStack className="pb-4" space="md">
       <HStack className="items-center px-7" space="md">
         <SearchBar
+          className="rounded-full"
           value={searchText}
           placeholder={'Buscar'}
           size="xl"

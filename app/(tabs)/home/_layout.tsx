@@ -12,20 +12,18 @@ export default function HomeStackLayout() {
       <Stack.Screen
         name="index"
         options={{
+          headerShown: true,
+
           title: 'Inicio',
           headerLargeTitle: true,
-          headerTitleStyle: {
-            color: titleColor,
-          },
-          headerLargeTitleStyle: {
-            color: titleColor,
-          },
           headerTransparent: true,
-          headerLargeStyle: {
-            backgroundColor: 'transparent',
-          },
+          headerShadowVisible: false,
+
+          headerTitleStyle: { color: titleColor },
+          headerLargeTitleStyle: { color: titleColor },
+          headerStyle: { backgroundColor: 'transparent' },
+          headerLargeStyle: { backgroundColor: 'transparent' },
           headerLargeTitleEnabled: true,
-          headerLargeTitleShadowVisible: true,
           headerBlurEffect: blurEffectColor,
         }}
       />

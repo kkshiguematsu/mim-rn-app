@@ -1,4 +1,5 @@
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
+import clsx from 'clsx';
 import { Search } from 'lucide-react-native';
 
 interface Props {
@@ -6,12 +7,20 @@ interface Props {
   placeholder?: string;
   size: 'sm' | 'md' | 'lg' | 'xl';
   hasFilter?: React.ReactNode;
+  className?: string;
   onChange: (text: string) => void;
 }
 
-export const SearchBar = ({ value, placeholder, size = 'md', hasFilter, onChange }: Props) => {
+export const SearchBar = ({
+  value,
+  placeholder,
+  size = 'md',
+  hasFilter,
+  className,
+  onChange,
+}: Props) => {
   return (
-    <Input size={size} className="flex-1 rounded-full">
+    <Input size={size} className={clsx(['flex-1', className])}>
       <InputSlot className="pl-4">
         <InputIcon as={Search} />
       </InputSlot>

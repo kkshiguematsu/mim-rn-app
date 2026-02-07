@@ -6,6 +6,8 @@ interface UseFadeInProps {
 }
 
 export const useFadeIn = ({ direction = 'right', duration = 500 }: UseFadeInProps) => {
+  if (!direction) return undefined;
+
   switch (direction) {
     case 'left':
       return FadeInLeft.duration(duration);

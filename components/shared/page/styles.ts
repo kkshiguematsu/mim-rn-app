@@ -6,6 +6,7 @@ export const pageStyled = tva({
     background: {
       normal: 'bg-neutral-200 dark:bg-neutral-900',
       primary: 'bg-[#0A4669]',
+      half: 'bg-[#0A4669] h-32',
     },
   },
   defaultVariants: {
@@ -17,7 +18,7 @@ export const scrollViewStyled = tva({
   base: 'flex-grow flex-col',
   variants: {
     needsPadding: {
-      true: 'p-7',
+      true: 'px-7 pt-7',
       false: '',
     },
     alignItems: {

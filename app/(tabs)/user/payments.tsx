@@ -2,8 +2,8 @@ import React from 'react';
 
 import { PaymentCardType } from '@/types/payment/paymentCard.type';
 
-import { Page } from '@/components/shared/Page';
 import { PaymentCard } from '@/components/shared/cards/PaymentCard';
+import { Page } from '@/components/shared/page/Page';
 import { Heading } from '@/components/ui/heading';
 import { VStack } from '@/components/ui/vstack';
 import { useModal } from '@/context/modalContext';
@@ -59,7 +59,7 @@ export default function PaymentsPage() {
   };
 
   return (
-    <Page>
+    <Page.Scroll>
       <View className="gap-3">
         <Heading className="mt-5">Cartões</Heading>
         <VStack className="gap-2">
@@ -84,6 +84,6 @@ export default function PaymentsPage() {
           ))}
         </VStack>
       </View>
-    </Page>
+    </Page.Scroll>
   );
 }

@@ -1,7 +1,7 @@
 import { useCharging } from '@/context/ChargingContext';
 import { useBottomMenuHeight } from '@/hooks/layout/useBottomMenuHeight';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { Platform, ScrollView, View } from 'react-native';
+import { Platform, ScrollView, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { pageStyled, scrollViewStyled } from './styles';
@@ -12,8 +12,9 @@ interface PageProps {
   needsPadding?: boolean;
   alignItems?: 'start' | 'center' | 'end';
   justifyContent?: 'start' | 'center' | 'end' | 'around' | 'between' | 'evenly';
-  background?: 'normal' | 'primary';
+  background?: 'normal' | 'primary' | 'half';
   componentRender?: 'view' | 'scrollview' | 'keyboard';
+  contentContainerStyle?: StyleProp<ViewStyle>;
   className?: string;
 }
 
@@ -26,6 +27,7 @@ export const Page = ({
   background = 'normal',
   componentRender = 'keyboard',
   className,
+  contentContainerStyle,
 }: PageProps) => {
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
@@ -45,9 +47,15 @@ export const Page = ({
   if (componentRender === 'scrollview')
     return (
       <ScrollView
-        className={pageStyled({ background, class: className })}
-        contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
+        className={pageStyled({ background })}
+        contentContainerClassName={scrollViewStyled({
+          alignItems,
+          justifyContent,
+          needsPadding,
+          class: className,
+        })}
         contentContainerStyle={{
+          ...StyleSheet.flatten(contentContainerStyle),
           paddingBottom: activeSession ? paddingBottom + 100 : paddingBottom,
         }}
         contentInsetAdjustmentBehavior="automatic"
@@ -64,6 +72,7 @@ export const Page = ({
         className={pageStyled({ background })}
         contentContainerClassName={scrollViewStyled({ alignItems, justifyContent, needsPadding })}
         contentContainerStyle={{
+          ...StyleSheet.flatten(contentContainerStyle),
           paddingBottom: activeSession ? paddingBottom + 100 : paddingBottom,
         }}
         keyboardShouldPersistTaps="handled"

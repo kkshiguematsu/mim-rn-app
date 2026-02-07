@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Page } from '@/components/shared/Page';
+import { Page } from '@/components/shared/page';
 import { View } from 'react-native';
 // import { PROVIDER_GOOGLE } from 'react-native-maps';
 export default function MapPage() {

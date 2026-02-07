@@ -1,14 +1,17 @@
 import { UserProfileForm } from '@/components/form/userProfileForm';
 import { UserAvatarInfo } from '@/components/page/user/UserAvatarInfo';
+import { AnimatedSlideInViewCard } from '@/components/shared/cards/AnimatedViewCard';
 
-import { Page } from '@/components/shared/Page';
+import { Page } from '@/components/shared/page/Page';
 import React from 'react';
 
 export default function UserIdPage() {
   return (
-    <Page needsPadding={false} needsSafeArea background="primary">
+    <Page.Scroll needsPadding={false} needsSafeArea background="primary">
       <UserAvatarInfo backgroundDark={true} />
-      <UserProfileForm />
-    </Page>
+      <AnimatedSlideInViewCard hasBottomMenu className="rounded-b-none">
+        <UserProfileForm />
+      </AnimatedSlideInViewCard>
+    </Page.Scroll>
   );
 }
