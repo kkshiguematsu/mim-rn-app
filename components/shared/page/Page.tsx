@@ -1,8 +1,6 @@
 import { useBottomMenuHeight } from '@/hooks/layout/useBottomMenuHeight';
 import React from 'react';
 import { View } from 'react-native';
-import { PageHeader } from './PageHeader';
-import { PageScroll } from './PageScroll';
 import { pageStyled } from './styles';
 import { PageRootProps } from './types';
 
@@ -17,8 +15,3 @@ export const PageRoot = ({ children, className, background = 'normal' }: PageRoo
     </View>
   );
 };
-
-export const Page = Object.assign(PageRoot, {
-  Scroll: PageScroll,
-  Header: PageHeader,
-});

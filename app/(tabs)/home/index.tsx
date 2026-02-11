@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DefaultCard } from '@/components/shared/cards/DefaultCard';
 import { SearchBar } from '@/components/shared/form/SearchBar';
-import { Page } from '@/components/shared/page/Page';
+import { Page } from '@/components/shared/page';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';

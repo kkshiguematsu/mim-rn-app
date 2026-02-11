@@ -13,11 +13,11 @@ export default function Index() {
   const [isLoginCardVisible, seIsLoginCardVisible] = useState(false);
 
   return (
-    <Page
+    <Page.Keyboard
       background="primary"
       alignItems="center"
       justifyContent="end"
-      needsSafeArea={false}
+      hasHeader={false}
       needsPadding={false}
     >
       <Animated.View
@@ -56,6 +56,6 @@ export default function Index() {
           </Button>
         </Animated.View>
       )}
-    </Page>
+    </Page.Keyboard>
   );
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { PaymentCardType } from '@/types/payment/paymentCard.type';
 
 import { PaymentCard } from '@/components/shared/cards/PaymentCard';
-import { Page } from '@/components/shared/page/Page';
+import { Page } from '@/components/shared/page';
 import { Heading } from '@/components/ui/heading';
 import { VStack } from '@/components/ui/vstack';
 import { useModal } from '@/context/modalContext';

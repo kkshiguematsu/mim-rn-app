@@ -4,7 +4,7 @@ import { GradientCard } from '@/components/shared/cards/GradientCard';
 import { PressableCard } from '@/components/shared/cards/PressableCard';
 import { StatusCard } from '@/components/shared/cards/StatusCard';
 import { contentStyle, titleStyles } from '@/components/shared/cards/StatusCard/styles';
-import { Page } from '@/components/shared/page/Page';
+import { Page } from '@/components/shared/page';
 import { Icon } from '@/components/ui/icon';
 import { LinearGradient } from '@/components/ui/linear-gradient';
 import { Text } from '@/components/ui/text';

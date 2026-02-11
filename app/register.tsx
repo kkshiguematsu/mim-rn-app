@@ -7,7 +7,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 
 export default function Index() {
   return (
-    <Page
+    <Page.Keyboard
       // background="primary"
       alignItems="center"
       justifyContent="start"
@@ -22,6 +22,6 @@ export default function Index() {
         <Heading className="text-3xl font-bold">Cadastro</Heading>
         <RegisterForm />
       </Animated.View>
-    </Page>
+    </Page.Keyboard>
   );
 }
