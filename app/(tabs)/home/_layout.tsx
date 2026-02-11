@@ -12,7 +12,7 @@ export default function HomeStackLayout() {
       <Stack.Screen
         name="index"
         options={{
-          headerShown: true,
+          headerShown: false,
 
           title: 'Inicio',
           headerLargeTitle: true,

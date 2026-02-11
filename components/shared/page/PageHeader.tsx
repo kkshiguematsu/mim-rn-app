@@ -66,6 +66,7 @@ export const PageHeader = ({ title, children }: Props) => {
           right: 16,
           zIndex: 1000,
           transform: [{ translateY: titleTranslateY }, { scale: titleScale }],
+          transformOrigin: 'left center',
         }}
       >
         <Heading size="4xl">{title}</Heading>
@@ -76,6 +77,7 @@ export const PageHeader = ({ title, children }: Props) => {
           useNativeDriver: true,
         })}
         scrollEventThrottle={16}
+        contentContainerClassName={'flex-grow flex-col'}
         contentContainerStyle={{
           paddingTop: insets.top + TITLE_START_POSITION + 80,
           paddingHorizontal: 16,

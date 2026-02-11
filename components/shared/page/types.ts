@@ -12,6 +12,7 @@ export interface PageRootProps {
 
 export interface PageScrollProps extends PageRootProps {
   contentContainerStyle?: StyleProp<ViewStyle>;
+  hasHeader?: boolean;
 }
 
 export interface PageKeyboardProps extends PageRootProps {

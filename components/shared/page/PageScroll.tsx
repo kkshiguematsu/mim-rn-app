@@ -12,6 +12,7 @@ export const PageScroll = ({
   background = 'normal',
   className,
   contentContainerStyle,
+  hasHeader = true,
 }: PageScrollProps) => {
   const { activeSession } = useCharging();
   const bottomTabBarHeight = useBottomMenuHeight();
@@ -35,7 +36,7 @@ export const PageScroll = ({
         ...StyleSheet.flatten(contentContainerStyle),
         paddingBottom,
       }}
-      contentInsetAdjustmentBehavior="automatic"
+      contentInsetAdjustmentBehavior={hasHeader ? 'automatic' : 'never'}
       showsVerticalScrollIndicator={false}
     >
       {children}

@@ -20,11 +20,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <Page.Scroll className="gap-4">
-      <View className="absolute left-0 right-0 top-0 h-32 bg-[#0A4669]" />
-      {/* <Page.Scroll className="gap-4"> */}
-      {/* <Page.Header title="Inicio" /> */}
-
+    <Page.Header title="Inicio">
       <DefaultCard size="full" padding="md" fadeIn="down">
         <View className="flex flex-row items-center justify-between">
           <View className="flex flex-row items-center gap-2">
@@ -52,6 +48,6 @@ export default function HomeScreen() {
         />
       </DefaultCard>
       {/* </Page.Scroll> */}
-    </Page.Scroll>
+    </Page.Header>
   );
 }
