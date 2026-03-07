@@ -1,13 +1,13 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 
 export const cardStyles = tva({
-  base: 'shadow-sm shadow-neutral-400/60 rounded-2xl',
+  base: 'shadow-sm shadow-neutral-400/60 rounded-2xl h-auto',
 
   variants: {
     size: {
-      sm: 'flex-1 basis-[31%]',
-      md: 'flex-1 basis-[47%]',
-      lg: 'flex-1 basis-[60%]',
+      sm: '',
+      md: '',
+      lg: '',
       full: 'w-full',
     },
 
@@ -32,8 +32,8 @@ export const cardStyles = tva({
   },
 });
 
-export const iconContainerStyles = tva({
-  base: 'rounded-lg p-2',
+export const iconContainerColorStyles = tva({
+  base: '',
   variants: {
     color: {
       primary: 'bg-primary-100 dark:bg-primary-900/30',
@@ -53,8 +53,8 @@ export const iconContainerStyles = tva({
   },
 });
 
-export const iconStyles = tva({
-  base: 'h-4 w-4',
+export const iconColorStyles = tva({
+  base: '',
   variants: {
     color: {
       primary: 'text-primary-600 dark:text-primary-400',

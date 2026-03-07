@@ -19,7 +19,7 @@ export const HeroSection = () => {
 
   return (
     <View
-      className="relative z-10 -m-7 gap-4 overflow-hidden rounded-b-3xl bg-white p-7 dark:bg-black"
+      className="relative z-10 gap-4 overflow-hidden rounded-b-3xl bg-white p-7 dark:bg-black"
       style={{ paddingTop: insets.top }}
     >
       <ArcsBackground />
@@ -36,7 +36,7 @@ export const HeroSection = () => {
 
       <HeroCard {...heroCardMock} />
 
-      <DefaultCard size="full" padding="none" fadeIn="down" className="bg-transparent py-2">
+      <DefaultCard padding="none" fadeIn="down" className="bg-transparent py-2">
         <SearchBar
           className="rounded-full bg-neutral-100"
           value={searchText}

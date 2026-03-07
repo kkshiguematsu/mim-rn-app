@@ -1,10 +1,12 @@
+import { ICardProps } from '@/components/ui/card';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
+import clsx from 'clsx';
 import { View } from 'react-native';
 import { DefaultCard } from '../DefaultCard';
-import { contentStyle, iconContainerStyles, iconStyles, titleStyles } from './styles';
+import { contentStyle, iconColorStyles, iconContainerColorStyles, titleStyles } from './styles';
 
-interface StatusCardProps {
+interface StatusCardProps extends ICardProps {
   title: string;
   content?: string;
   children?: React.ReactNode;
@@ -20,29 +22,19 @@ interface StatusCardProps {
     | 'pink'
     | 'indigo'
     | 'cyan';
-  size?: 'sm' | 'md' | 'lg' | 'full';
   padding?: 'none' | 'sm' | 'md' | 'lg';
-  variant?: 'default' | 'elevated' | 'outlined';
   className?: string;
 }
 
-export const StatusCard = ({
-  title,
-  content,
-  children,
-  icon,
-  color,
-  size,
-  padding,
-  variant = 'default',
-  className,
-}: StatusCardProps) => {
+export const StatusCard = (props: StatusCardProps) => {
+  const { title, content, children, icon, color, padding, className } = props;
+
   return (
-    <DefaultCard size={size} variant={variant} padding={padding} className={className}>
+    <DefaultCard {...props} padding={padding} className={className}>
       <View className="mb-2 flex-row items-center gap-2">
         {icon && (
-          <View className={iconContainerStyles({ color })}>
-            <Icon as={icon} className={iconStyles({ color })} />
+          <View className={clsx(iconContainerColorStyles({ color }), 'rounded-lg p-2')}>
+            <Icon as={icon} className={clsx(iconColorStyles({ color }), 'h-4 w-4')} />
           </View>
         )}
         <Text size="xs" className={titleStyles({})}>
