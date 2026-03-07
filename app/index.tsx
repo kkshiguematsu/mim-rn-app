@@ -1,6 +1,6 @@
 import { LoginForm } from '@/components/form/LoginForm';
+import { Page } from '@/components/layout/page';
 import { AnimatedSlideInViewCard } from '@/components/shared/cards/AnimatedViewCard';
-import { Page } from '@/components/shared/page';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Image } from '@/components/ui/image';

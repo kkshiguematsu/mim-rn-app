@@ -1,6 +1,6 @@
+import { Page } from '@/components/layout/page';
 import { ActiveChargingCard } from '@/components/shared/cards/ActiveChargingCard';
 import { StatusCard } from '@/components/shared/cards/StatusCard';
-import { Page } from '@/components/shared/page';
 import { Card } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';

@@ -1,6 +1,6 @@
 import { HistoryForm } from '@/components/form/HistoryForm';
+import { Page } from '@/components/layout/page';
 import { HistoryCard } from '@/components/shared/cards/HistoryCard';
-import { Page } from '@/components/shared/page';
 import { VStack } from '@/components/ui/vstack';
 import { mockHistoryCards } from '@/data/mock/history/historyCard';
 

@@ -5,10 +5,10 @@ export const cardStyles = tva({
 
   variants: {
     size: {
-      sm: 'min-w-[31%] ',
-      md: 'min-w-[47%] ',
-      lg: 'min-w-[60%] ',
-      full: 'min-w-[100%]',
+      sm: 'flex-1 basis-[31%]',
+      md: 'flex-1 basis-[47%]',
+      lg: 'flex-1 basis-[60%]',
+      full: 'w-full',
     },
 
     variant: {

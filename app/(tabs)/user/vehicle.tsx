@@ -1,4 +1,4 @@
-import { Page } from '@/components/shared/page';
+import { Page } from '@/components/layout/page';
 import { Heading } from '@/components/ui/heading';
 
 import React from 'react';

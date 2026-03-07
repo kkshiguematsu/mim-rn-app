@@ -3,16 +3,12 @@ import { useTheme } from '@/context/themeContext';
 import React, { useRef } from 'react';
 import { Animated, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { PageHeaderProps } from './types';
 
 const HEADER_HEIGHT = 60;
 const TITLE_START_POSITION = 20;
 
-interface Props {
-  title: string;
-  children: React.ReactNode;
-}
-
-export const PageHeader = ({ title, children }: Props) => {
+export const PagesStickyHeader = ({ title, children }: PageHeaderProps) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const insets = useSafeAreaInsets();
 
