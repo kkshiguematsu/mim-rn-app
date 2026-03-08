@@ -9,7 +9,7 @@ interface Props {
 
 export const Section = ({ title, children, onPress }: Props) => {
   return (
-    <View>
+    <View className="mb-2 gap-2">
       <View className="flex flex-row items-center justify-between">
         <Heading size="lg">{title}</Heading>
         {onPress && onPress}

@@ -4,24 +4,20 @@ import { Text } from '@/components/ui/text';
 import clsx from 'clsx';
 import { View } from 'react-native';
 import { DefaultCard } from '../DefaultCard';
-import { contentStyle, iconColorStyles, iconContainerColorStyles, titleStyles } from './styles';
+import {
+  ColorIcons,
+  contentStyle,
+  iconColorStyles,
+  iconContainerColorStyles,
+  titleStyles,
+} from './styles';
 
 interface StatusCardProps extends ICardProps {
   title: string;
   content?: string;
   children?: React.ReactNode;
   icon?: React.ElementType;
-  color?:
-    | 'primary'
-    | 'blue'
-    | 'green'
-    | 'purple'
-    | 'orange'
-    | 'red'
-    | 'yellow'
-    | 'pink'
-    | 'indigo'
-    | 'cyan';
+  color?: ColorIcons;
   padding?: 'none' | 'sm' | 'md' | 'lg';
   className?: string;
 }

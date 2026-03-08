@@ -2,6 +2,7 @@ import { Page } from '@/components/layout/page';
 import { CardsSliderSection } from '@/components/section/CardsSliderSection';
 import { CardSliderItemProps } from '@/components/section/CardsSliderSection/CardSliderItem';
 import { HeroSection } from '@/components/section/HeroSection';
+import { MounthDashboardSection } from '@/components/section/MounthDashboardSection';
 import { StationsListSection } from '@/components/section/StationsListSection';
 import { useNavigation } from 'expo-router';
 import { Car, CreditCard, Headset, Heart } from 'lucide-react-native';
@@ -41,6 +42,8 @@ export default function HomeScreen() {
       <CardsSliderSection className="-mx-7" contentContainerClassName="px-7" cards={mockCards} />
 
       <StationsListSection />
+
+      <MounthDashboardSection />
     </Page.Scroll>
   );
 }

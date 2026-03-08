@@ -55,7 +55,7 @@ export const StationsListSection = () => {
         </HStack>
       }
     >
-      <DefaultCard padding="none" className="mt-2">
+      <DefaultCard padding="none">
         {nearbyStationsMock.map((station, index) => (
           <Pressable key={index} onPress={() => {}}>
             <View className="flex-row items-center justify-between px-6 py-4">
