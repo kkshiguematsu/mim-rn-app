@@ -4,7 +4,7 @@ import { HStack } from '@/components/ui/hstack';
 import { Icon } from '@/components/ui/icon';
 import { Menu, MenuItem, MenuItemLabel } from '@/components/ui/menu';
 import { VStack } from '@/components/ui/vstack';
-import { useFadeIn } from '@/hooks/animations/useFadeIn';
+import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
 import { periodFiltersType } from '@/types/history/historyResponse';
 import { Calendar, DollarSign, ListFilter, MoveDown, MoveUp, Zap } from 'lucide-react-native';
 import { useState } from 'react';
@@ -25,8 +25,8 @@ export const HistoryForm = () => {
   const [sortField, setSortField] = useState<'date' | 'price' | 'kw'>('date');
   const [sortDirection, setSortDirection] = useState('desc');
 
-  const fadeInDown = useFadeIn({ direction: 'down', duration: 500 });
-  const fadeInUp = useFadeIn({ direction: 'up', duration: 500 });
+  const fadeInDown = useFadeInAnimation({ direction: 'down', duration: 500 });
+  const fadeInUp = useFadeInAnimation({ direction: 'up', duration: 500 });
 
   const menuFilters: menuFiltersType[] = [
     {

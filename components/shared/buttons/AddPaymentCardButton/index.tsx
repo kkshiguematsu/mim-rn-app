@@ -3,14 +3,14 @@ import React from 'react';
 import { BottomSheetTrigger } from '@/components/ui/bottomsheet';
 import { Icon } from '@/components/ui/icon';
 import { useModal } from '@/context/modalContext';
-import { useRotation } from '@/hooks/animations/useRotation';
+import { useRotationAnimation } from '@/hooks/animations/useRotationAnimation';
 import { ModalNames } from '@/types/modal/modalsComponents';
 import { Plus } from 'lucide-react-native';
 import Animated from 'react-native-reanimated';
 
 export const AddPaymentCardButton = () => {
   const { enableModal } = useModal();
-  const { animateRotation, animationStyle } = useRotation(180);
+  const { animateRotation, animationStyle } = useRotationAnimation(180);
 
   const openModal = () => {
     animateRotation();

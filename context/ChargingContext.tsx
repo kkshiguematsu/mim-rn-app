@@ -2,6 +2,7 @@ import React, { ReactNode, createContext, useContext, useState } from 'react';
 
 interface ChargingSession {
   id: string;
+  stationName: string;
   chargerId: string;
   isCharging: boolean;
   batteryLevel: number;

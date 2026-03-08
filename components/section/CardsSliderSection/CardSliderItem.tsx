@@ -5,7 +5,7 @@ import {
 } from '@/components/shared/cards/StatusCard/styles';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { usePressableScale } from '@/hooks/animations/usePressableScale';
+import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
 import clsx from 'clsx';
 import { Pressable, View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -28,7 +28,7 @@ export interface CardSliderItemProps {
 }
 
 export const CardSliderItem = ({ title, icon, color, onPress }: CardSliderItemProps) => {
-  const { animatedStyle, pressInScale, pressOutScale } = usePressableScale();
+  const { animatedStyle, pressInScale, pressOutScale } = usePressableScaleAnimation();
 
   const cardContent = (
     <DefaultCard className="flex w-28 items-center justify-center gap-1">

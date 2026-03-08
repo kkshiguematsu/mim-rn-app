@@ -1,6 +1,6 @@
 import { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
-export const usePressableScale = () => {
+export const usePressableScaleAnimation = () => {
   const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],

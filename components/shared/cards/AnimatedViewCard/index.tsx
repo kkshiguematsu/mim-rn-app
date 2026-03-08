@@ -1,4 +1,4 @@
-import { useSlideIn } from '@/hooks/animations/useSlideIn';
+import { useSlideInAnimation } from '@/hooks/animations/useSlideInAnimation';
 import { useBottomMenuHeight } from '@/hooks/layout/useBottomMenuHeight';
 import clsx from 'clsx';
 import Animated from 'react-native-reanimated';
@@ -14,7 +14,7 @@ export const AnimatedSlideInViewCard = ({
   className,
   hasBottomMenu = false,
 }: AnimatedViewCardProps) => {
-  const SlideInUp = useSlideIn({ direction: 'down', duration: 800 });
+  const SlideInUp = useSlideInAnimation({ direction: 'down', duration: 800 });
   const bottomMenuHeight = useBottomMenuHeight();
 
   const paddingBottom = hasBottomMenu ? bottomMenuHeight : 0;

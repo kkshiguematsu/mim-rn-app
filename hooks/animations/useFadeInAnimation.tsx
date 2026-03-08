@@ -5,7 +5,7 @@ interface UseFadeInProps {
   duration?: number;
 }
 
-export const useFadeIn = ({ direction = 'right', duration = 500 }: UseFadeInProps) => {
+export const useFadeInAnimation = ({ direction = 'right', duration = 500 }: UseFadeInProps) => {
   if (!direction) return undefined;
 
   switch (direction) {

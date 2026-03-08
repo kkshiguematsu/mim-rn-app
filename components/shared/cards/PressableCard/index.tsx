@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/card';
-import { usePressableScale } from '@/hooks/animations/usePressableScale';
+import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
 import { Pressable } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { cardStyles } from '../StatusCard/styles';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const PressableCard = ({ children, size, padding, variant, className, onPress }: Props) => {
-  const { animatedStyle, pressInScale, pressOutScale } = usePressableScale();
+  const { animatedStyle, pressInScale, pressOutScale } = usePressableScaleAnimation();
 
   return (
     <Animated.View style={animatedStyle}>

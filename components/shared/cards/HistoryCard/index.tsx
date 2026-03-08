@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { usePressableScale } from '@/hooks/animations/usePressableScale';
+import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
 import { HistoryResponse } from '@/types/history/historyResponse';
 import { formatDateToDMY, formatTimeToHM } from '@/utils/formatDate';
 import { useRouter } from 'expo-router';
@@ -15,7 +15,7 @@ export interface HistoryCardProps {
 
 export const HistoryCard = ({ data }: HistoryCardProps) => {
   const router = useRouter();
-  const { animatedStyle, pressInScale, pressOutScale } = usePressableScale();
+  const { animatedStyle, pressInScale, pressOutScale } = usePressableScaleAnimation();
 
   const dateFormatted = formatDateToDMY(Number(data.date));
   const timeFormatted = formatTimeToHM(Number(data.date));

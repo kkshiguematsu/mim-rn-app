@@ -5,7 +5,7 @@ interface UseSlideInProps {
   duration?: number;
 }
 
-export const useSlideIn = ({ direction = 'right', duration = 500 }: UseSlideInProps) => {
+export const useSlideInAnimation = ({ direction = 'right', duration = 500 }: UseSlideInProps) => {
   switch (direction) {
     case 'left':
       return SlideInLeft.duration(duration).springify();

@@ -1,6 +1,6 @@
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
-export const useRotation = (degree: number) => {
+export const useRotationAnimation = (degree: number) => {
   const rotation = useSharedValue(0);
 
   const animateRotation = () => {

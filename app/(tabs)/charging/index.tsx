@@ -49,6 +49,7 @@ export default function ChargingPage() {
             setIsScannerVisible(false);
             startCharging({
               id: 'session-123',
+              stationName: 'Estação Central',
               chargerId: data,
               batteryLevel: 45,
               isCharging: true,
