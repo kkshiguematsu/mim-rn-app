@@ -19,7 +19,7 @@ export const HeroSection = () => {
 
   return (
     <View
-      className="relative z-10 gap-4 overflow-hidden rounded-b-3xl bg-white p-7 dark:bg-black"
+      className="relative z-10 -mx-7 -mt-7 gap-4 overflow-hidden rounded-b-3xl bg-neutral-100 p-7 dark:bg-black"
       style={{ paddingTop: insets.top }}
     >
       <ArcsBackground />
