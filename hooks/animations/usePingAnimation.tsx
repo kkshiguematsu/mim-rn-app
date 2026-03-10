@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import {
   Easing,
+  interpolate,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withRepeat,
-  withSequence,
   withTiming,
 } from 'react-native-reanimated';
 
@@ -19,33 +20,19 @@ export const usePingAnimation = ({
   duration = 1800,
   pause = 600,
 }: UsePingAnimationOptions = {}) => {
-  const scale = useSharedValue(1);
-  const opacity = useSharedValue(0.5);
+  const progress = useSharedValue(0);
 
   useEffect(() => {
-    scale.value = withRepeat(
-      withSequence(
-        withTiming(maxScale, { duration, easing: Easing.out(Easing.ease) }),
-        withTiming(1, { duration: 0 }),
-        withTiming(1, { duration: pause })
-      ),
-      -1,
-      false
-    );
-    opacity.value = withRepeat(
-      withSequence(
-        withTiming(0, { duration, easing: Easing.out(Easing.ease) }),
-        withTiming(0.5, { duration: 0 }),
-        withTiming(0.5, { duration: pause })
-      ),
+    progress.value = withRepeat(
+      withDelay(pause, withTiming(1, { duration, easing: Easing.out(Easing.ease) })),
       -1,
       false
     );
   }, []);
 
   const pingAnimationStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-    opacity: opacity.value,
+    transform: [{ scale: interpolate(progress.value, [0, 1], [1, maxScale]) }],
+    opacity: interpolate(progress.value, [0, 1], [0.5, 0]),
   }));
 
   return { pingAnimationStyle };

@@ -1,5 +1,4 @@
 import { ArcsBackground } from '@/components/layout/background/ArcsBackground';
-import { DefaultCard } from '@/components/shared/cards/DefaultCard';
 import { HeroCard, heroCardMock } from '@/components/shared/cards/HeroCard';
 import { SearchBar } from '@/components/shared/form/SearchBar';
 import { Heading } from '@/components/ui/heading';
@@ -36,15 +35,15 @@ export const HeroSection = () => {
 
       <HeroCard {...heroCardMock} />
 
-      <DefaultCard padding="none" fadeIn="down" className="bg-transparent py-2">
-        <SearchBar
-          className="rounded-full bg-neutral-100"
-          value={searchText}
-          placeholder="Digite um endereço"
-          onChange={handleChangeSeachBarText}
-          size="xl"
-        />
-      </DefaultCard>
+      {/* <DefaultCard padding="none" fadeIn="down" className="bg-transparent py-2"> */}
+      <SearchBar
+        className="rounded-full bg-neutral-100"
+        value={searchText}
+        placeholder="Digite um endereço"
+        onChange={handleChangeSeachBarText}
+        size="xl"
+      />
+      {/* </DefaultCard> */}
     </View>
   );
 };

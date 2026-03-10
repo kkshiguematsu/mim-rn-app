@@ -20,7 +20,7 @@ export const SearchBar = ({
   onChange,
 }: Props) => {
   return (
-    <Input size={size} className={clsx(['flex-1', className])}>
+    <Input size={size} className={clsx(['w-full', className])}>
       <InputSlot className="pl-4">
         <InputIcon as={Search} />
       </InputSlot>

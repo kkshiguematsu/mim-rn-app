@@ -1,12 +1,12 @@
+import { Ping } from '@/components/shared/ping';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
 import { useCharging } from '@/context/ChargingContext';
 import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
-import { usePingAnimation } from '@/hooks/animations/usePingAnimation';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
 import { useRouter } from 'expo-router';
 import { Zap } from 'lucide-react-native';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Pressable, View } from 'react-native';
 import Animated, {
   Easing,
@@ -54,11 +54,16 @@ export const FloatingChargingView = () => {
   const { activeSession } = useCharging();
   const FadeInUp = useFadeInAnimation({ direction: 'up', duration: 300 });
   const { animatedStyle, pressInScale, pressOutScale } = usePressableScaleAnimation();
-  const { pingAnimationStyle } = usePingAnimation({ maxScale: 1.9, duration: 2000, pause: 600 });
 
   const handlePress = () => {
     router.push('/charging');
   };
+
+  const remainingMin = useMemo(() => {
+    if (!activeSession) return null;
+
+    return (activeSession.time.remaining / 60).toFixed(0);
+  }, [activeSession?.time.remaining]);
 
   const batteryPct = activeSession ? (activeSession.batteryLevel / 100) * 100 : 0;
 
@@ -85,76 +90,41 @@ export const FloatingChargingView = () => {
       ]}
     >
       <Pressable onPress={handlePress} onPressIn={pressInScale} onPressOut={pressOutScale}>
-        <View
-          style={{
-            borderRadius: 18,
-            backgroundColor: '#ffffff',
-            borderWidth: 1,
-            borderColor: 'rgba(0,0,0,0.07)',
-            overflow: 'hidden',
-          }}
-        >
+        <View className="overflow-hidden rounded-3xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900">
           <View className="flex-row items-center gap-3 px-4 pb-3 pt-3">
-            <View style={{ position: 'relative', flexShrink: 0 }}>
-              <Animated.View
-                pointerEvents="none"
-                style={[
-                  {
-                    position: 'absolute',
-                    inset: -3,
-                    borderRadius: 13,
-                    borderWidth: 1.5,
-                    borderColor: '#b8e8cc',
-                  },
-                  pingAnimationStyle,
-                ]}
-              />
-
-              <View
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  backgroundColor: '#f0faf4',
-                  borderWidth: 1,
-                  borderColor: '#c8ead8',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Icon as={Zap} size="sm" className="text-primary-600 dark:text-primary-400" />
+            <Ping className="border-1 h-10 w-10 rounded-xl border border-green-500">
+              <View className="border-1 flex h-10 w-10 items-center justify-center rounded-xl border border-green-500 bg-green-100/50">
+                <Icon as={Zap} size="sm" className="text-green-600 dark:text-green-400" />
               </View>
-            </View>
+            </Ping>
 
-            {/* station + meta */}
-            <View className="flex-1" style={{ gap: 2 }}>
+            <View className="flex-1 gap-1">
               <Text
                 className="font-semibold text-neutral-900 dark:text-neutral-100"
-                style={{ fontSize: 13, letterSpacing: -0.2 }}
+                size="md"
                 numberOfLines={1}
               >
                 {activeSession.stationName ?? (activeSession.isCharging ? 'Carregando' : 'Pausado')}
               </Text>
-              <Text className="text-neutral-400 dark:text-neutral-500" style={{ fontSize: 11 }}>
-                {batteryPct}% &middot; {activeSession.currentPower.toFixed(0)} kW
+              <Text size="xs" className="text-neutral-400 dark:text-neutral-500">
+                {batteryPct.toFixed(0)}% &middot; R${' '}
+                <Text size="xs" className="text-green-500">
+                  {activeSession.cost.toFixed(2)}
+                </Text>{' '}
+                gastos
               </Text>
             </View>
 
-            {/* time remaining */}
-            <View className="items-end" style={{ gap: 1 }}>
-              <Text
-                className="font-bold text-neutral-900 dark:text-neutral-100"
-                style={{ fontSize: 20, letterSpacing: -1, lineHeight: 22 }}
-              >
-                {activeSession.time.remaining}
+            <View className="items-end">
+              <Text size="xl" className="font-bold text-neutral-900 dark:text-neutral-100">
+                {remainingMin}
               </Text>
-              <Text className="text-neutral-400" style={{ fontSize: 10 }}>
-                min rest.
+              <Text size="sm" className="text-neutral-400">
+                min rest
               </Text>
             </View>
           </View>
 
-          {/* ── bottom progress bar hugging card ── */}
           <View
             style={{
               position: 'absolute',
