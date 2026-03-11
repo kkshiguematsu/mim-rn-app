@@ -21,6 +21,7 @@ const tabs: TabConfig[] = [
     options: {
       title: 'Carregar',
       tabBarIcon: EvCharger,
+      headerShown: false,
     },
   },
   {
