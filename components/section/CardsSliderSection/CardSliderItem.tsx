@@ -1,12 +1,7 @@
 import { DefaultCard } from '@/components/shared/cards/DefaultCard';
-import {
-  iconColorStyles,
-  iconContainerColorStyles,
-} from '@/components/shared/cards/StatusCard/styles';
-import { Icon } from '@/components/ui/icon';
+import { TintedIcon } from '@/components/shared/icon/TintedIcon';
 import { Text } from '@/components/ui/text';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
-import clsx from 'clsx';
 import { Pressable, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
@@ -32,14 +27,7 @@ export const CardSliderItem = ({ title, icon, color, onPress }: CardSliderItemPr
 
   const cardContent = (
     <DefaultCard className="flex w-28 items-center justify-center gap-1">
-      <View
-        className={clsx(
-          iconContainerColorStyles({ color: color }),
-          'flex h-12 w-12 items-center justify-center rounded-lg'
-        )}
-      >
-        <Icon size="xl" as={icon} className={clsx(iconColorStyles({ color: color }))} />
-      </View>
+      <TintedIcon icon={icon} color={color} size="lg" />
       <View>
         <Text size="xs">{title}</Text>
       </View>
