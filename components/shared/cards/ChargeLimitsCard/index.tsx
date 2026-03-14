@@ -44,7 +44,7 @@ export const ChargeLimitCard = ({ limit, onLimitChange }: ChargeLimitCardProps) 
             <SliderTrack>
               <SliderFilledTrack className="bg-green-500 data-[active=true]:bg-green-500 data-[focus=true]:bg-green-500" />
             </SliderTrack>
-            <SliderThumb className="bg-green-500 data-[active=true]:bg-green-500 data-[focus=true]:bg-green-500" />
+            <SliderThumb className="bg-white data-[active=true]:bg-white data-[focus=true]:bg-white" />
           </Slider>
         </View>
       </GestureDetector>

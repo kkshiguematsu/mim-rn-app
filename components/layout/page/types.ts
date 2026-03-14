@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 export interface PageRootProps {
@@ -24,6 +23,7 @@ export interface PageKeyboardProps extends PageRootProps {
 
 export interface PageHeaderProps {
   title?: string;
-  content: ReactElement;
+  content: React.ReactElement<{ style?: any }>;
+  applyInsetsTo?: 'wrapper' | 'content';
   className?: string;
 }

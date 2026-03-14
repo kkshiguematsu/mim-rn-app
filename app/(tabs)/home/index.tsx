@@ -37,7 +37,7 @@ export default function HomeScreen() {
 
   return (
     <Page.Scroll hasHeader={false} className="gap-3">
-      <Page.Header content={<HeroSection />} />
+      <Page.Header content={<HeroSection />} applyInsetsTo="content" />
 
       <CardsSliderSection className="-mx-7" contentContainerClassName="px-7" cards={mockCards} />
 

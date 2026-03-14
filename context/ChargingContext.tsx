@@ -7,7 +7,11 @@ interface ChargingSession {
   isCharging: boolean;
   batteryLevel: number;
   currentPower: number;
-  connectorLabel: string;
+  connector: {
+    id: string;
+    name: string;
+    type: string;
+  };
   time: {
     remaining: number;
     elapsed: number;

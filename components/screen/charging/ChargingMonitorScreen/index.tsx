@@ -1,8 +1,8 @@
 import { Page } from '@/components/layout/page';
 import { HistorySectionWidget } from '@/components/widget/HistorySectionWidget';
 import { useCharging } from '@/context/ChargingContext';
-import { Clock, CreditCard, Square, Zap } from 'lucide-react-native';
-import { useEffect } from 'react';
+import { BellOff, BellRing, Clock, CreditCard, Square, Zap } from 'lucide-react-native';
+import { useEffect, useState } from 'react';
 import { Alert, Pressable, View } from 'react-native';
 
 import { TintedBadge } from '@/components/shared/badge/TintedBadge';
@@ -14,7 +14,9 @@ import { Grid, GridItem } from '@/components/ui/grid';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
+import { useBellAnimation } from '@/hooks/animations/useBellAnimation';
 import { formatTimeToMinutes } from '@/utils/formatTime';
+import Animated from 'react-native-reanimated';
 
 function StopButton({ onPress }: { onPress: () => void }) {
   return (
@@ -30,7 +32,10 @@ function StopButton({ onPress }: { onPress: () => void }) {
 }
 
 export default function ChargingMonitorPage() {
+  const [notifyOnComplete, setNotifyOnComplete] = useState(false);
+
   const { activeSession, updateSession, stopCharging } = useCharging();
+  const { animatedStyle, ring, unring } = useBellAnimation();
 
   if (!activeSession) return null;
 
@@ -66,22 +71,59 @@ export default function ChargingMonitorPage() {
     updateSession({ chargeLimit: limit });
   };
 
+  const handleToggleNotification = () => {
+    if (!notifyOnComplete) ring();
+    else unring();
+    setNotifyOnComplete((prev) => !prev);
+  };
+
   return (
-    <Page.Scroll className="relative gap-4" needsPadding stickyHeaderIndices={[0]}>
-      <View className="fixed flex-row items-center justify-between pb-4 pt-2">
-        <View>
-          <Heading size="2xl" className="mt-1 text-black" style={{ letterSpacing: -0.6 }}>
-            Carregando
-          </Heading>
-        </View>
-        <TintedBadge label="Sessão ativa" size="md" color="green" animated />
-      </View>
+    <Page.Scroll
+      className="relative gap-4"
+      needsPadding
+      hasHeader={false}
+      stickyHeaderIndices={[0]}
+    >
+      <Page.Header
+        applyInsetsTo="content"
+        content={
+          <View className="fixed -mx-2 flex-row items-center justify-between bg-neutral-200 pb-4 pt-2 dark:bg-neutral-900">
+            <View>
+              <TintedBadge label="Sessão ativa" size="xs" color="green" animated />
+              <Heading size="2xl" className="mt-1 text-black dark:text-white">
+                Carregando
+              </Heading>
+            </View>
+            <View className="items-end gap-1.5">
+              <Pressable
+                onPress={handleToggleNotification}
+                className={`items-center justify-center rounded-full p-2.5 ${
+                  notifyOnComplete
+                    ? 'bg-primary-100 dark:bg-primary-900/30'
+                    : 'bg-neutral-100 dark:bg-neutral-800'
+                }`}
+              >
+                <Animated.View style={animatedStyle}>
+                  <Icon
+                    as={notifyOnComplete ? BellRing : BellOff}
+                    size="lg"
+                    className={notifyOnComplete ? 'text-primary-500' : 'text-neutral-400'}
+                  />
+                </Animated.View>
+              </Pressable>
+              <Text size="xs" className="text-neutral-400">
+                {activeSession.connector.id} · {activeSession.connector.name}
+              </Text>
+            </View>
+          </View>
+        }
+      />
 
       <ArcBatteryCard
         batteryLevel={batteryLevel}
         stationName={activeSession.stationName}
         stationAddress={activeSession.location}
-        connectorLabel={activeSession.connectorLabel}
+        connectorLabel={`${activeSession.connector.name} - ${activeSession.connector.type}`}
         powerKw={powerKw}
         energyAddedKwh={energyKwh}
         costBrl={costBrl}

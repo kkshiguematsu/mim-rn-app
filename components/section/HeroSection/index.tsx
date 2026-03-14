@@ -5,13 +5,14 @@ import { Heading } from '@/components/ui/heading';
 import { Text } from '@/components/ui/text';
 import { BlurView } from 'expo-blur';
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 
-export const HeroSection = () => {
+interface Props {
+  style?: ViewStyle;
+}
+
+export const HeroSection = ({ style }: Props) => {
   const [searchText, setSearchText] = useState('');
-
-  const insets = useSafeAreaInsets();
 
   const handleChangeSeachBarText = (value: string) => {
     setSearchText(value);
@@ -19,8 +20,8 @@ export const HeroSection = () => {
 
   return (
     <View
+      style={style}
       className="relative -mx-7 -mt-7 gap-4 overflow-hidden rounded-b-3xl bg-neutral-100 p-7 dark:bg-neutral-800"
-      style={{ paddingTop: insets.top }}
     >
       <ArcsBackground />
 
@@ -43,7 +44,6 @@ export const HeroSection = () => {
 
       <HeroCard {...heroCardMock} />
 
-      {/* <DefaultCard padding="none" fadeIn="down" className="bg-transparent py-2"> */}
       <SearchBar
         className="rounded-full bg-neutral-100"
         value={searchText}
@@ -51,7 +51,6 @@ export const HeroSection = () => {
         onChange={handleChangeSeachBarText}
         size="xl"
       />
-      {/* </DefaultCard> */}
     </View>
   );
 };

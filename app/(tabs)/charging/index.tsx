@@ -52,7 +52,11 @@ export default function ChargingPage() {
               chargerId: data,
               stationName: 'Estação Central',
               location: 'Shopping Iguatemi',
-              connectorLabel: 'CCS2 · 50 kW',
+              connector: {
+                id: 'A042',
+                name: 'CCS2',
+                type: '50 kW',
+              },
               batteryLevel: 45,
               isCharging: true,
               currentPower: 7.4,
