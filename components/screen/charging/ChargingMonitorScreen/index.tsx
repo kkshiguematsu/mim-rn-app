@@ -1,152 +1,147 @@
 import { Page } from '@/components/layout/page';
-import { ActiveChargingCard } from '@/components/shared/cards/ActiveChargingCard';
+import { HistorySectionWidget } from '@/components/widget/HistorySectionWidget';
+import { useCharging } from '@/context/ChargingContext';
+import { Clock, CreditCard, Square, Zap } from 'lucide-react-native';
+import { useEffect } from 'react';
+import { Alert, Pressable, View } from 'react-native';
+
+import { TintedBadge } from '@/components/shared/badge/TintedBadge';
+import { ArcBatteryCard } from '@/components/shared/cards/ArcBatteryCard';
+import { ChargeLimitCard } from '@/components/shared/cards/ChargeLimitsCard';
+import { SessionDetailsCard } from '@/components/shared/cards/SessionDetailsCard';
 import { StatusCard } from '@/components/shared/cards/StatusCard';
-import { Card } from '@/components/ui/card';
+import { Grid, GridItem } from '@/components/ui/grid';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { HistorySectionWidget } from '@/components/widget/HistorySectionWidget';
-import { useCharging } from '@/context/ChargingContext';
-import { Clock, DollarSign, Gauge, MapPin, Settings2, Zap } from 'lucide-react-native';
-import { useEffect, useState } from 'react';
-import { Alert, Pressable, View } from 'react-native';
+import { formatTimeToMinutes } from '@/utils/formatTime';
+
+function StopButton({ onPress }: { onPress: () => void }) {
+  return (
+    <Pressable
+      onPress={onPress}
+      className="flex-row items-center justify-center gap-2 rounded-[20px] bg-[rgba(255,59,48,0.10)] py-4"
+      style={({ pressed }) => pressed && { opacity: 0.7 }}
+    >
+      <Icon as={Square} size="sm" className="text-[#ff3b30]" />
+      <Text className="text-[16px] font-semibold text-[#ff3b30]">Encerrar sessão</Text>
+    </Pressable>
+  );
+}
 
 export default function ChargingMonitorPage() {
-  const [isCharging, setIsCharging] = useState(true);
-  const [energyAdded, setEnergyAdded] = useState(12.4);
-  const [currentPower, setCurrentPower] = useState(7.4);
-  const [timeRemaining, setTimeRemaining] = useState(28);
-  const [cost, setCost] = useState(12.5);
-  const [rangeAdded, setRangeAdded] = useState(85);
-
   const { activeSession, updateSession, stopCharging } = useCharging();
 
+  if (!activeSession) return null;
+
+  const batteryLevel = activeSession?.batteryLevel;
+  const timeRemaining = activeSession?.time?.remaining;
+
+  const powerKw = 7.4;
+  const energyKwh = 12.4;
+  const costBrl = 12.5;
+  const rangeKm = 85;
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    if (!activeSession) return;
+    const id = setInterval(() => {
       updateSession({
-        batteryLevel: activeSession ? activeSession.batteryLevel + 1 : 0,
+        batteryLevel: activeSession.batteryLevel + 1,
         time: {
-          remaining: activeSession ? activeSession.time.remaining - 1 : 0,
-          elapsed: 20,
+          remaining: activeSession.time.remaining - 1,
+          elapsed: (activeSession.time.elapsed ?? 0) + 1,
         },
       });
     }, 3000);
-
-    return () => clearInterval(interval);
+    return () => clearInterval(id);
   }, [activeSession]);
 
-  const handleStopCharging = () => {
+  const handleStop = () =>
     Alert.alert('Parar Carregamento', 'Deseja finalizar o carregamento agora?', [
       { text: 'Cancelar', style: 'cancel' },
-      {
-        text: 'Parar',
-        style: 'destructive',
-        onPress: () => {
-          stopCharging();
-
-          // Tela de resumo ???
-        },
-      },
+      { text: 'Parar', style: 'destructive', onPress: stopCharging },
     ]);
+
+  const setChargeLimit = (limit: number) => {
+    updateSession({ chargeLimit: limit });
   };
 
-  if (!activeSession) return;
-
   return (
-    <Page.Scroll needsPadding>
-      <View className="pb-4 pt-2">
-        <View className="flex-row items-center justify-between">
-          <View>
-            <Text className="text-sm text-neutral-500 dark:text-neutral-400">Carregador #A042</Text>
-          </View>
-          <Pressable className="rounded-full bg-neutral-200 p-2 dark:bg-neutral-800">
-            <Icon as={Settings2} className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
-          </Pressable>
+    <Page.Scroll className="relative gap-4" needsPadding stickyHeaderIndices={[0]}>
+      <View className="fixed flex-row items-center justify-between pb-4 pt-2">
+        <View>
+          <Heading size="2xl" className="mt-1 text-black" style={{ letterSpacing: -0.6 }}>
+            Carregando
+          </Heading>
         </View>
+        <TintedBadge label="Sessão ativa" size="md" color="green" animated />
       </View>
 
-      <View className="pb-6">
-        <View className="flex-row flex-wrap gap-3">
-          <ActiveChargingCard onStopCharging={handleStopCharging} />
-          <StatusCard
-            title="Potência"
-            icon={Zap}
-            color="primary"
-            content={`${currentPower.toFixed(1)} kW`}
-          />
+      <ArcBatteryCard
+        batteryLevel={batteryLevel}
+        stationName={activeSession.stationName}
+        stationAddress={activeSession.location}
+        connectorLabel={activeSession.connectorLabel}
+        powerKw={powerKw}
+        energyAddedKwh={energyKwh}
+        costBrl={costBrl}
+        timeRemainingMin={timeRemaining}
+      />
+
+      <Grid className="gap-4" _extra={{ className: 'grid-cols-2' }}>
+        <GridItem _extra={{ className: 'col-span-1' }}>
           <StatusCard
             title="Tempo Restante"
-            color="blue"
+            content={formatTimeToMinutes(timeRemaining)}
+            unit="min"
             icon={Clock}
-            content={`${Math.floor(timeRemaining)} min`}
+            color="blue"
           />
+        </GridItem>
+        <GridItem _extra={{ className: 'col-span-1' }}>
           <StatusCard
-            title="Custo Atual"
-            icon={DollarSign}
-            color="green"
-            content={`R$ ${cost.toFixed(2)}`}
+            title="Tempo Decorrido"
+            content={formatTimeToMinutes(activeSession.time?.elapsed)}
+            unit="min"
+            icon={Clock}
+            color="violet"
           />
+        </GridItem>
+        <GridItem _extra={{ className: 'col-span-1' }}>
           <StatusCard
             title="Autonomia"
-            icon={Gauge}
-            color="purple"
-            content={`+ ${Math.round(rangeAdded)} km`}
+            content={`+${Math.round(rangeKm)}`}
+            unit="km"
+            icon={Zap}
+            color="green"
           />
-        </View>
+        </GridItem>
+        <GridItem _extra={{ className: 'col-span-1' }}>
+          <StatusCard title="Custo por kWh" content="R$ 0,63" icon={CreditCard} color="amber" />
+        </GridItem>
+      </Grid>
+
+      <ChargeLimitCard limit={activeSession.chargeLimit} onLimitChange={setChargeLimit} />
+
+      <SessionDetailsCard
+        startTime="14:23"
+        endTime="15:51"
+        energyKwh={energyKwh}
+        tariff={0.63}
+        location="Shopping Iguatemi · Vaga 42"
+        locationSub="Rua Exemplo, 123"
+        paymentLabel="Visa •••• 4321"
+      />
+
+      {/* ── 6. Stop button ── */}
+      <View className="">
+        <StopButton onPress={handleStop} />
       </View>
 
-      <View className="pb-6">
-        <Card className="p-4">
-          <Heading size="sm" className="mb-4 text-neutral-900 dark:text-neutral-100">
-            Detalhes da Sessão
-          </Heading>
-
-          <View className="gap-3">
-            <View className="flex-row items-center justify-between">
-              <Text className="text-sm text-neutral-600 dark:text-neutral-400">
-                Energia Adicionada
-              </Text>
-              <Text className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                {energyAdded.toFixed(1)} kWh
-              </Text>
-            </View>
-
-            <View className="flex-row items-center justify-between">
-              <Text className="text-sm text-neutral-600 dark:text-neutral-400">
-                Início do Carregamento
-              </Text>
-              <Text className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                14:23
-              </Text>
-            </View>
-
-            <View className="flex-row items-center justify-between">
-              <Text className="text-sm text-neutral-600 dark:text-neutral-400">
-                Término Previsto
-              </Text>
-              <Text className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                15:51
-              </Text>
-            </View>
-
-            <View className="my-2 h-px bg-neutral-200 dark:bg-neutral-800" />
-
-            <View className="flex-row items-start gap-2">
-              <Icon as={MapPin} className="mt-0.5 h-4 w-4 text-neutral-500 dark:text-neutral-400" />
-              <View className="flex-1">
-                <Text className="text-sm text-neutral-600 dark:text-neutral-400">
-                  Shopping Iguatemi - Vaga 42
-                </Text>
-                <Text className="text-xs text-neutral-500 dark:text-neutral-500">
-                  Rua Exemplo, 123
-                </Text>
-              </View>
-            </View>
-          </View>
-        </Card>
-      </View>
-
+      {/* ── 7. History ── */}
       <HistorySectionWidget />
+
+      <View style={{ height: 8 }} />
     </Page.Scroll>
   );
 }

@@ -13,6 +13,7 @@ export const PageScroll = ({
   className,
   contentContainerStyle,
   hasHeader = true,
+  stickyHeaderIndices,
 }: PageScrollProps) => {
   const { activeSession } = useCharging();
   const bottomTabBarHeight = useBottomMenuHeight();
@@ -38,6 +39,7 @@ export const PageScroll = ({
       }}
       contentInsetAdjustmentBehavior={hasHeader ? 'automatic' : 'never'}
       showsVerticalScrollIndicator={false}
+      stickyHeaderIndices={stickyHeaderIndices}
     >
       {children}
     </ScrollView>

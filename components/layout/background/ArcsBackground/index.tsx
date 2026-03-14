@@ -1,57 +1,20 @@
 import { View } from 'react-native';
 
-/**
- * ArcsBackground
- * Decorative circular arcs for hero section background.
- * Parent must have `overflow-hidden` and `relative` (position: relative).
- */
+const GLOW_COLOR_400 = 'rgb(6, 102, 147)';
+
 export const ArcsBackground = () => {
   return (
     <>
-      {/* Arc 1 — largest, outermost ring */}
       <View
+        className="absolute -right-10 -top-4 h-52 w-52 rounded-full bg-primary-400"
         style={{
-          width: 300,
-          height: 300,
-          top: -160,
-          right: -80,
-          borderRadius: 150,
-          borderWidth: 1,
-          //   borderColor: 'bg',
-        }}
-        className="absolute"
-      />
-
-      {/* Arc 2 — mid ring */}
-      <View
-        style={{
-          width: 220,
-          height: 220,
-          top: -100,
-          right: -20,
-          borderRadius: 110,
-          borderWidth: 1,
-          //   borderColor: 'bg',
-        }}
-        className="absolute"
-      />
-
-      {/* Arc 3 — small radial glow (no border, just a soft blob) */}
-      <View
-        style={{
-          width: 80,
-          height: 80,
-          top: 32,
-          right: 24,
-          borderRadius: 40,
-          //   backgroundColor: 'bg',
-          // soft edges via shadow on iOS
-          shadowColor: 'rgba(26,122,74,1)',
+          opacity: 0.5,
+          shadowColor: GLOW_COLOR_400,
           shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 0.15,
-          shadowRadius: 24,
+          shadowOpacity: 1,
+          shadowRadius: 40,
+          elevation: 0,
         }}
-        className="absolute"
       />
     </>
   );

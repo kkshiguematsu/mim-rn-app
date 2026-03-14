@@ -4,6 +4,7 @@ import { Text } from '@/components/ui/text';
 import { useCharging } from '@/context/ChargingContext';
 import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
+import { formatTimeToMinutes } from '@/utils/formatTime';
 import { useRouter } from 'expo-router';
 import { Zap } from 'lucide-react-native';
 import { useEffect, useMemo } from 'react';
@@ -62,7 +63,7 @@ export const FloatingChargingView = () => {
   const remainingMin = useMemo(() => {
     if (!activeSession) return null;
 
-    return (activeSession.time.remaining / 60).toFixed(0);
+    return formatTimeToMinutes(activeSession.time.remaining);
   }, [activeSession?.time.remaining]);
 
   const batteryPct = activeSession ? (activeSession.batteryLevel / 100) * 100 : 0;

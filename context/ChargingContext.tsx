@@ -7,6 +7,7 @@ interface ChargingSession {
   isCharging: boolean;
   batteryLevel: number;
   currentPower: number;
+  connectorLabel: string;
   time: {
     remaining: number;
     elapsed: number;
@@ -14,6 +15,7 @@ interface ChargingSession {
   energyAdded: number;
   cost: number;
   location: string;
+  chargeLimit: number;
 }
 
 interface ChargingContextType {

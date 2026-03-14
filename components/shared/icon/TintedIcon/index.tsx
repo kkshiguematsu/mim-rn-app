@@ -1,12 +1,12 @@
 import { Icon } from '@/components/ui/icon';
 import clsx from 'clsx';
 import { View } from 'react-native';
-import { ColorIcons, iconColorStyles, iconContainerColorStyles } from './styles';
+import { ColorIcons, iconColorStyles, iconContainerColorStyles, SizeIcons } from './styles';
 
 interface Props {
   icon: React.ElementType;
   color?: ColorIcons;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: SizeIcons;
   className?: string;
 }
 

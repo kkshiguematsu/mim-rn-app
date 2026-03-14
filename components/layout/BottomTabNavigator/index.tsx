@@ -13,7 +13,7 @@ export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTab
 
   return (
     <View
-      className="absolute inset-x-6 bottom-0 flex flex-row justify-evenly overflow-hidden rounded-full bg-primary-500 py-3"
+      className="absolute inset-x-6 bottom-0 flex flex-row justify-evenly overflow-hidden rounded-full bg-primary-800 py-3"
       style={{
         marginBottom: insets.bottom,
       }}

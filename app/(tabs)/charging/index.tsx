@@ -49,8 +49,10 @@ export default function ChargingPage() {
             setIsScannerVisible(false);
             startCharging({
               id: 'session-123',
-              stationName: 'Estação Central',
               chargerId: data,
+              stationName: 'Estação Central',
+              location: 'Shopping Iguatemi',
+              connectorLabel: 'CCS2 · 50 kW',
               batteryLevel: 45,
               isCharging: true,
               currentPower: 7.4,
@@ -60,7 +62,7 @@ export default function ChargingPage() {
               },
               energyAdded: 10,
               cost: 12.5,
-              location: 'Shopping Iguatemi',
+              chargeLimit: 100,
             });
           },
         },

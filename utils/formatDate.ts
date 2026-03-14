@@ -8,16 +8,6 @@ export function formatDateToDMY(timestamp: number): string {
   }).format(dateObject);
 }
 
-export function formatTimeToHM(timestamp: number): string {
-  const dateObject = new Date(timestamp);
-
-  return new Intl.DateTimeFormat('pt-BR', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(dateObject);
-}
-
 export const formatDateInput = (value: string) => {
   const numbers = value.replace(/\D/g, '');
   const limited = numbers.slice(0, 8);

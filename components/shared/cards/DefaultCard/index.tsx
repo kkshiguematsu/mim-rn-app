@@ -1,7 +1,7 @@
 import { Card, ICardProps } from '@/components/ui/card';
 import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
 import Animated from 'react-native-reanimated';
-import { cardStyles } from '../StatusCard/styles';
+import { cardStyles } from './styles';
 interface DefaultCardProps extends ICardProps {
   children?: React.ReactNode;
   padding?: 'none' | 'sm' | 'md' | 'lg';

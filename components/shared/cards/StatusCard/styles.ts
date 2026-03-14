@@ -1,37 +1,4 @@
-import { tva } from '@gluestack-ui/utils/nativewind-utils';
 import { ColorIcons } from '../../icon/TintedIcon/styles';
-
-export const cardStyles = tva({
-  base: 'shadow-sm shadow-neutral-400/60 rounded-2xl h-auto',
-
-  variants: {
-    size: {
-      sm: '',
-      md: '',
-      lg: '',
-      full: 'w-full',
-    },
-
-    variant: {
-      default: '',
-      elevated: 'shadow-lg',
-      outlined: 'border border-neutral-200 dark:border-neutral-800',
-    },
-
-    padding: {
-      none: 'p-0',
-      sm: 'p-2',
-      md: 'p-4',
-      lg: 'p-6',
-    },
-  },
-
-  defaultVariants: {
-    size: 'md',
-    variant: 'default',
-    padding: 'md',
-  },
-});
 
 export const trendColorStyles: Record<ColorIcons, string> = {
   primary: 'text-primary-500',
@@ -58,11 +25,3 @@ export const trendColorStyles: Record<ColorIcons, string> = {
   pink: 'text-pink-500',
   rose: 'text-rose-500',
 };
-
-export const titleStyles = tva({
-  base: 'font-medium text-neutral-500 dark:text-neutral-400',
-});
-
-export const contentStyle = tva({
-  base: 'font-bold text-neutral-900 dark:text-neutral-100',
-});

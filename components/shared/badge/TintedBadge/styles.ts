@@ -1,42 +1,8 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 
-export type TailwindColor =
-  | 'slate'
-  | 'gray'
-  | 'zinc'
-  | 'neutral'
-  | 'stone'
-  | 'red'
-  | 'orange'
-  | 'amber'
-  | 'yellow'
-  | 'lime'
-  | 'green'
-  | 'emerald'
-  | 'teal'
-  | 'cyan'
-  | 'sky'
-  | 'blue'
-  | 'indigo'
-  | 'violet'
-  | 'purple'
-  | 'fuchsia'
-  | 'pink'
-  | 'rose'
-  | 'primary';
-
-export type ColorIcons = TailwindColor;
-export type SizeIcons = 'sm' | 'md' | 'lg' | 'xl';
-
-export const iconContainerColorStyles = tva({
-  base: '',
+export const badgeContainerStyles = tva({
+  base: 'flex-row items-center gap-1.5 self-start rounded-full px-3 py-1',
   variants: {
-    size: {
-      sm: 'rounded-lg p-1.5',
-      md: 'rounded-lg p-2',
-      lg: 'rounded-lg p-2.5',
-      xl: 'rounded-xl p-3',
-    },
     color: {
       primary: 'bg-primary-100 dark:bg-primary-900/30',
       slate: 'bg-slate-100 dark:bg-slate-900/30',
@@ -63,21 +29,44 @@ export const iconContainerColorStyles = tva({
       rose: 'bg-rose-100 dark:bg-rose-900/30',
     },
   },
-  defaultVariants: {
-    color: 'neutral',
-    size: 'md',
-  },
+  defaultVariants: { color: 'neutral' },
 });
 
-export const iconColorStyles = tva({
-  base: '',
+export const badgeDotStyles = tva({
+  base: 'h-[7px] w-[7px] rounded-full',
   variants: {
-    size: {
-      sm: 'h-3.5 w-3.5',
-      md: 'h-4 w-4',
-      lg: 'h-5 w-5',
-      xl: 'h-6 w-6',
+    color: {
+      primary: 'bg-primary-500',
+      slate: 'bg-slate-500',
+      gray: 'bg-gray-500',
+      zinc: 'bg-zinc-500',
+      neutral: 'bg-neutral-500',
+      stone: 'bg-stone-500',
+      red: 'bg-red-500',
+      orange: 'bg-orange-500',
+      amber: 'bg-amber-500',
+      yellow: 'bg-yellow-500',
+      lime: 'bg-lime-500',
+      green: 'bg-green-500',
+      emerald: 'bg-emerald-500',
+      teal: 'bg-teal-500',
+      cyan: 'bg-cyan-500',
+      sky: 'bg-sky-500',
+      blue: 'bg-blue-500',
+      indigo: 'bg-indigo-500',
+      violet: 'bg-violet-500',
+      purple: 'bg-purple-500',
+      fuchsia: 'bg-fuchsia-500',
+      pink: 'bg-pink-500',
+      rose: 'bg-rose-500',
     },
+  },
+  defaultVariants: { color: 'neutral' },
+});
+
+export const badgeTextStyles = tva({
+  base: ' font-semibold',
+  variants: {
     color: {
       primary: 'text-primary-600 dark:text-primary-400',
       slate: 'text-slate-600 dark:text-slate-400',
@@ -104,8 +93,5 @@ export const iconColorStyles = tva({
       rose: 'text-rose-600 dark:text-rose-400',
     },
   },
-  defaultVariants: {
-    color: 'neutral',
-    size: 'md',
-  },
+  defaultVariants: { color: 'neutral' },
 });

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, {
@@ -50,17 +51,14 @@ export const SegmentBar = ({ index, isFilled, isLast }: SegmentProps) => {
   }));
 
   return (
-    <View className="relative flex-1" style={{ height: 5 }}>
-      <View className="flex-1 overflow-hidden rounded-full" style={{ height: 5 }}>
+    <View className="relative h-1 flex-1">
+      <View className="h-1 flex-1 overflow-hidden rounded-full">
         <Animated.View
-          style={[
-            {
-              flex: 1,
-              height: 5,
-              backgroundColor: isFilled ? (isLast ? LAST_COLOR : FILLED_COLOR) : EMPTY_COLOR,
-            },
-            animStyle,
-          ]}
+          className={clsx(
+            'h-1 flex-1',
+            isFilled ? (isLast ? 'bg-green-400' : 'bg-green-600') : 'bg-white/10'
+          )}
+          style={animStyle}
         />
       </View>
 

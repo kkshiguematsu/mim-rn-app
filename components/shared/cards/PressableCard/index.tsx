@@ -2,7 +2,7 @@ import { Card } from '@/components/ui/card';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
 import { Pressable } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { cardStyles } from '../StatusCard/styles';
+import { cardStyles } from '../DefaultCard/styles';
 
 interface Props {
   children?: React.ReactNode;

@@ -44,7 +44,10 @@ export const HeroCard = ({
   const filledSegments = Math.round((batteryPct / 100) * SEGMENTS);
 
   return (
-    <DefaultCard size="lg" className="overflow-hidden rounded-2xl bg-primary-500">
+    <DefaultCard
+      size="lg"
+      className="overflow-hidden rounded-2xl bg-primary-800 dark:bg-primary-700"
+    >
       <GridTexture width={500} height={200} />
 
       <View className="gap-4">
@@ -53,15 +56,15 @@ export const HeroCard = ({
             <Text className="font-bold text-white" size="xl">
               {model}
             </Text>
-            <View className="self-start rounded border border-gray-500/50 bg-gray-500/20 px-2 py-0.5">
-              <Text className="font-medium text-gray-500" size="xs">
+            <View className="self-start rounded border border-neutral-400/50 bg-neutral-400/20 px-2 py-0.5">
+              <Text className="font-medium text-neutral-400" size="xs">
                 {plate}
               </Text>
             </View>
           </View>
 
-          <View className="rounded-full border border-green-600/50 bg-green-600/20 px-3 py-1">
-            <Text className="text-xs font-semibold text-green-600">{connector}</Text>
+          <View className="rounded-full border border-green-400/50 bg-green-400/20 px-3 py-1">
+            <Text className="text-xs font-semibold text-green-400">{connector}</Text>
           </View>
         </View>
 
@@ -69,7 +72,7 @@ export const HeroCard = ({
           <View className="flex-row items-end gap-1">
             <Text className="font-black text-white" size="6xl">
               {batteryPct}
-              <Text className="font-medium text-gray-500" size="2xl">
+              <Text className="font-medium text-neutral-400" size="2xl">
                 %
               </Text>
             </Text>
@@ -79,7 +82,7 @@ export const HeroCard = ({
             <Text className="font-semibold text-white" size="lg">
               {rangeKm} km
             </Text>
-            <Text size="xs" className="text-gray-500">
+            <Text size="xs" className="text-neutral-400">
               autonomia restante
             </Text>
           </View>
