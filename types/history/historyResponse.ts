@@ -1,22 +1,37 @@
-export interface HistoryResponse {
-  date: number;
-  id: string;
-  duration: number;
-  max_power: string;
-  batteryPercent: number;
-  kwh: number;
-  location: {
-    city: string;
-    address: string;
-  };
-  price: {
-    value: number;
-    token: string;
-  };
-  car: {
-    model: string;
-    license_plate: string;
-  };
+export type SessionEndReason =
+  | 'limit_percent'
+  | 'limit_brl'
+  | 'limit_kwh'
+  | 'user_stopped'
+  | 'error'
+  | 'disconnected';
+
+export interface HistoryLocation {
+  city: string;
+  address: string;
 }
 
-export type periodFiltersType = 'todos' | 'dia' | 'semana' | 'mês' | 'ano';
+export interface HistoryPrice {
+  value: number;
+  currency: string;
+  perKwh: number;
+}
+
+export interface HistoryCar {
+  model: string;
+  licensePlate: string;
+}
+
+export interface HistoryResponse {
+  id: string;
+  date: number;
+  duration: number;
+  maxPowerKw: number;
+  batteryStart: number;
+  batteryEnd: number;
+  energyKwh: number;
+  endReason: SessionEndReason;
+  location: HistoryLocation;
+  price: HistoryPrice;
+  car: HistoryCar;
+}

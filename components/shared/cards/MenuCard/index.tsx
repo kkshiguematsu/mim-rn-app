@@ -6,10 +6,11 @@ import { MenuItem, MenuItemProps } from './MenuItems';
 interface Props {
   rows?: MenuItemProps[];
   className?: string;
+  size?: 'sm' | 'md' | 'lg';
   sizeIcon?: SizeIcons;
 }
 
-export const MenuCard = ({ rows, sizeIcon = 'md', className }: Props) => {
+export const MenuCard = ({ rows, size, sizeIcon = 'md', className }: Props) => {
   return (
     <DefaultCard
       className={clsx('overflow-hidden rounded-2xl', className)}
@@ -17,7 +18,7 @@ export const MenuCard = ({ rows, sizeIcon = 'md', className }: Props) => {
       fadeIn="down"
     >
       {rows?.map((props, i) => (
-        <MenuItem key={i} {...props} sizeIcon={sizeIcon} />
+        <MenuItem key={i} {...props} size={size} sizeIcon={sizeIcon} />
       ))}
     </DefaultCard>
   );

@@ -5,7 +5,7 @@ import { FormControl } from '@/components/ui/form-control';
 import { Icon } from '@/components/ui/icon';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { User } from '@/types/user/user.type';
-import { formatDateInput } from '@/utils/formatDate';
+import { formatDateInput } from '@/utils/Date.utils';
 import { useNavigation } from 'expo-router';
 import { Edit } from 'lucide-react-native';
 import { useEffect, useState } from 'react';

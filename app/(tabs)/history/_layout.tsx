@@ -13,13 +13,7 @@ export default function HistoryStackLayout() {
       <Stack.Screen
         name="index"
         options={{
-          title: 'Histórico',
-          headerTitleStyle: {
-            color: titleColor,
-          },
-          headerShown: true,
-          headerTransparent: true,
-          headerBlurEffect: blurEffectColor,
+          headerShown: false,
         }}
       />
       <Stack.Screen

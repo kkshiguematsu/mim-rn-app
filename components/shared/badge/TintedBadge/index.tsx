@@ -1,5 +1,6 @@
+import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -14,11 +15,20 @@ import { badgeContainerStyles, badgeDotStyles, badgeTextStyles } from './styles'
 interface Props {
   label: string;
   color?: TailwindColor;
+  icon?: React.ElementType;
   size?: 'xs' | 'sm' | 'md';
   animated?: boolean;
+  className?: string;
 }
 
-export const TintedBadge = ({ label, color = 'neutral', size = 'xs', animated = false }: Props) => {
+export const TintedBadge = ({
+  label,
+  icon,
+  color = 'neutral',
+  size = 'xs',
+  animated = false,
+  className,
+}: Props) => {
   const opacity = useSharedValue(1);
 
   useEffect(() => {
@@ -33,8 +43,9 @@ export const TintedBadge = ({ label, color = 'neutral', size = 'xs', animated = 
   const dotAnimatedStyle = useAnimatedStyle(() => ({ opacity: opacity.value }));
 
   return (
-    <View className={badgeContainerStyles({ color })}>
+    <View className={badgeContainerStyles({ color, class: className })}>
       {animated && <Animated.View style={dotAnimatedStyle} className={badgeDotStyles({ color })} />}
+      {icon && <Icon as={icon} size={size} className={badgeTextStyles({ color })} />}
       <Text size={size} className={badgeTextStyles({ color })}>
         {label}
       </Text>

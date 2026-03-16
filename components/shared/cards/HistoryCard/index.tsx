@@ -3,7 +3,7 @@ import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
 import { HistoryResponse } from '@/types/history/historyResponse';
-import { formatDateToDMY } from '@/utils/formatDate';
+import { formatDateToDMY } from '@/utils/Date.utils';
 import { formatTimeToHM } from '@/utils/formatTime';
 import { useRouter } from 'expo-router';
 import { Battery, Calendar, Clock, Zap } from 'lucide-react-native';
@@ -61,7 +61,7 @@ export const HistoryCard = ({ data }: HistoryCardProps) => {
                 R$ {data.price.value.toFixed(2)}
               </Text>
               <Text className="text-xs font-medium text-green-600 dark:text-green-400">
-                {data.batteryPercent}%
+                {data.batteryEnd}%
               </Text>
             </View>
           </View>
@@ -75,7 +75,7 @@ export const HistoryCard = ({ data }: HistoryCardProps) => {
             <View className="flex-row items-center gap-1">
               <Icon as={Zap} className="h-4 w-4 text-primary-400" />
               <Text className="text-sm text-neutral-600 dark:text-neutral-400">
-                {data.kwh.toFixed(1)} kWh
+                {data.energyKwh.toFixed(1)} kWh
               </Text>
             </View>
             <View className="flex-row items-center gap-1">

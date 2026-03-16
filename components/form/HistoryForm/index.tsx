@@ -5,13 +5,19 @@ import { Icon } from '@/components/ui/icon';
 import { Menu, MenuItem, MenuItemLabel } from '@/components/ui/menu';
 import { VStack } from '@/components/ui/vstack';
 import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
-import { periodFiltersType } from '@/types/history/historyResponse';
-import { Calendar, DollarSign, ListFilter, MoveDown, MoveUp, Zap } from 'lucide-react-native';
+import { Calendar, DollarSign, Funnel, MoveDown, MoveUp, Zap } from 'lucide-react-native';
 import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-const periodFilters: periodFiltersType[] = ['todos', 'dia', 'semana', 'mês', 'ano'];
+const PERIOD_FILTERS = [
+  'Todos',
+  'Hoje',
+  'Esta semana',
+  'Este mês',
+  `${new Date().getFullYear() - 1}`,
+];
+type PeriodFilter = (typeof PERIOD_FILTERS)[number];
 
 type menuFiltersType = {
   value: 'date' | 'price' | 'kw';
@@ -21,7 +27,7 @@ type menuFiltersType = {
 
 export const HistoryForm = () => {
   const [searchText, setSearchText] = useState('');
-  const [periodFilter, setPeriodFilter] = useState<periodFiltersType>('todos');
+  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>(PERIOD_FILTERS[0]);
   const [sortField, setSortField] = useState<'date' | 'price' | 'kw'>('date');
   const [sortDirection, setSortDirection] = useState('desc');
 
@@ -55,7 +61,7 @@ export const HistoryForm = () => {
     }
   };
 
-  const handleSetPeriodFilter = (period: periodFiltersType) => {
+  const handleSetPeriodFilter = (period: PeriodFilter) => {
     setPeriodFilter(period);
   };
 
@@ -67,10 +73,9 @@ export const HistoryForm = () => {
     <VStack className="pb-4" space="md">
       <HStack className="items-center px-7" space="md">
         <SearchBar
-          className="rounded-full"
           value={searchText}
           placeholder={'Buscar'}
-          size="xl"
+          size="lg"
           onChange={handleChangeSearchText}
           hasFilter={
             <Menu
@@ -81,7 +86,7 @@ export const HistoryForm = () => {
                   <Pressable {...triggerProps}>
                     {({ pressed }) => (
                       <View className="p-3">
-                        <Icon as={ListFilter} />
+                        <Icon className="text-typography-400" as={Funnel} />
                       </View>
                     )}
                   </Pressable>
@@ -119,10 +124,10 @@ export const HistoryForm = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerClassName="gap-2 px-7"
       >
-        {periodFilters.map((item) => (
+        {PERIOD_FILTERS.map((item) => (
           <Button
             key={item}
-            size="md"
+            size="sm"
             variant={periodFilter === item ? 'solid' : 'outline'}
             className="rounded-full"
             onPress={() => handleSetPeriodFilter(item)}
