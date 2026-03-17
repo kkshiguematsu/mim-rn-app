@@ -16,7 +16,7 @@ export const HistoryMounthSection = ({ label, data }: Props) => {
       {
         label: 'Total do mês',
         value: (
-          <Text className="font-bold text-black dark:text-white">
+          <Text size="sm" className="font-bold text-black dark:text-white">
             R$ {data.reduce((acc, item) => acc + item.price.value, 0).toFixed(2)}
           </Text>
         ),
@@ -24,7 +24,7 @@ export const HistoryMounthSection = ({ label, data }: Props) => {
       {
         label: 'Energia total',
         value: (
-          <Text size="sm" className="font-bold text-green-700 dark:text-green-400">
+          <Text size="sm" className="font-bold text-green-600 dark:text-green-400">
             {data.reduce((acc, item) => acc + item.energyKwh, 0).toFixed(0)} kWh
           </Text>
         ),

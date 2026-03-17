@@ -1,91 +1,83 @@
-import { Card } from '@/components/ui/card';
-import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
 import { HistoryResponse } from '@/types/history/historyResponse';
 import { formatDateToDMY } from '@/utils/Date.utils';
 import { formatTimeToHM } from '@/utils/formatTime';
 import { useRouter } from 'expo-router';
-import { Battery, Calendar, Clock, Zap } from 'lucide-react-native';
+import { Zap } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 import Animated from 'react-native-reanimated';
+import { TintedIcon } from '../../icon/TintedIcon';
 
-export interface HistoryCardProps {
-  data: HistoryResponse;
-}
+// ── component ─────────────────────────────────────────────────────────────────
 
-export const HistoryCard = ({ data }: HistoryCardProps) => {
+export const HistoryCard = ({ data }: { data: HistoryResponse }) => {
   const router = useRouter();
   const { animatedStyle, pressInScale, pressOutScale } = usePressableScaleAnimation();
 
-  const dateFormatted = formatDateToDMY(Number(data.date));
-  const timeFormatted = formatTimeToHM(Number(data.date));
-
-  const navigateToDetails = (historyId: string) => {
-    router.push(`/(tabs)/history/[historyId]`);
-  };
-
-  const formatDuration = (minutes: number) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    if (hours > 0) {
-      return `${hours}h ${mins}min`;
-    }
-    return `${mins} min`;
-  };
+  const dateFormatted = formatDateToDMY(data.date);
+  const timeFormatted = formatTimeToHM(data.date);
+  const isBatteryFull = data.batteryEnd === 100 ? 'green' : 'blue';
 
   return (
-    <Animated.View style={animatedStyle}>
+    <Animated.View style={animatedStyle} className="overflow-hidden rounded-2xl bg-background-50">
       <Pressable
-        onPress={() => navigateToDetails(data.id)}
+        onPress={() => router.push(`/(tabs)/history/${data.id}`)}
         onPressIn={pressInScale}
         onPressOut={pressOutScale}
       >
-        <Card className="p-4">
-          <View className="mb-3 flex-row items-start justify-between">
-            <View className="flex-1 flex-row items-start gap-3">
-              <View className="mt-1 h-10 w-10 items-center justify-center rounded-lg bg-blue-100/50 dark:bg-primary-800">
-                <Icon as={Battery} className="h-5 w-5 text-primary-600 dark:text-primary-400" />
-              </View>
-              <View className="flex-1">
-                <Text className="font-semibold text-neutral-900 dark:text-neutral-100">
-                  {data.location.address}
-                </Text>
-                <Text className="text-xs text-neutral-500 dark:text-neutral-400">
-                  {data.location.city}
-                </Text>
-              </View>
-            </View>
-            <View className="items-end">
-              <Text className="font-semibold text-neutral-900 dark:text-neutral-100">
-                R$ {data.price.value.toFixed(2)}
-              </Text>
-              <Text className="text-xs font-medium text-green-600 dark:text-green-400">
-                {data.batteryEnd}%
-              </Text>
-            </View>
+        <View className="flex-row items-center gap-3 px-4 py-3.5">
+          <View className={`h-10 w-10 items-center justify-center rounded-[10px]`}>
+            <TintedIcon icon={Zap} size="lg" color={isBatteryFull} />
           </View>
-          <View className="flex-row items-center justify-between gap-5 border-t border-neutral-200 pt-3 dark:border-neutral-800">
-            <View className="flex-row items-center gap-1">
-              <Icon as={Clock} className="h-4 w-4 text-primary-400" />
-              <Text className="text-sm text-neutral-600 dark:text-neutral-400">
-                {formatDuration(data.duration)}
-              </Text>
-            </View>
-            <View className="flex-row items-center gap-1">
-              <Icon as={Zap} className="h-4 w-4 text-primary-400" />
-              <Text className="text-sm text-neutral-600 dark:text-neutral-400">
-                {data.energyKwh.toFixed(1)} kWh
-              </Text>
-            </View>
-            <View className="flex-row items-center gap-1">
-              <Icon as={Calendar} className="h-4 w-4 text-primary-400" />
-              <Text className="text-sm text-neutral-600 dark:text-neutral-400">
-                {dateFormatted}
-              </Text>
-            </View>
+
+          <View className="min-w-0 flex-1">
+            <Text className="font-medium text-neutral-900 dark:text-neutral-100" numberOfLines={1}>
+              {data.location.address}
+            </Text>
+            <Text className="text-xs text-neutral-400">
+              {dateFormatted} · {timeFormatted}
+            </Text>
           </View>
-        </Card>
+
+          <View className="items-end">
+            <Text className="font-semibold text-neutral-900 dark:text-neutral-100">
+              R$ {data.price.value.toFixed(2)}
+            </Text>
+            <Text className={`text-xs font-medium text-${isBatteryFull}-600`}>
+              {data.energyKwh.toFixed(1)} kWh · {data.batteryStart}%→{data.batteryEnd}%
+            </Text>
+          </View>
+        </View>
+
+        <View className="flex-row border-t border-neutral-200 dark:border-neutral-600">
+          <View className="flex-1 items-center py-2.5">
+            <Text size="sm" className="font-semibold text-black dark:text-neutral-200">
+              {data.maxPowerKw} kW
+            </Text>
+            <Text size="xs" className="text-neutral-400">
+              Potência
+            </Text>
+          </View>
+          <View className="w-px bg-neutral-200 dark:bg-neutral-600" />
+          <View className="flex-1 items-center py-2.5">
+            <Text size="sm" className="font-semibold text-black dark:text-neutral-200">
+              R$ {data.price.perKwh.toFixed(2)}
+            </Text>
+            <Text size="xs" className="text-neutral-400">
+              por kWh
+            </Text>
+          </View>
+          <View className="w-px bg-neutral-200 dark:bg-neutral-600" />
+          <View className="flex-1 items-center py-2.5">
+            <Text size="sm" className="font-semibold text-black dark:text-neutral-200">
+              +{Math.round((data.batteryEnd - data.batteryStart) * 3.16)} km
+            </Text>
+            <Text size="xs" className="text-neutral-400">
+              Autonomia
+            </Text>
+          </View>
+        </View>
       </Pressable>
     </Animated.View>
   );
