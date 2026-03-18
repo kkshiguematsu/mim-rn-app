@@ -5,10 +5,12 @@ const SEGMENTS = 10;
 
 interface BatteryBarProps {
   batteryPct: number;
+  filledColor?: string;
+  lastColor?: string;
 }
 
-export const BatteryBar = ({ batteryPct }: BatteryBarProps) => {
-  const filledSegments = Math.round((batteryPct / 100) * SEGMENTS);
+export const BatteryBar = ({ batteryPct, filledColor, lastColor }: BatteryBarProps) => {
+  const filled = Math.round((batteryPct / 100) * SEGMENTS);
 
   return (
     <View className="flex-row gap-1">
@@ -16,8 +18,10 @@ export const BatteryBar = ({ batteryPct }: BatteryBarProps) => {
         <SegmentBar
           key={i}
           index={i}
-          isFilled={i < filledSegments}
-          isLast={i === filledSegments - 1}
+          isFilled={i < filled}
+          isLast={i === filled - 1}
+          filledColor={filledColor}
+          lastColor={lastColor}
         />
       ))}
     </View>

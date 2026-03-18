@@ -12,7 +12,7 @@ import Animated, {
 import { TailwindColor } from '../../icon/TintedIcon/styles';
 import { badgeContainerStyles, badgeDotStyles, badgeTextStyles } from './styles';
 
-interface Props {
+export interface TintedBadgeProps {
   label: string;
   color?: TailwindColor;
   icon?: React.ElementType;
@@ -28,7 +28,7 @@ export const TintedBadge = ({
   size = 'xs',
   animated = false,
   className,
-}: Props) => {
+}: TintedBadgeProps) => {
   const opacity = useSharedValue(1);
 
   useEffect(() => {
