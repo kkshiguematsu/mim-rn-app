@@ -2,12 +2,12 @@ import { Section } from '@/components/section/Section';
 import { HistoryCard } from '@/components/shared/cards/HistoryCard';
 import { MenuCard } from '@/components/shared/cards/MenuCard';
 import { Text } from '@/components/ui/text';
-import { HistoryResponse } from '@/types/history/historyResponse';
+import { Session } from '@/types/history/Session.type';
 import { useMemo } from 'react';
 
 interface Props {
   label: string;
-  data: HistoryResponse[];
+  data: Session[];
 }
 
 export const HistoryMounthSection = ({ label, data }: Props) => {

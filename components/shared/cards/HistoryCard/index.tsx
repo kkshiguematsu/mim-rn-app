@@ -1,6 +1,7 @@
 import { Text } from '@/components/ui/text';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
-import { HistoryResponse } from '@/types/history/historyResponse';
+import { useSetSelectedSession } from '@/hooks/store/session/useSession';
+import { Session } from '@/types/history/Session.type';
 import { formatDateToDMY } from '@/utils/Date.utils';
 import { formatTimeToHM } from '@/utils/formatTime';
 import { useRouter } from 'expo-router';
@@ -9,20 +10,24 @@ import { Pressable, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { TintedIcon } from '../../icon/TintedIcon';
 
-// ── component ─────────────────────────────────────────────────────────────────
-
-export const HistoryCard = ({ data }: { data: HistoryResponse }) => {
+export const HistoryCard = ({ data }: { data: Session }) => {
   const router = useRouter();
+  const setSelectedSession = useSetSelectedSession();
   const { animatedStyle, pressInScale, pressOutScale } = usePressableScaleAnimation();
 
   const dateFormatted = formatDateToDMY(data.date);
   const timeFormatted = formatTimeToHM(data.date);
   const isBatteryFull = data.batteryEnd === 100 ? 'green' : 'blue';
 
+  const pushToHistoryDetailPage = (data: Session) => {
+    setSelectedSession(data);
+    router.push(`/(tabs)/history/${data.id}`);
+  };
+
   return (
     <Animated.View style={animatedStyle} className="overflow-hidden rounded-2xl bg-background-50">
       <Pressable
-        onPress={() => router.push(`/(tabs)/history/${data.id}`)}
+        onPress={() => pushToHistoryDetailPage(data)}
         onPressIn={pressInScale}
         onPressOut={pressOutScale}
       >

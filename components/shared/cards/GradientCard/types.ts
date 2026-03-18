@@ -1,7 +1,7 @@
-import { HistoryResponse } from '@/types/history/historyResponse';
+import { Session } from '@/types/history/Session.type';
 
 export interface GradientCardProps {
-  session: HistoryResponse;
+  session: Session;
   gradient: GradientTypes;
 
   icon?: IconCardType;

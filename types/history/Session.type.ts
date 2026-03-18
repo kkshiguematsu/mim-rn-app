@@ -6,23 +6,23 @@ export type SessionEndReason =
   | 'error'
   | 'disconnected';
 
-export interface HistoryLocation {
+export interface SessionLocation {
   city: string;
   address: string;
 }
 
-export interface HistoryPrice {
+export interface SessionPrice {
   value: number;
   currency: string;
   perKwh: number;
 }
 
-export interface HistoryCar {
+export interface SessionVehicle {
   model: string;
   licensePlate: string;
 }
 
-export interface HistoryResponse {
+export interface Session {
   id: string;
   date: number;
   duration: number;
@@ -31,7 +31,7 @@ export interface HistoryResponse {
   batteryEnd: number;
   energyKwh: number;
   endReason: SessionEndReason;
-  location: HistoryLocation;
-  price: HistoryPrice;
-  car: HistoryCar;
+  location: SessionLocation;
+  price: SessionPrice;
+  car: SessionVehicle;
 }

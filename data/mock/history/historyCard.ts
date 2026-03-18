@@ -1,7 +1,6 @@
-import { HistoryResponse } from '@/types/history/historyResponse';
+import { Session } from '@/types/history/Session.type';
 
-export const mockHistoryCards: HistoryResponse[] = [
-  // ── Março 2025 ────────────────────────────────────────────────────────────
+export const mockHistoryCards: Session[] = [
   {
     id: 'mar-001',
     date: new Date('2025-03-14T14:32:00').getTime(),
@@ -42,7 +41,6 @@ export const mockHistoryCards: HistoryResponse[] = [
     car: { model: 'Tesla Model 3', licensePlate: 'ABC-1D23' },
   },
 
-  // ── Fevereiro 2025 ────────────────────────────────────────────────────────
   {
     id: 'feb-001',
     date: new Date('2025-02-22T07:10:00').getTime(),
@@ -83,7 +81,6 @@ export const mockHistoryCards: HistoryResponse[] = [
     car: { model: 'Tesla Model 3', licensePlate: 'ABC-1D23' },
   },
 
-  // ── Janeiro 2025 ──────────────────────────────────────────────────────────
   {
     id: 'jan-001',
     date: new Date('2025-01-28T16:00:00').getTime(),
