@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Alert, Pressable, View } from 'react-native';
 
 import { TintedBadge } from '@/components/shared/badge/TintedBadge';
+import { TintedButton } from '@/components/shared/buttons/TintedButton';
 import { ArcBatteryCard } from '@/components/shared/cards/ArcBatteryCard';
 import { ChargeLimitCard } from '@/components/shared/cards/ChargeLimitsCard';
 import { SessionDetailsCard } from '@/components/shared/cards/SessionDetailsCard';
@@ -17,19 +18,6 @@ import { Text } from '@/components/ui/text';
 import { useBellAnimation } from '@/hooks/animations/useBellAnimation';
 import { formatTimeToMinutes } from '@/utils/formatTime';
 import Animated from 'react-native-reanimated';
-
-function StopButton({ onPress }: { onPress: () => void }) {
-  return (
-    <Pressable
-      onPress={onPress}
-      className="flex-row items-center justify-center gap-2 rounded-[20px] bg-[rgba(255,59,48,0.10)] py-4"
-      style={({ pressed }) => pressed && { opacity: 0.7 }}
-    >
-      <Icon as={Square} size="sm" className="text-[#ff3b30]" />
-      <Text className="text-[16px] font-semibold text-[#ff3b30]">Encerrar sessão</Text>
-    </Pressable>
-  );
-}
 
 export default function ChargingMonitorPage() {
   const [notifyOnComplete, setNotifyOnComplete] = useState(false);
@@ -176,7 +164,7 @@ export default function ChargingMonitorPage() {
       />
 
       <View className="">
-        <StopButton onPress={handleStop} />
+        <TintedButton label="Encerrar sessão" color="red" icon={Square} onPress={handleStop} />
       </View>
 
       <HistorySection />

@@ -1,0 +1,100 @@
+import { tva } from '@gluestack-ui/utils/nativewind-utils';
+import { TailwindColor } from '../../icon/TintedIcon/styles';
+
+export type ButtonColor = TailwindColor;
+
+export const buttonContainerStyles = tva({
+  base: 'flex-row items-center justify-center gap-2 rounded-[20px] py-4',
+  variants: {
+    color: {
+      primary: 'bg-primary-300 dark:bg-primary-700',
+      slate: 'bg-slate-100 dark:bg-slate-700',
+      gray: 'bg-gray-100 dark:bg-gray-700',
+      zinc: 'bg-zinc-100 dark:bg-zinc-700',
+      neutral: 'bg-neutral-300 dark:bg-neutral-700',
+      stone: 'bg-stone-100 dark:bg-stone-700',
+      red: 'bg-red-200 dark:bg-red-700',
+      orange: 'bg-orange-100 dark:bg-orange-700',
+      amber: 'bg-amber-100 dark:bg-amber-700',
+      yellow: 'bg-yellow-100 dark:bg-yellow-700',
+      lime: 'bg-lime-100 dark:bg-lime-700',
+      green: 'bg-green-100 dark:bg-green-700',
+      emerald: 'bg-emerald-100 dark:bg-emerald-700',
+      teal: 'bg-teal-100 dark:bg-teal-700',
+      cyan: 'bg-cyan-100 dark:bg-cyan-700',
+      sky: 'bg-sky-100 dark:bg-sky-700',
+      blue: 'bg-blue-100 dark:bg-blue-700',
+      indigo: 'bg-indigo-100 dark:bg-indigo-700',
+      violet: 'bg-violet-100 dark:bg-violet-700',
+      purple: 'bg-purple-100 dark:bg-purple-700',
+      fuchsia: 'bg-fuchsia-100 dark:bg-fuchsia-700',
+      pink: 'bg-pink-100 dark:bg-pink-700',
+      rose: 'bg-rose-100 dark:bg-rose-700',
+    },
+  },
+  defaultVariants: { color: 'neutral' },
+});
+
+export const buttonTextStyles = tva({
+  base: 'text-[16px] font-semibold',
+  variants: {
+    color: {
+      primary: 'text-primary-600 dark:text-primary-400',
+      slate: 'text-slate-600 dark:text-slate-400',
+      gray: 'text-gray-600 dark:text-gray-400',
+      zinc: 'text-zinc-600 dark:text-zinc-400',
+      neutral: 'text-neutral-600 dark:text-neutral-400',
+      stone: 'text-stone-600 dark:text-stone-400',
+      red: 'text-red-600 dark:text-red-400',
+      orange: 'text-orange-600 dark:text-orange-400',
+      amber: 'text-amber-600 dark:text-amber-400',
+      yellow: 'text-yellow-600 dark:text-yellow-400',
+      lime: 'text-lime-600 dark:text-lime-400',
+      green: 'text-green-600 dark:text-green-400',
+      emerald: 'text-emerald-600 dark:text-emerald-400',
+      teal: 'text-teal-600 dark:text-teal-400',
+      cyan: 'text-cyan-600 dark:text-cyan-400',
+      sky: 'text-sky-600 dark:text-sky-400',
+      blue: 'text-blue-600 dark:text-blue-400',
+      indigo: 'text-indigo-600 dark:text-indigo-400',
+      violet: 'text-violet-600 dark:text-violet-400',
+      purple: 'text-purple-600 dark:text-purple-400',
+      fuchsia: 'text-fuchsia-600 dark:text-fuchsia-400',
+      pink: 'text-pink-600 dark:text-pink-400',
+      rose: 'text-rose-600 dark:text-rose-400',
+    },
+  },
+  defaultVariants: { color: 'neutral' },
+});
+
+export const buttonIconStyles = tva({
+  base: 'h-4 w-4',
+  variants: {
+    color: {
+      primary: 'text-primary-600 dark:text-primary-400',
+      slate: 'text-slate-600 dark:text-slate-400',
+      gray: 'text-gray-600 dark:text-gray-400',
+      zinc: 'text-zinc-600 dark:text-zinc-400',
+      neutral: 'text-neutral-600 dark:text-neutral-400',
+      stone: 'text-stone-600 dark:text-stone-400',
+      red: 'text-red-600 dark:text-red-400',
+      orange: 'text-orange-600 dark:text-orange-400',
+      amber: 'text-amber-600 dark:text-amber-400',
+      yellow: 'text-yellow-600 dark:text-yellow-400',
+      lime: 'text-lime-600 dark:text-lime-400',
+      green: 'text-green-600 dark:text-green-400',
+      emerald: 'text-emerald-600 dark:text-emerald-400',
+      teal: 'text-teal-600 dark:text-teal-400',
+      cyan: 'text-cyan-600 dark:text-cyan-400',
+      sky: 'text-sky-600 dark:text-sky-400',
+      blue: 'text-blue-600 dark:text-blue-400',
+      indigo: 'text-indigo-600 dark:text-indigo-400',
+      violet: 'text-violet-600 dark:text-violet-400',
+      purple: 'text-purple-600 dark:text-purple-400',
+      fuchsia: 'text-fuchsia-600 dark:text-fuchsia-400',
+      pink: 'text-pink-600 dark:text-pink-400',
+      rose: 'text-rose-600 dark:text-rose-400',
+    },
+  },
+  defaultVariants: { color: 'neutral' },
+});
