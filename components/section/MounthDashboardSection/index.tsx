@@ -1,5 +1,6 @@
 import { StatusCard } from '@/components/shared/cards/StatusCard';
-import { ColorIcons, trendColorStyles } from '@/components/shared/cards/StatusCard/styles';
+import { trendColorStyles } from '@/components/shared/cards/StatusCard/styles';
+import { TailwindColor } from '@/components/shared/icon/TintedIcon/styles';
 import { Grid, GridItem } from '@/components/ui/grid';
 import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
@@ -9,8 +10,8 @@ import { Section } from '../Section';
 
 interface MonthlyStatConfig {
   icon: React.ElementType;
-  iconColor: ColorIcons;
-  trendColor: ColorIcons;
+  iconColor: TailwindColor;
+  trendColor: TailwindColor;
 }
 
 export const monthlyStatsConfig: Record<string, MonthlyStatConfig> = {

@@ -1,15 +1,18 @@
 import { Page } from '@/components/layout/page';
 import { TintedBadge } from '@/components/shared/badge/TintedBadge';
 import { DefaultCard } from '@/components/shared/cards/DefaultCard';
+import { SessionDetailsCard } from '@/components/shared/cards/SessionDetailsCard';
 import { SessionHeroCard } from '@/components/shared/cards/SessionHeroCard';
+import { StatusCard } from '@/components/shared/cards/StatusCard';
 import { TintedIcon } from '@/components/shared/icon/TintedIcon';
+import { Grid, GridItem } from '@/components/ui/grid';
 import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
 import { useSelectedSession } from '@/hooks/store/session/useSession';
 import { END_REASON_BADGE } from '@/types/history/Session.type';
 import { formatDateToDMY } from '@/utils/Date.utils';
-import { formatTimeToHM } from '@/utils/formatTime';
-import { Zap } from 'lucide-react-native';
+import { formatDuration, formatTimeToHM } from '@/utils/formatTime';
+import { Car, Clock, DollarSign, Zap } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -52,6 +55,73 @@ const SessionDetailPage = () => {
       </DefaultCard>
 
       <SessionHeroCard data={selectedSession} />
+
+      <Grid className="gap-4" _extra={{ className: 'grid-cols-2' }}>
+        <GridItem _extra={{ className: 'col-span-1' }}>
+          <StatusCard title="Energia" icon={Zap} color="green">
+            <VStack className="gap-0">
+              <Text size="2xl" className="font-bold">
+                {selectedSession.energyKwh.toFixed(1)}{' '}
+                <Text size="md" className="font-normal text-neutral-400/90">
+                  kWh
+                </Text>
+              </Text>
+              <Text size="xs" className="text-neutral-400">
+                Potência máx {selectedSession.maxPowerKw} kW
+              </Text>
+            </VStack>
+          </StatusCard>
+        </GridItem>
+
+        <GridItem _extra={{ className: 'col-span-1' }}>
+          <StatusCard title="Custo total" icon={DollarSign} color="amber">
+            <VStack className="gap-0">
+              <Text size="2xl" className="font-bold" style={{ fontSize: 20 }}>
+                R$ {selectedSession.price.value.toFixed(2)}
+              </Text>
+              <Text size="xs" className="text-neutral-400">
+                R$ {selectedSession.price.perKwh.toFixed(2)} por kWh
+              </Text>
+            </VStack>
+          </StatusCard>
+        </GridItem>
+
+        <GridItem _extra={{ className: 'col-span-1' }}>
+          <StatusCard title="Duração" icon={Clock} color="blue">
+            <VStack className="gap-0">
+              <Text size="2xl" className="font-bold">
+                {formatDuration(selectedSession.duration)}{' '}
+              </Text>
+              <Text size="xs" className="text-neutral-400">
+                14h32 → 15h44
+              </Text>
+            </VStack>
+          </StatusCard>
+        </GridItem>
+
+        <GridItem _extra={{ className: 'col-span-1' }}>
+          <StatusCard title="Veículo" icon={Car} color="violet">
+            <VStack className="gap-0">
+              <Text size="2xl" className="font-bold" style={{ fontSize: 16, letterSpacing: -0.3 }}>
+                {selectedSession.car.model.replace('Tesla ', '')}
+              </Text>
+              <Text size="xs" className="text-neutral-400">
+                {selectedSession.car.licensePlate}
+              </Text>
+            </VStack>
+          </StatusCard>
+        </GridItem>
+      </Grid>
+
+      <SessionDetailsCard
+        startTime="14:23"
+        endTime="15:51"
+        energyKwh={selectedSession.energyKwh}
+        tariff={0.63}
+        location="Shopping Iguatemi · Vaga 42"
+        locationSub="Rua Exemplo, 123"
+        paymentLabel="Visa •••• 4321"
+      />
     </Page.Scroll>
   );
 };
