@@ -12,7 +12,8 @@ import { useSelectedSession } from '@/hooks/store/session/useSession';
 import { END_REASON_BADGE } from '@/types/history/Session.type';
 import { formatDateToDMY } from '@/utils/Date.utils';
 import { formatDuration, formatTimeToHM } from '@/utils/formatTime';
-import { Car, Clock, DollarSign, Zap } from 'lucide-react-native';
+import { calculateCO2Avoided } from '@/utils/Statistics.utils';
+import { Car, Clock, DollarSign, Leaf, Zap } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -122,6 +123,22 @@ const SessionDetailPage = () => {
         locationSub="Rua Exemplo, 123"
         paymentLabel="Visa •••• 4321"
       />
+
+      <View className="flex-row items-center gap-3 rounded-2xl bg-green-50 p-5 dark:bg-green-950">
+        <TintedIcon icon={Leaf} color="green" size="lg" />
+
+        <VStack className="flex-1 gap-0">
+          <Text size="xs" className="font-medium text-green-700 dark:text-green-400">
+            Impacto ambiental
+          </Text>
+          <Text size="2xl" className="font-bold text-green-900 dark:text-green-100">
+            ~{calculateCO2Avoided(selectedSession.energyKwh)} kg{' '}
+            <Text size="md" className="font-normal text-green-600 dark:text-green-400">
+              CO₂
+            </Text>
+          </Text>
+        </VStack>
+      </View>
     </Page.Scroll>
   );
 };
