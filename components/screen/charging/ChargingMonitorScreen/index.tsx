@@ -1,5 +1,5 @@
 import { Page } from '@/components/layout/page';
-import { HistorySectionWidget } from '@/components/widget/HistorySectionWidget';
+import { HistorySection } from '@/components/section/HistorySection';
 import { useCharging } from '@/context/ChargingContext';
 import { BellOff, BellRing, Clock, CreditCard, Square, Zap } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
@@ -175,13 +175,11 @@ export default function ChargingMonitorPage() {
         paymentLabel="Visa •••• 4321"
       />
 
-      {/* ── 6. Stop button ── */}
       <View className="">
         <StopButton onPress={handleStop} />
       </View>
 
-      {/* ── 7. History ── */}
-      <HistorySectionWidget />
+      <HistorySection />
 
       <View style={{ height: 8 }} />
     </Page.Scroll>
