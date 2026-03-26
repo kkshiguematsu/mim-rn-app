@@ -58,13 +58,7 @@ export default function UserStackLayout() {
           key={menuItem.name}
           name={menuItem.name}
           options={{
-            title: menuItem.label,
-            headerTitleStyle: {
-              color: theme === 'dark' ? 'white' : 'black',
-            },
-            headerShown: true,
-            headerTransparent: true,
-            headerBlurEffect: theme === 'dark' ? 'dark' : 'light',
+            headerShown: false,
           }}
         />
       ))}

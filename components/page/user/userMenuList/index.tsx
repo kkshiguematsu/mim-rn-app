@@ -1,5 +1,4 @@
 import { profileMenuLayout } from '@/app/(tabs)/user/_layout';
-import { AddPaymentCardButton } from '@/components/shared/buttons/AddPaymentCardButton';
 import {
   ProfileMenuItem,
   ProfileMenuItemProps,
@@ -11,10 +10,7 @@ import { LogOut } from 'lucide-react-native';
 export const profileMenuList: ProfileMenuItemProps[] = [
   profileMenuLayout.personalInfo,
   profileMenuLayout.vehicles,
-  {
-    ...profileMenuLayout.payments,
-    rightButton: <AddPaymentCardButton />,
-  },
+  profileMenuLayout.payments,
   profileMenuLayout.support,
   profileMenuLayout.settings,
 ];

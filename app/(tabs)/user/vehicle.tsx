@@ -1,23 +1,31 @@
 import { Page } from '@/components/layout/page';
-import { Heading } from '@/components/ui/heading';
+import { Icon } from '@/components/ui/icon';
+import { useRotationAnimation } from '@/hooks/animations/useRotationAnimation';
+import { Plus } from 'lucide-react-native';
+import { Pressable } from 'react-native';
+import Animated from 'react-native-reanimated';
 
-import React from 'react';
-import { View } from 'react-native';
 export default function VehiclePage() {
+  const { animateRotation, animationStyle } = useRotationAnimation(180);
+
+  const handleAddNewVehicle = () => {
+    animateRotation();
+  };
+
   return (
     <Page.Scroll needsPadding={false} hasHeader={false}>
       <Page.Header
-        content={
-          <View className="mb-4 flex-row items-center justify-between px-7">
-            <View>
-              <Heading size="3xl" className="text-black dark:text-white">
-                Histórico
-              </Heading>
-            </View>
-            {/* <Button>
-              <ButtonIcon as={} />
-            </Button> */}
-          </View>
+        hasBackButton
+        title="Veículos"
+        rightAction={
+          <Pressable onPress={handleAddNewVehicle}>
+            <Animated.View
+              style={animationStyle}
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-700 shadow"
+            >
+              <Icon as={Plus} size="2xl" className="text-white" />
+            </Animated.View>
+          </Pressable>
         }
       />
     </Page.Scroll>

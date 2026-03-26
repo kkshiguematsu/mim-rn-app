@@ -5,7 +5,7 @@ export const useRotationAnimation = (degree: number) => {
 
   const animateRotation = () => {
     rotation.value = withTiming(rotation.value === degree ? 0 : degree, {
-      duration: 500,
+      duration: 300,
     });
   };
 
