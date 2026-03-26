@@ -5,7 +5,7 @@ import { Href } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 
-export type MenuItemProps = {
+export type ProfileMenuItemProps = {
   label: string;
   name?: string;
   link?: Href;
@@ -18,7 +18,7 @@ export type MenuItemProps = {
   action?: () => void;
 };
 
-export const MenuItem = ({
+export const ProfileMenuItem = ({
   label,
   name,
   link,
@@ -29,7 +29,7 @@ export const MenuItem = ({
   className,
   rightButton,
   action,
-}: MenuItemProps) => {
+}: ProfileMenuItemProps) => {
   return (
     <Pressable
       className={clsx(['overflow-hidden rounded-2xl bg-neutral-100 dark:bg-zinc-700', className])}

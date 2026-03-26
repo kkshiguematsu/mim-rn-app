@@ -1,6 +1,6 @@
 import { Page } from '@/components/layout/page';
-import { MenuList } from '@/components/shared/MenuList';
-import { MenuItem } from '@/components/shared/MenuList/MenuItem';
+import { ProfileMenuList } from '@/components/shared/ProfileMenuList';
+import { ProfileMenuItem } from '@/components/shared/ProfileMenuList/ProfileMenuItem';
 import { Switch } from '@/components/ui/switch';
 import { useTheme } from '@/context/themeContext';
 import { Moon, Sun } from 'lucide-react-native';
@@ -10,8 +10,8 @@ export default function SettingsPage() {
 
   return (
     <Page.Scroll>
-      <MenuList>
-        <MenuItem
+      <ProfileMenuList>
+        <ProfileMenuItem
           disabled
           label={theme === 'light' ? 'Claro' : 'Escuro'}
           icon={theme === 'light' ? Sun : Moon}
@@ -28,7 +28,7 @@ export default function SettingsPage() {
             />
           }
         />
-      </MenuList>
+      </ProfileMenuList>
     </Page.Scroll>
   );
 }
