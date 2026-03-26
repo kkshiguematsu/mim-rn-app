@@ -22,7 +22,6 @@ export function renderBottomSheetInput({
   onBlur,
   onChange,
 }: renderBottomSheetInputProps) {
-  console.log(isDisabled);
   switch (type) {
     case InputTypes.TEXT:
       return (

@@ -26,7 +26,6 @@ export const renderSelectInput = (
   selectItems: DynamicSelectInputItem[],
   onChange: (text: string) => void
 ) => {
-  console.log(value);
   const selectedItem = selectItems.find((item) => item.value === value);
 
   return (

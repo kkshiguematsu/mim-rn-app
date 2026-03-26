@@ -4,11 +4,16 @@ import { PaymentCardType } from '@/types/payment/paymentCard.type';
 
 import { Page } from '@/components/layout/page';
 import { PaymentCard } from '@/components/shared/cards/PaymentCard';
+import { BottomSheetTrigger } from '@/components/ui/bottomsheet';
 import { Heading } from '@/components/ui/heading';
+import { Icon } from '@/components/ui/icon';
 import { VStack } from '@/components/ui/vstack';
 import { useModal } from '@/context/modalContext';
+import { useRotationAnimation } from '@/hooks/animations/useRotationAnimation';
 import { ModalNames } from '@/types/modal/modalsComponents';
+import { Plus } from 'lucide-react-native';
 import { View } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 const mockPaymentCards: PaymentCardType[] = [
   {
@@ -53,36 +58,58 @@ const mockOthersPaymentsMethods: PaymentCardType[] = [
 
 export default function PaymentsPage() {
   const { enableModal } = useModal();
+  const { animateRotation, animationStyle } = useRotationAnimation(180);
+
+  const openModal = () => {
+    animateRotation();
+    enableModal(ModalNames.PaymenentCardAddModal);
+  };
 
   const showPaymentCardDetails = (paymentCard: PaymentCardType) => {
     enableModal(ModalNames.PaymentCardViewModal, paymentCard);
   };
 
   return (
-    <Page.Scroll>
-      <View className="gap-3">
-        <Heading className="mt-5">Cartões</Heading>
-        <VStack className="gap-2">
-          {mockPaymentCards.map((card, index) => (
-            <PaymentCard
-              key={`card-${card.flag}-${index}`}
-              paymentCard={card}
-              onAction={showPaymentCardDetails}
-            />
-          ))}
-        </VStack>
-      </View>
-      <View className="mt-5 gap-2">
-        <Heading className="">Outros meios de pagamento</Heading>
-        <VStack className="gap-2">
-          {mockOthersPaymentsMethods.map((card, index) => (
-            <PaymentCard
-              key={`card-${card.flag}-${index}`}
-              paymentCard={card}
-              onAction={showPaymentCardDetails}
-            />
-          ))}
-        </VStack>
+    <Page.Scroll hasHeader={false} needsPadding={false}>
+      <Page.Header
+        hasBackButton
+        title="Pagamento"
+        rightAction={
+          <BottomSheetTrigger onPress={openModal}>
+            <Animated.View
+              style={animationStyle}
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-700 shadow"
+            >
+              <Icon as={Plus} size="2xl" className="text-white" />
+            </Animated.View>
+          </BottomSheetTrigger>
+        }
+      />
+      <View className="px-7">
+        <View className="gap-3">
+          <Heading className="mt-5">Cartões</Heading>
+          <VStack className="gap-2">
+            {mockPaymentCards.map((card, index) => (
+              <PaymentCard
+                key={`card-${card.flag}-${index}`}
+                paymentCard={card}
+                onAction={showPaymentCardDetails}
+              />
+            ))}
+          </VStack>
+        </View>
+        <View className="mt-5 gap-2">
+          <Heading className="">Outros meios de pagamento</Heading>
+          <VStack className="gap-2">
+            {mockOthersPaymentsMethods.map((card, index) => (
+              <PaymentCard
+                key={`card-${card.flag}-${index}`}
+                paymentCard={card}
+                onAction={showPaymentCardDetails}
+              />
+            ))}
+          </VStack>
+        </View>
       </View>
     </Page.Scroll>
   );
