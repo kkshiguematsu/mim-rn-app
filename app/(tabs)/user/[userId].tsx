@@ -41,7 +41,7 @@ export default function UserIdPage() {
         }
       />
       <UserAvatarInfo backgroundDark={true} />
-      <AnimatedSlideInViewCard hasBottomMenu hasInsertBottom className="rounded-b-none">
+      <AnimatedSlideInViewCard hasBottomMenu hasInsertBottom>
         <UserProfileForm isDisabledForm={isDisabledForm} />
       </AnimatedSlideInViewCard>
     </Page.Keyboard>
