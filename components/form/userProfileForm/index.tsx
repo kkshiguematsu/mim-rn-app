@@ -2,15 +2,10 @@ import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
 import { RenderForm } from '@/components/shared/form/RenderForm';
 import { Button, ButtonText } from '@/components/ui/button';
 import { FormControl } from '@/components/ui/form-control';
-import { Icon } from '@/components/ui/icon';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { User } from '@/types/user/user.type';
 import { formatDateInput } from '@/utils/Date.utils';
-import { useNavigation } from 'expo-router';
-import { Edit } from 'lucide-react-native';
-import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Pressable } from 'react-native';
 
 const user: User = {
   id: '1234567',
@@ -126,10 +121,11 @@ const userInputs: DynamicInputProps[] = [
   },
 ];
 
-export const UserProfileForm = () => {
-  const [isDisabled, setIsDisabled] = useState(true);
+interface Props {
+  isDisabledForm: boolean;
+}
 
-  const navigation = useNavigation();
+export const UserProfileForm = ({ isDisabledForm }: Props) => {
   const formMethods = useForm({
     defaultValues: {
       firstName: user.firstName,
@@ -158,31 +154,17 @@ export const UserProfileForm = () => {
     formState: { errors },
   } = formMethods;
 
-  const toggleEditProfile = () => {
-    setIsDisabled((old) => !old);
-  };
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Pressable className="ml-1" onPress={toggleEditProfile}>
-          <Icon as={Edit} size="2xl" />
-        </Pressable>
-      ),
-    });
-  }, [navigation]);
-
   return (
     <FormControl
       // isInvalid={isInvalid}
-      isDisabled={isDisabled}
+      isDisabled={isDisabledForm}
       isReadOnly={false}
       isRequired={false}
       className="gap-5"
     >
       <FormProvider {...formMethods}>
         <RenderForm inputList={userInputs} />
-        <Button className="mt-5" isDisabled={isDisabled}>
+        <Button className="mt-5" isDisabled={isDisabledForm}>
           <ButtonText>Salvar</ButtonText>
         </Button>
       </FormProvider>

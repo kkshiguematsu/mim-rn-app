@@ -9,6 +9,7 @@ import { PageHeaderProps } from './types';
 
 export const PageHeader = ({
   title,
+  classNameTitle,
   leftAction,
   rightAction,
   content,
@@ -34,7 +35,7 @@ export const PageHeader = ({
     if (hasBackButton) {
       return (
         <Pressable onPress={() => router.back()}>
-          <View className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow dark:bg-neutral-700">
+          <View className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow dark:bg-neutral-700">
             <Icon as={ChevronLeft} size="2xl" className="-ml-1" />
           </View>
         </Pressable>
@@ -52,7 +53,7 @@ export const PageHeader = ({
       <View className="flex flex-row items-center gap-5">
         <View>{renderLeft()}</View>
 
-        <Heading size="3xl" className="text-black dark:text-white">
+        <Heading size="2xl" className={classNameTitle ?? 'text-black dark:text-white'}>
           {title}
         </Heading>
       </View>

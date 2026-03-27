@@ -78,7 +78,7 @@ export default function PaymentsPage() {
           <BottomSheetTrigger onPress={openModal}>
             <Animated.View
               style={animationStyle}
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-700 shadow"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-700 shadow"
             >
               <Icon as={Plus} size="2xl" className="text-white" />
             </Animated.View>

@@ -24,7 +24,7 @@ export interface PageKeyboardProps extends PageRootProps {
 export interface PageHeaderProps {
   content?: React.ReactElement<{ style?: any }>;
   applyInsetsTo?: 'wrapper' | 'content';
-  className?: string;
+  classNameTitle?: string;
   title?: string;
   leftAction?: React.ReactNode;
   rightAction?: React.ReactNode;
