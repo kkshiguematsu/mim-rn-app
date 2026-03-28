@@ -24,7 +24,7 @@ function LayoutContent() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <GluestackUIProvider mode={theme}>
+      <GluestackUIProvider mode={'light'}>
         <KeyboardProvider>
           <BottomSheet>
             <ModalProvider>

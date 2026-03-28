@@ -1,10 +1,11 @@
 import { Text } from '@/components/ui/text';
 
+import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
 import { VehicleType } from '@/types/vehicle/vehicle.type';
 import { BlurView } from 'expo-blur';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import { TintedBadge } from '../../badge/TintedBadge';
 
 interface Props {
@@ -13,24 +14,15 @@ interface Props {
 }
 
 export function VehicleHeroCard({ vehicle, onEditPress }: Props) {
+  const animationFadeIn = useFadeInAnimation({
+    direction: 'up',
+    duration: 300,
+  });
   const { brand, model, plate, batteryPct, rangeKm, connector, lastSessionDate, lastSessionKwh } =
     vehicle;
   return (
-    <Animated.View entering={FadeInDown.delay(80).springify().damping(18)}>
-      <View
-        className="overflow-hidden rounded-[20px]"
-        style={{
-          backgroundColor: '#111110',
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 8,
-          },
-          shadowOpacity: 0.2,
-          shadowRadius: 20,
-          elevation: 12,
-        }}
-      >
+    <Animated.View entering={animationFadeIn}>
+      <View className="overflow-hidden rounded-3xl bg-neutral-900 dark:bg-neutral-800">
         <View
           className="b absolute -bottom-10 -right-10 h-36 w-36 rounded-full bg-primary-600"
           pointerEvents="none"

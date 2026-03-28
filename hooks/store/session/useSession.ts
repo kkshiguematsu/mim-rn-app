@@ -1,7 +1,12 @@
 import { useAppStore } from '@/store';
+import { useShallow } from 'zustand/shallow';
 
-export const useSelectedSession = () => useAppStore((s) => s.selectedSession);
-
-export const useSetSelectedSession = () => useAppStore((s) => s.setSelectedSession);
-
-export const useClearSelectedSession = () => useAppStore((s) => s.clearSelectedSession);
+export const useSessionStore = () => {
+  return useAppStore(
+    useShallow((state) => ({
+      selectedSession: state.selectedSession,
+      setSelectedSession: state.setSelectedSession,
+      clearSelectedSession: state.clearSelectedSession,
+    }))
+  );
+};

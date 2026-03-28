@@ -34,8 +34,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   const contextValue = useMemo(
     () => ({
-      theme,
-      isDark,
+      theme: 'light' as 'light' | 'dark',
+      isDark: false,
       toggleTheme,
     }),
     [theme]

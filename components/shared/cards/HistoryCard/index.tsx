@@ -1,6 +1,6 @@
 import { Text } from '@/components/ui/text';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
-import { useSetSelectedSession } from '@/hooks/store/session/useSession';
+import { useSessionStore } from '@/hooks/store/session/useSession';
 import { Session } from '@/types/history/Session.type';
 import { formatDateToDMY } from '@/utils/Date.utils';
 import { formatTimeToHM } from '@/utils/formatTime';
@@ -12,7 +12,7 @@ import { TintedIcon } from '../../icon/TintedIcon';
 
 export const HistoryCard = ({ data }: { data: Session }) => {
   const router = useRouter();
-  const setSelectedSession = useSetSelectedSession();
+  const { setSelectedSession } = useSessionStore();
   const { animatedStyle, pressInScale, pressOutScale } = usePressableScaleAnimation();
 
   const dateFormatted = formatDateToDMY(data.date);
