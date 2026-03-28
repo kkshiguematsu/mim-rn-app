@@ -4,7 +4,7 @@ import React from 'react';
 
 import { View } from 'react-native';
 interface FieldRowProps {
-  icon: TintedIconProps;
+  icon?: TintedIconProps;
   label: string;
   children: React.ReactNode;
   isLast?: boolean;
@@ -13,10 +13,12 @@ export const FieldRow = ({ icon, label, children, isLast = false }: FieldRowProp
   return (
     <>
       <View className="min-h-[50px] flex-row items-center gap-3 px-3.5">
-        <View className="h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg">
-          <TintedIcon {...icon} />
-        </View>
-        <Text size="md" className="w-20 flex-shrink-0 font-medium text-neutral-500">
+        {icon && (
+          <View className="h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg">
+            <TintedIcon {...icon} />
+          </View>
+        )}
+        <Text size="md" className="min-w-20 flex-shrink-0 font-medium text-neutral-500">
           {label}
         </Text>
         <View className="flex-1">{children}</View>

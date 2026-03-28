@@ -1,20 +1,16 @@
 import { useFormContext } from 'react-hook-form';
 import { View } from 'react-native';
-import { DynamicInputProps } from '../DynamicInput';
+import { DynamicInputProps, InputTypeRender } from '../DynamicInput';
 import { renderDynamicInput } from '../DynamicInput/renderDynamicInput';
-import { renderInputGroup } from '../DynamicInput/renderInputGroup';
+import { renderInputGroup } from '../DynamicInput/renderInput/renderInputGroup';
 
 interface RenderFormProps {
   inputList: DynamicInputProps[];
-  isBottomSheetInput?: boolean;
+  inputTypeRender?: InputTypeRender;
   isDisableForm?: boolean;
 }
 
-export const RenderForm = ({
-  inputList,
-  isBottomSheetInput = false,
-  isDisableForm,
-}: RenderFormProps) => {
+export const RenderForm = ({ inputList, inputTypeRender, isDisableForm }: RenderFormProps) => {
   const { control, watch, formState } = useFormContext();
   const { errors } = formState;
 
@@ -23,8 +19,8 @@ export const RenderForm = ({
       {inputList.map((input: DynamicInputProps) => (
         <View key={`view-input-${input.label}-${Math.random()}`}>
           {input.group && input.group?.length > 0
-            ? renderInputGroup(control, input.group, isBottomSheetInput, isDisableForm)
-            : renderDynamicInput(control, input, isBottomSheetInput, isDisableForm)}
+            ? renderInputGroup(control, input.group, inputTypeRender, isDisableForm)
+            : renderDynamicInput(control, input, inputTypeRender, isDisableForm)}
         </View>
       ))}
     </View>

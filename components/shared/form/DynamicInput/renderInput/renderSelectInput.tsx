@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/select';
 import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
-import { sizeInput } from '.';
+import { sizeInput } from '..';
 
 export type DynamicSelectInputItem = {
   isDisabled?: boolean;

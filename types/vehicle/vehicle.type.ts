@@ -64,11 +64,32 @@ export const VEHICLE_BRANDS = [
   'Outro',
 ];
 
-export const VEHICLE_COLORS: { id: VehicleColor; hex: string; label: string }[] = [
-  { id: 'black', hex: '#111110', label: 'Preto' },
-  { id: 'white', hex: '#f5f5f3', label: 'Branco' },
-  { id: 'silver', hex: '#9ca3af', label: 'Prata' },
-  { id: 'red', hex: '#c0392b', label: 'Vermelho' },
-  { id: 'blue', hex: '#2563eb', label: 'Azul' },
-  { id: 'gray', hex: '#6b7280', label: 'Cinza' },
+export const VEHICLE_COLORS = [
+  { id: 'black', hex: '#000000', label: 'Black' },
+  { id: 'white', hex: '#ffffff', label: 'White' },
+  { id: 'blue', hex: '#3b82f6', label: 'Blue' },
+  { id: 'red', hex: '#ef4444', label: 'Red' },
+  { id: 'silver', hex: '#c0c0c0', label: 'Silver' },
+  { id: 'yellow', hex: '#eab308', label: 'Yellow' },
+
+  { id: 'gray', hex: '#6b7280', label: 'Gray' },
+  { id: 'slate', hex: '#64748b', label: 'Slate' },
+  { id: 'zinc', hex: '#71717a', label: 'Zinc' },
+  { id: 'neutral', hex: '#737373', label: 'Neutral' },
+  { id: 'stone', hex: '#78716c', label: 'Stone' },
+
+  { id: 'orange', hex: '#f97316', label: 'Orange' },
+  { id: 'amber', hex: '#f59e0b', label: 'Amber' },
+  { id: 'lime', hex: '#84cc16', label: 'Lime' },
+  { id: 'green', hex: '#22c55e', label: 'Green' },
+  { id: 'emerald', hex: '#10b981', label: 'Emerald' },
+  { id: 'teal', hex: '#14b8a6', label: 'Teal' },
+  { id: 'cyan', hex: '#06b6d4', label: 'Cyan' },
+  { id: 'sky', hex: '#0ea5e9', label: 'Sky' },
+  { id: 'indigo', hex: '#6366f1', label: 'Indigo' },
+  { id: 'violet', hex: '#8b5cf6', label: 'Violet' },
+  { id: 'purple', hex: '#a855f7', label: 'Purple' },
+  { id: 'fuchsia', hex: '#d946ef', label: 'Fuchsia' },
+  { id: 'pink', hex: '#ec4899', label: 'Pink' },
+  { id: 'rose', hex: '#f43f5e', label: 'Rose' },
 ];

@@ -5,4 +5,6 @@ export enum InputTypes {
   DATE,
   NUMBER,
   SELECT,
+  SELECTBUTTON,
+  PICKER,
 }

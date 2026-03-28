@@ -4,8 +4,8 @@ import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { formatDateInput } from '@/utils/Date.utils';
 import React, { useState } from 'react';
-import { DynamicInputProps, sizeInput } from '.';
-import { renderIcon } from './renderIcon';
+import { DynamicInputProps, sizeInput } from '..';
+import { renderIcon } from '../renderIcon';
 import { renderSelectInput } from './renderSelectInput';
 
 export interface RenderInputTypeProps extends Pick<
