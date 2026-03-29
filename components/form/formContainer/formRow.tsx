@@ -18,7 +18,7 @@ export const FieldRow = ({ icon, label, children, isLast = false }: FieldRowProp
             <TintedIcon {...icon} />
           </View>
         )}
-        <Text size="md" className="min-w-20 flex-shrink-0 font-medium text-neutral-500">
+        <Text size="md" className="w-20 flex-shrink-0 font-medium text-neutral-500">
           {label}
         </Text>
         <View className="flex-1">{children}</View>

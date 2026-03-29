@@ -1,17 +1,25 @@
 import { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
-export const usePressableScaleAnimation = () => {
-  const scale = useSharedValue(1);
+interface Props {
+  initialScale?: number;
+  pressedScale?: number;
+}
+
+export const usePressableScaleAnimation = ({
+  initialScale = 1,
+  pressedScale = 0.95,
+}: Props = {}) => {
+  const scale = useSharedValue(initialScale);
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
 
   const pressInScale = () => {
-    scale.value = withSpring(0.95);
+    scale.value = withSpring(pressedScale);
   };
 
   const pressOutScale = () => {
-    scale.value = withSpring(1);
+    scale.value = withSpring(initialScale);
   };
 
   return {
