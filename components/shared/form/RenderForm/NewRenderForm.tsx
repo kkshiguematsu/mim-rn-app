@@ -1,7 +1,7 @@
 import { FieldGroup } from '@/components/form/formContainer';
 import { FieldRow } from '@/components/form/formContainer/formRow';
 import { RenderColorSelector } from '@/components/form/VehicleForm/components/renderColorPicker';
-import { RenderConnectionsComponent } from '@/components/form/VehicleForm/components/renderConnectionsComponent';
+import { RenderConnectionsComponent } from '@/components/form/VehicleForm/components/renderConectorCharger';
 import { Section } from '@/components/section/Section';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { BatteryCharging, Car, Palette, Tag, Zap } from 'lucide-react-native';
