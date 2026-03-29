@@ -2,9 +2,9 @@ import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import React from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 import { TintedIconProps } from '../../icon/TintedIcon';
-import { renderBottomSheetInput } from './renderBottomSheetInputType';
+import { RenderBottomSheetInput } from './renderBottomSheetInputType';
 import { RenderInputNative } from './renderInput/renderInputNative';
-import { renderInput } from './renderInput/renderInputType';
+import { RenderInput } from './renderInput/renderInputType';
 import { type DynamicSelectInputItem } from './renderInput/renderSelectInput';
 
 export type InputTypeRender = 'normal' | 'bottomSheet' | 'native';
@@ -44,51 +44,31 @@ export const DynamicInput = ({
   inputTypeRender,
   renderComponent,
 }: DynamicInputProps) => {
-  console.log('render input', name);
-  const render = () => {
-    switch (inputTypeRender) {
-      case 'bottomSheet':
-        return renderBottomSheetInput({
-          type,
-          value: defaultValue,
-          placeholder,
-          icon,
-          selectItems,
-          isDisabled,
-          onBlur: () => {},
-          onChange: () => {},
-        });
-      case 'native':
-        return RenderInputNative({
-          type,
-          value: defaultValue,
-          icon,
-          placeholder,
-          selectItems,
-          renderComponent,
-          onBlur: () => {},
-          onChange: () => {},
-        });
-      default:
-        return renderInput({
-          type,
-          value: defaultValue,
-          icon,
-          placeholder,
-          selectItems,
-          onBlur: () => {},
-          onChange: () => {},
-        });
-    }
-  };
-
   return (
     <Controller
       control={control}
       disabled={isDisabled}
       name={name ?? ''}
       rules={rules}
-      render={({ field: { onBlur, onChange, value } }) => render()}
+      render={({ field }) => {
+        const baseProps = {
+          type,
+          icon,
+          placeholder,
+          selectItems,
+          isDisabled,
+          ...field,
+        };
+
+        switch (inputTypeRender) {
+          case 'bottomSheet':
+            return RenderBottomSheetInput(baseProps);
+          case 'native':
+            return RenderInputNative({ ...baseProps, renderComponent });
+          default:
+            return RenderInput(baseProps);
+        }
+      }}
     />
   );
 };

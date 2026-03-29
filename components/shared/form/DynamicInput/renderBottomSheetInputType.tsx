@@ -1,4 +1,3 @@
-// renderBottomSheetInput.tsx
 import { BottomSheetInput } from '@/components/ui/bottomsheet';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { DynamicInputProps } from '.';
@@ -12,7 +11,7 @@ export interface renderBottomSheetInputProps extends Pick<
   onChange: (value: string) => void;
 }
 
-export function renderBottomSheetInput({
+export function RenderBottomSheetInput({
   type,
   value = '',
   placeholder,

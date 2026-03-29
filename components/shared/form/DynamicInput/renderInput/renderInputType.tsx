@@ -17,7 +17,7 @@ export interface RenderInputTypeProps extends Pick<
   onChange: (value: string) => void;
 }
 
-export function renderInput({
+export function RenderInput({
   type,
   value = '',
   icon,
