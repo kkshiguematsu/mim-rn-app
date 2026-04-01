@@ -26,6 +26,7 @@ export interface DynamicInputProps {
   group?: DynamicInputProps[];
   inputTypeRender?: InputTypeRender;
   renderComponent?: React.ComponentType;
+  helperText?: string;
 }
 
 export const sizeInput = 'lg';

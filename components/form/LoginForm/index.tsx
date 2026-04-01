@@ -1,12 +1,12 @@
 import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
-import { renderDynamicInput } from '@/components/shared/form/DynamicInput/renderDynamicInput';
+import { RenderForm } from '@/components/shared/form/RenderForm';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Link, LinkText } from '@/components/ui/link';
 import { Text } from '@/components/ui/text';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { useRouter } from 'expo-router';
 import { Lock, Mail } from 'lucide-react-native';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { View } from 'react-native';
 
 const loginInputs: DynamicInputProps[] = [
@@ -30,11 +30,12 @@ const loginInputs: DynamicInputProps[] = [
 
 export const LoginForm = () => {
   const { navigate, replace } = useRouter();
+  const formMethods = useForm();
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = formMethods;
 
   const submitForm = () => {
     replace('/(tabs)/home');
@@ -43,7 +44,9 @@ export const LoginForm = () => {
   return (
     <View>
       <View className="flex gap-3">
-        {loginInputs.map((input) => renderDynamicInput(control, input))}
+        <FormProvider {...formMethods}>
+          <RenderForm inputList={loginInputs} />
+        </FormProvider>
       </View>
 
       <View className="my-7 flex w-full items-end">

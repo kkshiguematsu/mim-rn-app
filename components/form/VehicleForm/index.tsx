@@ -2,7 +2,6 @@ import { RenderColorSelector } from '@/components/form/VehicleForm/components/re
 import { RenderConnectionsComponent } from '@/components/form/VehicleForm/components/renderConectorCharger';
 import { FormSection, NewRenderForm } from '@/components/shared/form/RenderForm/NewRenderForm';
 import { Button, ButtonText } from '@/components/ui/button';
-import { FormControl } from '@/components/ui/form-control';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { INITIAL_FORM_DATA, VehicleFormData } from '@/types/vehicle/vehicle.type';
 import { BatteryCharging, Car, Palette, Tag, Zap } from 'lucide-react-native';
@@ -73,6 +72,7 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
         type: InputTypes.SELECTBUTTON,
         name: 'connector',
         label: 'Conector',
+        helperText: 'Selecione o tipo de conector do seu veículo',
         rules: {
           required: 'Selecione um conector',
         },
@@ -111,6 +111,7 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
 export const VehicleForm = () => {
   const methods = useForm<VehicleFormData>({
     defaultValues: INITIAL_FORM_DATA,
+    mode: 'all',
   });
 
   const { handleSubmit } = methods;
@@ -120,17 +121,11 @@ export const VehicleForm = () => {
   };
 
   return (
-    <FormControl
-      // isInvalid={isInvalid}
-      // isDisabled={isDisabledForm}
-      isReadOnly={false}
-    >
-      <FormProvider {...methods}>
-        <NewRenderForm sections={VEHICLE_FORM_CONFIG} inputTypeRender={'native'} />
-        <Button size="xl" className="h-14 rounded-2xl" onPress={handleSubmit(onSubmit)}>
-          <ButtonText>Cadastrar veículo</ButtonText>
-        </Button>
-      </FormProvider>
-    </FormControl>
+    <FormProvider {...methods}>
+      <NewRenderForm sections={VEHICLE_FORM_CONFIG} inputTypeRender={'native'} />
+      <Button size="xl" className="h-14 rounded-2xl" onPress={handleSubmit(onSubmit)}>
+        <ButtonText>Cadastrar veículo</ButtonText>
+      </Button>
+    </FormProvider>
   );
 };

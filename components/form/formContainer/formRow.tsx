@@ -12,7 +12,7 @@ interface FieldRowProps {
 export const FieldRow = ({ icon, label, children, isLast = false }: FieldRowProps) => {
   return (
     <>
-      <View className="min-h-[50px] flex-row items-center gap-3 px-3.5">
+      <View className="flex-row items-center gap-3 px-3.5 py-2">
         {icon && (
           <View className="h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg">
             <TintedIcon {...icon} />

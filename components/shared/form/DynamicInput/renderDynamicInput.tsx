@@ -1,6 +1,13 @@
+import {
+  FormControl,
+  FormControlError,
+  FormControlErrorText,
+  FormControlHelper,
+  FormControlHelperText,
+} from '@/components/ui/form-control';
 import { Text } from '@/components/ui/text';
 import clsx from 'clsx';
-import { Control, FieldValues } from 'react-hook-form';
+import { Control, FieldValues, useFormState } from 'react-hook-form';
 import { View } from 'react-native';
 import { DynamicInput, DynamicInputProps, InputTypeRender } from '.';
 
@@ -16,36 +23,46 @@ export const DynamicInputField = ({
   input,
   inputTypeRender,
   isDisabled,
-}: DynamicInputFieldProps) => (
-  <View className={clsx(['gap-1', input.className])}>
-    {inputTypeRender !== 'native' && <Text size="md">{input.label}</Text>}
-    <DynamicInput
-      {...input}
-      control={control}
-      inputTypeRender={inputTypeRender}
-      isDisabled={isDisabled}
-    />
-  </View>
-);
+}: DynamicInputFieldProps) => {
+  const { errors } = useFormState({ control, name: input.name });
+  const error = errors[input.name!];
 
-export const renderDynamicInput = (
-  control: Control<FieldValues, any, FieldValues>,
-  input: DynamicInputProps,
-  inputTypeRender?: InputTypeRender,
-  isDisabled?: boolean
-) => (
-  <View key={`view-${input.label}`} className={clsx(['gap-1', input.className && input.className])}>
-    {inputTypeRender !== 'native' && (
-      <Text key={`text-${input.label}`} size="md">
-        {input.label}
-      </Text>
-    )}
-    <DynamicInput
-      {...input}
-      key={`input-${input.label}`}
-      control={control}
-      inputTypeRender={inputTypeRender}
-      isDisabled={isDisabled}
-    />
-  </View>
-);
+  return (
+    <FormControl isInvalid={!!error}>
+      <View className={clsx(['', input.className])}>
+        {inputTypeRender !== 'native' && input.label && (
+          <Text size="md" className="font-medium text-gray-900">
+            {input.label}
+          </Text>
+        )}
+
+        <DynamicInput
+          {...input}
+          control={control}
+          inputTypeRender={inputTypeRender}
+          isDisabled={isDisabled}
+        />
+
+        {error && (
+          <View className="mt-0 items-end">
+            <FormControlError>
+              <FormControlErrorText className="text-right">
+                {error.message as string}
+              </FormControlErrorText>
+            </FormControlError>
+          </View>
+        )}
+
+        {input.helperText && (
+          <View className="items-end p-0">
+            <FormControlHelper>
+              <FormControlHelperText size="xs" className="text-right">
+                {input.helperText}
+              </FormControlHelperText>
+            </FormControlHelper>
+          </View>
+        )}
+      </View>
+    </FormControl>
+  );
+};
