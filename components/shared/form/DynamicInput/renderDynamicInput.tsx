@@ -29,7 +29,7 @@ export const DynamicInputField = ({
 
   return (
     <FormControl isInvalid={!!error}>
-      <View className={clsx(['', input.className])}>
+      <View className={clsx(['mb-2', input.className])}>
         {inputTypeRender !== 'native' && input.label && (
           <Text size="md" className="font-medium text-gray-900">
             {input.label}

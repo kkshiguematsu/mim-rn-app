@@ -21,7 +21,8 @@ export const PageKeyboard = ({
   const { activeSession } = useCharging();
   const bottomTabBarHeight = useBottomMenuHeight();
 
-  let paddingBottom = bottomTabBarHeight + inset.bottom;
+  let paddingBottom = bottomTabBarHeight;
+  paddingBottom += needsSafeArea ? inset.bottom : 0;
   paddingBottom += activeSession ? 100 : 0;
 
   return (

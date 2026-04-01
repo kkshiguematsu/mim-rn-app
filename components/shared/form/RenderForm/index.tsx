@@ -11,11 +11,10 @@ interface RenderFormProps {
 }
 
 export const RenderForm = ({ inputList, inputTypeRender, isDisableForm }: RenderFormProps) => {
-  const { control, watch, formState } = useFormContext();
-  const { errors } = formState;
+  const { control } = useFormContext();
 
   return (
-    <View className="flex w-full flex-1 gap-3">
+    <View className="flex w-full gap-3">
       {inputList.map((input: DynamicInputProps) => (
         <View key={`view-input-${input.label}-${Math.random()}`}>
           {input.group && input.group?.length > 0 ? (
