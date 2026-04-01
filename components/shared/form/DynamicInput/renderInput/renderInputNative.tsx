@@ -1,4 +1,5 @@
 import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
+import { Input, InputField } from '@/components/ui/input';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { formatDateInput } from '@/utils/Date.utils';
 import React, { useState } from 'react';
@@ -6,6 +7,8 @@ import { Pressable, TextInput, View } from 'react-native';
 import { DynamicInputProps } from '..';
 import { renderIcon } from '../renderIcon';
 import { renderSelectInput } from './renderSelectInput';
+
+const sizeInput = 'md';
 
 export interface RenderInputTypeProps extends Pick<
   DynamicInputProps,
@@ -44,10 +47,16 @@ export function RenderInputNative({
   switch (type) {
     case InputTypes.TEXT:
       return (
-        <View className="flex-row items-center">
+        <Input size={sizeInput} className="border-0 bg-transparent">
           {icon && renderIcon(icon)}
-          <TextInput {...commonProps} onChangeText={onChange} returnKeyType="next" />
-        </View>
+          <InputField
+            value={value}
+            placeholder={placeholder}
+            textAlign="right"
+            onBlur={onBlur}
+            onChangeText={onChange}
+          />
+        </Input>
       );
 
     case InputTypes.EMAIL:
