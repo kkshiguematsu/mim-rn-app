@@ -17,7 +17,7 @@ export const RenderConnectionsComponent = () => {
 
   const scrollRef = useRef<ScrollView>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const animationFadeInRight = useFadeInAnimation({ direction: 'right', duration: 300 });
   const animationFadeInLeft = useFadeInAnimation({ direction: 'left', duration: 300 });

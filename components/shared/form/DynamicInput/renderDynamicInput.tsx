@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/form-control';
 import { Text } from '@/components/ui/text';
 import clsx from 'clsx';
-import { Control, FieldValues, useFormState } from 'react-hook-form';
+import { Control, FieldValues, useController } from 'react-hook-form';
 import { View } from 'react-native';
 import { DynamicInput, DynamicInputProps, InputTypeRender } from '.';
 
@@ -24,8 +24,14 @@ export const DynamicInputField = ({
   inputTypeRender,
   isDisabled,
 }: DynamicInputFieldProps) => {
-  const { errors } = useFormState({ control, name: input.name });
-  const error = errors[input.name!];
+  const {
+    field,
+    fieldState: { error },
+  } = useController({
+    control,
+    name: input.name,
+    rules: input.rules,
+  });
 
   return (
     <FormControl isInvalid={!!error} className="relative">

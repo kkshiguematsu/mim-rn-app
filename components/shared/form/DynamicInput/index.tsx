@@ -17,7 +17,7 @@ export interface DynamicInputProps {
   label?: string;
   defaultValue?: string;
   isDisabled?: boolean;
-  name?: string;
+  name: string;
   icon?: React.ElementType | React.ReactNode;
   iconSection?: TintedIconProps;
   placeholder?: string;

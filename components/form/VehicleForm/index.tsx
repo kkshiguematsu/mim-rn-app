@@ -4,7 +4,7 @@ import { FormSection, NewRenderForm } from '@/components/shared/form/RenderForm/
 import { Button, ButtonText } from '@/components/ui/button';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { INITIAL_FORM_DATA, VehicleFormData } from '@/types/vehicle/vehicle.type';
-import { BatteryCharging, Car, Palette, Tag, Zap } from 'lucide-react-native';
+import { BatteryCharging, Cable, Calendar, Car, Palette, Tag, Zap } from 'lucide-react-native';
 import { FormProvider, useForm } from 'react-hook-form';
 
 export const VEHICLE_FORM_CONFIG: FormSection[] = [
@@ -16,9 +16,9 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
         name: 'brand',
         label: 'Marca',
         placeholder: 'Tesla',
-        iconSection: { icon: Car, color: 'blue' },
+        iconSection: { icon: Tag, color: 'blue' },
         rules: {
-          required: 'Obrigatório',
+          required: 'Marca é obrigatória',
         },
       },
       {
@@ -28,19 +28,18 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
         placeholder: 'Model 3',
         iconSection: { icon: Car, color: 'red' },
         rules: {
-          required: 'Obrigatório',
+          required: 'Modelo é obrigatório',
         },
       },
       {
-        type: InputTypes.TEXT,
-        name: 'plate',
-        label: 'Placa',
-        placeholder: 'ABC-1D23',
-        iconSection: { icon: Tag, color: 'amber' },
+        type: InputTypes.NUMBER,
+        name: 'year',
+        label: 'Ano',
+        placeholder: '2020',
+        iconSection: { icon: Calendar, color: 'amber' },
         rules: {
-          required: 'Obrigatório',
+          required: 'Ano é obrigatório',
         },
-        // transform: (v: string) => v.toUpperCase(),
       },
     ],
   },
@@ -55,17 +54,7 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
         placeholder: 'kWh',
         iconSection: { icon: BatteryCharging, color: 'green' },
         rules: {
-          required: 'Obrigatório',
-        },
-      },
-      {
-        type: InputTypes.NUMBER,
-        name: 'maxPowerKw',
-        label: 'Pot. máx.',
-        placeholder: 'kW',
-        iconSection: { icon: Zap, color: 'yellow' },
-        rules: {
-          required: 'Obrigatório',
+          required: 'Capacidade da bateria é obrigatória',
         },
       },
     ],
@@ -73,18 +62,35 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
 
   {
     title: 'Tipo de conector',
-    fields: [
-      {
-        type: InputTypes.SELECTBUTTON,
-        name: 'connector',
-        label: 'Conector',
-        helperText: 'Selecione o tipo de conector do seu veículo',
-        rules: {
-          required: 'Selecione um conector',
+    repeatableGroup: {
+      name: 'connector',
+      label: 'Conectores',
+      fields: [
+        {
+          type: InputTypes.SELECTBUTTON,
+          name: 'type',
+          label: 'Conector',
+          iconSection: { icon: Cable, color: 'blue' },
+          renderComponent: RenderConnectionsComponent,
+          rules: {
+            required: 'Tipo de conector é obrigatório',
+          },
         },
-        renderComponent: RenderConnectionsComponent,
+        {
+          type: InputTypes.NUMBER,
+          name: 'maxPowerKw',
+          label: 'Pot. máx.',
+          placeholder: 'kW',
+          iconSection: { icon: Zap, color: 'lime' },
+          rules: {
+            required: 'Potência máxima é obrigatória',
+          },
+        },
+      ],
+      rules: {
+        required: 'Adicione pelo menos um conector',
       },
-    ],
+    },
   },
 
   {
@@ -96,22 +102,25 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
         label: 'Cor',
         iconSection: { icon: Palette, color: 'pink' },
         renderComponent: RenderColorSelector,
+        rules: {
+          required: 'Potência máxima é obrigatória',
+        },
       },
     ],
   },
 
-  {
-    title: 'Apelido (opcional)',
-    fields: [
-      {
-        type: InputTypes.TEXT,
-        name: 'nickname',
-        label: 'Apelido',
-        placeholder: ' Tesla favorito',
-        iconSection: { icon: Palette, color: 'pink' },
-      },
-    ],
-  },
+  // {
+  //   title: 'Apelido (opcional)',
+  //   fields: [
+  //     {
+  //       type: InputTypes.TEXT,
+  //       name: 'nickname',
+  //       label: 'Apelido',
+  //       placeholder: ' Tesla favorito',
+  //       iconSection: { icon: Palette, color: 'pink' },
+  //     },
+  //   ],
+  // },
 ];
 
 export const VehicleForm = () => {

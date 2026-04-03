@@ -7,6 +7,7 @@ interface Props {
 export const FieldGroup = ({ children }: Props) => {
   return (
     <DefaultCard
+      fadeIn="up"
       padding="none"
       className="overflow-hidden rounded-2xl border border-neutral-200 bg-white"
     >

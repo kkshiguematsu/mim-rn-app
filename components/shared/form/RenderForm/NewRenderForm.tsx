@@ -1,5 +1,9 @@
 import { FieldGroup } from '@/components/form/formContainer';
 import { FieldRow } from '@/components/form/formContainer/formRow';
+import {
+  RepeatableFieldGroup,
+  RepeatableGroup,
+} from '@/components/form/formContainer/RepeatableFieldGroup';
 import { Section } from '@/components/section/Section';
 import { useFormContext } from 'react-hook-form';
 import { View } from 'react-native';
@@ -8,7 +12,8 @@ import { DynamicInputField } from '../DynamicInput/renderDynamicInput';
 
 export interface FormSection {
   title?: string;
-  fields: DynamicInputProps[];
+  fields?: DynamicInputProps[];
+  repeatableGroup?: RepeatableGroup;
 }
 export interface Props {
   sections: FormSection[];
@@ -21,27 +26,38 @@ export const NewRenderForm = ({ sections, inputTypeRender, isDisableForm }: Prop
 
   return (
     <View className="flex w-full gap-4">
-      {sections.map((section, sectionIndex) => (
+      {sections.map((section, sectionIndex, array) => (
         <Section key={sectionIndex} title={section.title ?? ''}>
-          <FieldGroup>
-            {section.fields.map((input, index) => {
-              return (
-                <FieldRow
-                  key={input.name}
-                  label={input.label ?? ''}
-                  icon={input.iconSection}
-                  isLast={index === section.fields.length - 1}
-                >
-                  <DynamicInputField
-                    control={control}
-                    input={input}
-                    inputTypeRender={inputTypeRender}
-                    isDisabled={isDisableForm}
-                  />
-                </FieldRow>
-              );
-            })}
-          </FieldGroup>
+          {section.fields && (
+            <FieldGroup>
+              {section.fields.map((input, index) => {
+                return (
+                  <FieldRow
+                    key={input.name}
+                    label={input.label ?? ''}
+                    icon={input.iconSection}
+                    isLast={index === array.length - 1}
+                  >
+                    <DynamicInputField
+                      control={control}
+                      input={input}
+                      inputTypeRender={inputTypeRender}
+                      isDisabled={isDisableForm}
+                    />
+                  </FieldRow>
+                );
+              })}
+            </FieldGroup>
+          )}
+
+          {section.repeatableGroup && (
+            <RepeatableFieldGroup
+              group={section.repeatableGroup}
+              control={control}
+              inputTypeRender={inputTypeRender}
+              isDisableForm={isDisableForm}
+            />
+          )}
         </Section>
       ))}
     </View>

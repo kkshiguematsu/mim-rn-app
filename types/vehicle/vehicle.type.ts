@@ -1,70 +1,10 @@
-export type ConnectorType = 'CCS2' | 'CHAdeMO' | 'Type 2' | 'Tesla';
-
-export type VehicleColor = 'black' | 'white' | 'silver' | 'red' | 'blue' | 'gray';
-
-export interface VehicleType {
+export interface VEHICLE_COLOR {
   id: string;
-  brand: string;
-  model: string;
-  plate: string;
-  year: number;
-  connector: ConnectorType;
-  batteryCapacityKwh: number;
-  maxPowerKw: number;
-  rangeKm: number;
-  color: VehicleColor;
-  nickname?: string;
-  batteryPct: number;
-  lastSessionDate: string;
-  lastSessionKwh: number;
-  createdAt: string;
+  hex: string;
+  label: string;
 }
 
-export interface VehicleFormData {
-  brand: string;
-  model: string;
-  plate: string;
-  year: number;
-  connector: ConnectorType | null;
-  batteryCapacityKwh: string;
-  maxPowerKw: string;
-  color: VehicleColor;
-  nickname: string;
-}
-
-export const INITIAL_FORM_DATA: VehicleFormData = {
-  brand: '',
-  model: '',
-  plate: '',
-  year: new Date().getFullYear(),
-  connector: null,
-  batteryCapacityKwh: '',
-  maxPowerKw: '',
-  color: 'black',
-  nickname: '',
-};
-
-export const CONNECTOR_OPTIONS: ConnectorType[] = ['CCS2', 'CHAdeMO', 'Type 2', 'Tesla'];
-
-export const VEHICLE_BRANDS = [
-  'Audi',
-  'BMW',
-  'BYD',
-  'Chevrolet',
-  'Fiat',
-  'Ford',
-  'Hyundai',
-  'Kia',
-  'Mercedes',
-  'Peugeot',
-  'Renault',
-  'Tesla',
-  'Volkswagen',
-  'Volvo',
-  'Outro',
-];
-
-export const VEHICLE_COLORS = [
+export const VEHICLE_COLORS: VEHICLE_COLOR[] = [
   { id: 'black', hex: '#000000', label: 'Black' },
   { id: 'white', hex: '#ffffff', label: 'White' },
   { id: 'blue', hex: '#3b82f6', label: 'Blue' },
@@ -93,3 +33,47 @@ export const VEHICLE_COLORS = [
   { id: 'pink', hex: '#ec4899', label: 'Pink' },
   { id: 'rose', hex: '#f43f5e', label: 'Rose' },
 ];
+
+export type ConnectorType = 'CCS2' | 'CHAdeMO' | 'Type 2' | 'Tesla';
+
+export interface VehicleConnector {
+  type: ConnectorType | null;
+  maxPowerKw: number | null;
+}
+
+export interface VehicleType {
+  id: string;
+  brand: string;
+  model: string;
+  plate: string;
+  year: number;
+  connector: VehicleConnector[];
+  batteryCapacityKwh: number;
+  maxPowerKw: number;
+  rangeKm: number;
+  color: string;
+  batteryPct: number;
+  lastSessionDate: string;
+  lastSessionKwh: number;
+  createdAt: string;
+}
+
+export interface VehicleFormData {
+  brand: string;
+  model: string;
+  year: number | null;
+  batteryCapacityKwh: number | null;
+  connector: VehicleConnector[] | [];
+  color: string;
+}
+
+export const INITIAL_FORM_DATA: VehicleFormData = {
+  brand: '',
+  model: '',
+  year: null,
+  connector: [],
+  batteryCapacityKwh: null,
+  color: 'black',
+};
+
+export const CONNECTOR_OPTIONS: ConnectorType[] = ['CCS2', 'CHAdeMO', 'Type 2', 'Tesla'];
