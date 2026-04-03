@@ -9,7 +9,7 @@ import { TintedIcon } from '@/components/shared/icon/TintedIcon';
 import { Grid, GridItem } from '@/components/ui/grid';
 import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
-import { useSessionStore } from '@/hooks/store/session/useSession';
+import { useSessionStore } from '@/hooks/store/useSessionStore';
 import { END_REASON_BADGE } from '@/types/history/Session.type';
 import { formatDateToDMY } from '@/utils/Date.utils';
 import { formatDuration, formatTimeToHM } from '@/utils/formatTime';

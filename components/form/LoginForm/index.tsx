@@ -1,8 +1,10 @@
 import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
 import { RenderForm } from '@/components/shared/form/RenderForm';
-import { Button, ButtonText } from '@/components/ui/button';
+import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
 import { Link, LinkText } from '@/components/ui/link';
 import { Text } from '@/components/ui/text';
+import { useLogin } from '@/hooks/api/auth/useLogin';
+import { LoginFormType } from '@/types/auth/login.type';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { useRouter } from 'expo-router';
 import { Lock, Mail } from 'lucide-react-native';
@@ -29,16 +31,24 @@ const loginInputs: DynamicInputProps[] = [
 ];
 
 export const LoginForm = () => {
-  const { navigate, replace } = useRouter();
-  const formMethods = useForm();
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = formMethods;
+  const formMethods = useForm<LoginFormType>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    mode: 'onSubmit',
+  });
 
-  const submitForm = () => {
-    replace('/(tabs)/home');
+  const { handleSubmit } = formMethods;
+  const { navigate, replace } = useRouter();
+  const { mutate, isPending } = useLogin();
+
+  const submitForm = (data: LoginFormType) => {
+    mutate(data, {
+      onSuccess: () => {
+        replace('/home');
+      },
+    });
   };
 
   return (
@@ -56,7 +66,8 @@ export const LoginForm = () => {
       </View>
 
       <View className="flex gap-2">
-        <Button size="xl" variant="solid" onPress={() => submitForm()}>
+        <Button size="xl" variant="solid" onPress={handleSubmit(submitForm)}>
+          {isPending && <ButtonSpinner color="white" />}
           <ButtonText className="text-white">Login</ButtonText>
         </Button>
         <View className="flex flex-row items-center justify-center gap-2">

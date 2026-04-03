@@ -4,6 +4,7 @@ import {
   ProfileMenuItemProps,
 } from '@/components/shared/ProfileMenuList/ProfileMenuItem';
 import { Box } from '@/components/ui/box';
+import { useLogout } from '@/hooks/api/auth/useLogout';
 import { useRouter } from 'expo-router';
 import { LogOut } from 'lucide-react-native';
 
@@ -17,15 +18,16 @@ export const profileMenuList: ProfileMenuItemProps[] = [
 
 export const UserMenuList = () => {
   const router = useRouter();
+  const { mutate: logoutMutate } = useLogout();
 
   const goTo = (route: ProfileMenuItemProps) => {
     if (!route.link) return;
 
-    if (route.link === '/') {
-      router.replace('/');
-    }
-
     router.push(route.link);
+  };
+
+  const handleLogout = () => {
+    logoutMutate();
   };
 
   return (
@@ -43,7 +45,7 @@ export const UserMenuList = () => {
         label="Logout"
         name="logout"
         icon={LogOut}
-        action={() => router.replace('/')}
+        action={handleLogout}
         forceColor="text-red-500"
       />
     </Box>

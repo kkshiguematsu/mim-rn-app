@@ -4,18 +4,18 @@ import { config } from '@/app.config';
 import { AnimatedSlideInViewCard } from '@/components/shared/cards/AnimatedViewCard';
 import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
 import { RenderForm } from '@/components/shared/form/RenderForm';
-import { Button, ButtonText } from '@/components/ui/button';
+import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
 import { Spinner } from '@/components/ui/spinner';
 import { Text } from '@/components/ui/text';
-import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
 import { useStaggeredEntering } from '@/hooks/animations/useStaggeredEntering';
+import { useLogin } from '@/hooks/api/auth/useLogin';
+import { useRegister } from '@/hooks/api/auth/useRegister';
 import { RegisterFormType } from '@/types/auth/register.type';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { useRouter } from 'expo-router';
 import { Check } from 'lucide-react-native';
-import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -31,7 +31,7 @@ const registerInputs: DynamicInputProps[] = [
     },
   },
   {
-    type: InputTypes.TEXT,
+    type: InputTypes.EMAIL,
     label: 'Email',
     name: 'email',
     placeholder: 'Digite o email',
@@ -46,6 +46,10 @@ const registerInputs: DynamicInputProps[] = [
     placeholder: 'Digite a senha',
     rules: {
       required: 'A senha é obrigatória',
+      minLength: {
+        value: 6,
+        message: 'A senha deve ter no mínimo 6 caracteres',
+      },
     },
   },
   {
@@ -55,16 +59,17 @@ const registerInputs: DynamicInputProps[] = [
     placeholder: 'Digite a senha',
     rules: {
       required: 'Confirmação de senha é obrigatória',
+      validate: (value: string, formValues: any) => {
+        return value === formValues.password || 'As senhas não coincidem';
+      },
     },
   },
 ];
 
 export const RegisterForm = () => {
-  const [isSuccessRegister, setIsSuccessRegister] = useState(false);
-  const [isSuccessLogin, setIsSuccessLogin] = useState(false);
-
   const { navigate } = useRouter();
-  const fadeInDown = useFadeInAnimation({ direction: 'up', duration: 500 });
+  const { mutate: registerMutate, isPending, isSuccess: isSuccessRegister } = useRegister();
+  const { mutate: loginMutate, isPending: isLoginPending, isSuccess: isSuccessLogin } = useLogin();
   const { getEntering } = useStaggeredEntering({
     type: 'fade',
     direction: 'down',
@@ -77,14 +82,39 @@ export const RegisterForm = () => {
       email: '',
       password: '',
       tenantId: config.tenantId,
-      roleId: '',
+      roleId: config.roleId,
     },
     mode: 'all',
   });
 
   const { handleSubmit } = formMethods;
 
-  const onSubmit = (data: RegisterFormType) => {};
+  const onSubmit = (data: RegisterFormType) => {
+    const registerPayload = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      tenantId: config.tenantId,
+      roleId: config.roleId,
+    };
+
+    registerMutate(registerPayload, {
+      onSuccess: () => {
+        const loginPayload = {
+          email: data.email,
+          password: data.password,
+        };
+
+        loginMutate(loginPayload, {
+          onSuccess: () => {
+            setTimeout(() => {
+              navigate('/home');
+            }, 5000);
+          },
+        });
+      },
+    });
+  };
 
   return (
     <>
@@ -129,6 +159,7 @@ export const RegisterForm = () => {
             </View>
             <View className="flex flex-col justify-center gap-1">
               <Button onPress={handleSubmit(onSubmit)} size="xl" className="h-14 rounded-2xl">
+                {isPending && <ButtonSpinner color="white" />}
                 <ButtonText>Cadastrar</ButtonText>
               </Button>
               <View className="flex flex-row items-center justify-center gap-1">

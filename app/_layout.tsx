@@ -13,6 +13,8 @@ import { ChargingProvider } from '@/context/ChargingContext';
 import { ModalProvider } from '@/context/modalContext';
 import { ThemeProvider, useTheme } from '@/context/themeContext';
 import '@/global.css';
+import { queryClient } from '@/service/api';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export const unstable_settings = {
@@ -58,7 +60,9 @@ function LayoutContent() {
 export default function RootLayout() {
   return (
     <ThemeProvider>
-      <LayoutContent />
+      <QueryClientProvider client={queryClient}>
+        <LayoutContent />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

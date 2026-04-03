@@ -1,6 +1,6 @@
 import { Text } from '@/components/ui/text';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
-import { useSessionStore } from '@/hooks/store/session/useSession';
+import { useSessionStore } from '@/hooks/store/useSessionStore';
 import { Session } from '@/types/history/Session.type';
 import { formatDateToDMY } from '@/utils/Date.utils';
 import { formatTimeToHM } from '@/utils/formatTime';

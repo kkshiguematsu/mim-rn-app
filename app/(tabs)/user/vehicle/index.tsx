@@ -9,7 +9,7 @@ import { VehicleHeroCard } from '@/components/shared/cards/VehicleHeroCard';
 import { Icon } from '@/components/ui/icon';
 import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
 import { useRotationAnimation } from '@/hooks/animations/useRotationAnimation';
-import { useVehicleStore } from '@/hooks/store/vehicle/useVehicleStore';
+import { useVehicleStore } from '@/hooks/store/useVehicleStore';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useRouter } from 'expo-router';
 import { Car, Plus } from 'lucide-react-native';
