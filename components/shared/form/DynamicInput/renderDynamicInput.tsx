@@ -28,8 +28,8 @@ export const DynamicInputField = ({
   const error = errors[input.name!];
 
   return (
-    <FormControl isInvalid={!!error}>
-      <View className={clsx(['mb-2', input.className])}>
+    <FormControl isInvalid={!!error} className="relative">
+      <View className={clsx(['', input.className, inputTypeRender !== 'native' && 'mb-2'])}>
         {inputTypeRender !== 'native' && input.label && (
           <Text size="md" className="font-medium text-gray-900">
             {input.label}
@@ -44,17 +44,17 @@ export const DynamicInputField = ({
         />
 
         {error && (
-          <View className="mt-0 items-end">
+          <View className="absolute -bottom-1 right-0 items-end">
             <FormControlError>
-              <FormControlErrorText className="text-right">
+              <FormControlErrorText size="xs" className="text-right">
                 {error.message as string}
               </FormControlErrorText>
             </FormControlError>
           </View>
         )}
 
-        {input.helperText && (
-          <View className="items-end p-0">
+        {input.helperText && !error && (
+          <View className="absolute -bottom-1 right-0 p-0">
             <FormControlHelper>
               <FormControlHelperText size="xs" className="text-right">
                 {input.helperText}

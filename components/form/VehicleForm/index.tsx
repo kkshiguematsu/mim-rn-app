@@ -54,6 +54,9 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
         label: 'Bateria',
         placeholder: 'kWh',
         iconSection: { icon: BatteryCharging, color: 'green' },
+        rules: {
+          required: 'Obrigatório',
+        },
       },
       {
         type: InputTypes.NUMBER,
@@ -61,6 +64,9 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
         label: 'Pot. máx.',
         placeholder: 'kW',
         iconSection: { icon: Zap, color: 'yellow' },
+        rules: {
+          required: 'Obrigatório',
+        },
       },
     ],
   },

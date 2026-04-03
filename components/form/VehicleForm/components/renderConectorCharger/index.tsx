@@ -59,7 +59,7 @@ export const RenderConnectionsComponent = () => {
         onScroll={handleScroll}
         scrollEventThrottle={16}
         className="mx-4 flex-1"
-        contentContainerClassName="gap-2 "
+        contentContainerClassName="gap-2 pt-2 pb-3 "
       >
         {CONNECTOR_OPTIONS.map((type) => {
           const selected = field.value === type;

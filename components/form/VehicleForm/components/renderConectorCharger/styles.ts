@@ -1,7 +1,7 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 
 export const connectorButtonStyles = tva({
-  base: 'flex-1 items-center justify-center rounded-xl border py-2.5 px-3 border border-gray-200 bg-red-500',
+  base: 'flex-1 items-center justify-center rounded-xl border p-3 border border-gray-200 bg-red-500',
   variants: {
     selected: {
       true: 'bg-primary-100 border-primary-200',
