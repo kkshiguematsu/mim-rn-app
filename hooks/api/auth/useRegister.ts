@@ -13,9 +13,7 @@ export const useRegister = () => {
 
   return useMutation({
     mutationFn: registerUser,
-    onSuccess: (data) => {
-      console.log('Usuário registrado:', data);
-    },
+    onSuccess: () => {},
     onError: (error: Error) => {
       showToast({
         title: 'Erro no cadastro',

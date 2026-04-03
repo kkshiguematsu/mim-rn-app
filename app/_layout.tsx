@@ -17,10 +17,6 @@ import { queryClient } from '@/service/api';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
 function LayoutContent() {
   const { theme } = useTheme();
 
@@ -32,15 +28,9 @@ function LayoutContent() {
             <ModalProvider>
               <ChargingProvider>
                 <Stack>
-                  <Stack.Screen
-                    name="index"
-                    options={{ headerShown: false, animation: 'slide_from_left' }}
-                  />
-                  <Stack.Screen
-                    name="register"
-                    options={{ animation: 'slide_from_right', headerShown: false }}
-                  />
+                  <Stack.Screen name="index" options={{ headerShown: false }} />
                   <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                  <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                   <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
                 </Stack>
 

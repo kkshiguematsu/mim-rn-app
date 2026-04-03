@@ -40,15 +40,11 @@ export const LoginForm = () => {
   });
 
   const { handleSubmit } = formMethods;
-  const { navigate, replace } = useRouter();
+  const { navigate } = useRouter();
   const { mutate, isPending } = useLogin();
 
   const submitForm = (data: LoginFormType) => {
-    mutate(data, {
-      onSuccess: () => {
-        replace('/home');
-      },
-    });
+    mutate(data);
   };
 
   return (
@@ -72,7 +68,7 @@ export const LoginForm = () => {
         </Button>
         <View className="flex flex-row items-center justify-center gap-2">
           <Text>Não tem uma conta?</Text>
-          <Link href="" onPress={() => navigate('/register')}>
+          <Link href="" onPress={() => navigate('/(auth)/register')}>
             <LinkText className="font-bold text-blue-500 no-underline">Registre-se</LinkText>
           </Link>
         </View>

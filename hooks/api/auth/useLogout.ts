@@ -18,7 +18,7 @@ export const useLogout = () => {
     mutationFn: logoutUser,
     onSuccess: () => {
       logout();
-      router.replace('/');
+      router.replace('/(auth)/login');
     },
     onError: (error: Error) => {
       showToast({
