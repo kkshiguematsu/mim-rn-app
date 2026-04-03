@@ -3,18 +3,17 @@ import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
 import { CONNECTOR_OPTIONS } from '@/types/vehicle/vehicle.type';
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useRef, useState } from 'react';
-import { useController, useFormContext } from 'react-hook-form';
 import { Pressable, ScrollView, View } from 'react-native';
 import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { connectorButtonStyles, connectorTextStyles } from './styles';
 
-export const RenderConnectionsComponent = () => {
-  const { control } = useFormContext();
-  const { field } = useController({
-    control,
-    name: 'connector',
-  });
-
+export const RenderConnectionsComponent = ({
+  value,
+  onChange,
+}: {
+  value?: string;
+  onChange: (value: string) => void;
+}) => {
   const scrollRef = useRef<ScrollView>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -62,7 +61,7 @@ export const RenderConnectionsComponent = () => {
         contentContainerClassName="gap-2 pt-2 pb-3 "
       >
         {CONNECTOR_OPTIONS.map((type) => {
-          const selected = field.value === type;
+          const selected = value === type;
 
           const animatedStyle = useAnimatedStyle(() => ({
             transform: [
@@ -78,7 +77,7 @@ export const RenderConnectionsComponent = () => {
           return (
             <Animated.View key={type} style={animatedStyle} className="flex-1">
               <Pressable
-                onPress={() => field.onChange(type)}
+                onPress={() => onChange(type)}
                 className={connectorButtonStyles({ selected })}
               >
                 <Text className={connectorTextStyles({ selected })}>{type}</Text>

@@ -32,6 +32,7 @@ export const RepeatableFieldGroup = ({
   const { errors } = useFormState({
     control,
   });
+  // Refatorar para ser dinamico (append({} deve ser baseado nos campos do grupo))
   const { fields, append, remove } = useFieldArray({
     control,
     name: group.name,
@@ -77,7 +78,6 @@ export const RepeatableFieldGroup = ({
                       input={{
                         ...input,
                         name: fieldName,
-                        rules: input.rules,
                       }}
                       inputTypeRender={inputTypeRender}
                       isDisabled={isDisableForm}

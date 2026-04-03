@@ -111,12 +111,16 @@ export function RenderInputNative({
 
     case InputTypes.SELECTBUTTON:
       return (
-        <View className="flex-row items-center">{RenderComponent && <RenderComponent />}</View>
+        <View className="flex-row items-center">
+          {RenderComponent && <RenderComponent value={value} onChange={onChange} />}
+        </View>
       );
 
     case InputTypes.PICKER:
       return (
-        <View className="flex-row items-center">{RenderComponent && <RenderComponent />}</View>
+        <View className="flex-row items-center">
+          {RenderComponent && <RenderComponent value={value} onChange={onChange} />}
+        </View>
       );
 
     default:

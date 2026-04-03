@@ -42,10 +42,6 @@ export default function VehiclePage() {
     [setActiveVehicle]
   );
 
-  const openSheet = useCallback(() => {
-    sheetRef.current?.expand();
-  }, []);
-
   return (
     <Page.Scroll needsPadding={false} hasHeader={false}>
       <Page.Header

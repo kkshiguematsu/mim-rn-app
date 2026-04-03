@@ -9,6 +9,11 @@ import { type DynamicSelectInputItem } from './renderInput/renderSelectInput';
 
 export type InputTypeRender = 'normal' | 'bottomSheet' | 'native';
 
+type RenderComponentProps = {
+  value?: any;
+  onChange: (value: any) => void;
+};
+
 export interface DynamicInputProps {
   title?: string;
   className?: string;
@@ -25,7 +30,7 @@ export interface DynamicInputProps {
   selectItems?: DynamicSelectInputItem[];
   group?: DynamicInputProps[];
   inputTypeRender?: InputTypeRender;
-  renderComponent?: React.ComponentType;
+  renderComponent?: React.ComponentType<RenderComponentProps>;
   helperText?: string;
 }
 

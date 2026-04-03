@@ -1,7 +1,8 @@
 import { RenderColorSelector } from '@/components/form/VehicleForm/components/renderColorPicker';
 import { RenderConnectionsComponent } from '@/components/form/VehicleForm/components/renderConectorCharger';
 import { FormSection, NewRenderForm } from '@/components/shared/form/RenderForm/NewRenderForm';
-import { Button, ButtonText } from '@/components/ui/button';
+import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
+import { useCreateVehicle } from '@/hooks/api/vehicle/useCreateVehicle';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
 import { INITIAL_FORM_DATA, VehicleFormData } from '@/types/vehicle/vehicle.type';
 import { BatteryCharging, Cable, Calendar, Car, Palette, Tag, Zap } from 'lucide-react-native';
@@ -88,7 +89,8 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
         },
       ],
       rules: {
-        required: 'Adicione pelo menos um conector',
+        validate: (value: any[]) =>
+          (value && value.length > 0) || 'Adicione pelo menos um conector',
       },
     },
   },
@@ -124,6 +126,7 @@ export const VEHICLE_FORM_CONFIG: FormSection[] = [
 ];
 
 export const VehicleForm = () => {
+  const { mutate, isPending } = useCreateVehicle();
   const methods = useForm<VehicleFormData>({
     defaultValues: INITIAL_FORM_DATA,
     mode: 'all',
@@ -132,13 +135,14 @@ export const VehicleForm = () => {
   const { handleSubmit } = methods;
 
   const onSubmit = (data: VehicleFormData) => {
-    console.log(data);
+    mutate(data);
   };
 
   return (
     <FormProvider {...methods}>
       <NewRenderForm sections={VEHICLE_FORM_CONFIG} inputTypeRender={'native'} />
       <Button size="xl" className="h-14 rounded-2xl" onPress={handleSubmit(onSubmit)}>
+        {isPending && <ButtonSpinner color="white" />}
         <ButtonText>Cadastrar veículo</ButtonText>
       </Button>
     </FormProvider>
