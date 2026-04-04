@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { RegisterForm } from '@/components/form/RegisterForm';
+import { RegisterForm } from '@/components/form/auth/RegisterForm';
 import { Page } from '@/components/layout/page';
 
 export default function RegisterPage() {

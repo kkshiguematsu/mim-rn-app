@@ -1,6 +1,7 @@
 import { Text } from '@/components/ui/text';
 import React from 'react';
 
+import { ChevronRightIcon, Icon } from '@/components/ui/icon';
 import { VStack } from '@/components/ui/vstack';
 import { Pressable, View } from 'react-native';
 import { TintedIcon } from '../../icon/TintedIcon';
@@ -20,6 +21,7 @@ export interface MenuItemProps {
     color: ColorIcons;
   };
   onClick?: () => void;
+  renderComponent?: React.ReactNode;
 }
 
 export const MenuItem = ({
@@ -31,9 +33,9 @@ export const MenuItem = ({
   size,
   sizeIcon,
   onClick,
+  renderComponent,
 }: MenuItemProps) => {
   const content = (
-    // <View className="flex flex-row items-center justify-between gap-3 border-b border-neutral-200 px-4 py-4 dark:border-neutral-700">
     <View className={menuItemContainerStyles({ size })}>
       {icon && <TintedIcon icon={icon.name} color={icon.color} size={sizeIcon} />}
       <VStack className="flex-1">
@@ -49,6 +51,8 @@ export const MenuItem = ({
       <Text size={size} className={valueColor ? `text-[${valueColor}] ` : 'text-neutral-400'}>
         {value}
       </Text>
+      {renderComponent && <View className="ml-2">{renderComponent}</View>}
+      {onClick && !renderComponent && <Icon as={ChevronRightIcon} color="gray" />}
     </View>
   );
 

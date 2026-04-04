@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/form/LoginForm';
+import { LoginForm } from '@/components/form/auth/LoginForm';
 import { Page } from '@/components/layout/page';
 import { AnimatedSlideInViewCard } from '@/components/shared/cards/AnimatedViewCard';
 import { Button, ButtonText } from '@/components/ui/button';

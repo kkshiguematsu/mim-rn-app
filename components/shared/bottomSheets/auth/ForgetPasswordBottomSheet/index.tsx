@@ -1,4 +1,4 @@
-import { ForgetPasswordForm } from '@/components/form/ForgetPasswordForm';
+import { ForgetPasswordForm } from '@/components/form/auth/ForgetPasswordForm';
 import { Heading } from '@/components/ui/heading';
 import { Text } from '@/components/ui/text';
 import React from 'react';
