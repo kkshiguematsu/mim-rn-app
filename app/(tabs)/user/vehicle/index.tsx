@@ -1,5 +1,5 @@
 import { Text } from '@/components/ui/text';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 
 import { Page } from '@/components/layout/page';
 import { Section } from '@/components/section/Section';
@@ -9,8 +9,8 @@ import { VehicleHeroCard } from '@/components/shared/cards/VehicleHeroCard';
 import { Icon } from '@/components/ui/icon';
 import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
 import { useRotationAnimation } from '@/hooks/animations/useRotationAnimation';
+import { useGetVehicles } from '@/hooks/api/vehicle/useGetVehicles';
 import { useVehicleStore } from '@/hooks/store/useVehicleStore';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { useRouter } from 'expo-router';
 import { Car, Plus } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
@@ -18,10 +18,9 @@ import Animated from 'react-native-reanimated';
 
 export default function VehiclePage() {
   const router = useRouter();
-  const { vehicles, activeVehicle, setActiveVehicle, addVehicle, removeVehicle, updateVehicle } =
-    useVehicleStore();
+  useGetVehicles();
+  const { vehicles, activeVehicle, setActiveVehicle } = useVehicleStore();
 
-  const sheetRef = useRef<BottomSheet>(null);
   const { animateRotation, animationStyle } = useRotationAnimation(180);
   const animationFadeIn = useFadeInAnimation({
     direction: 'down',

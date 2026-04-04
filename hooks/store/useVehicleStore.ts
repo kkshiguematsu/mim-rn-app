@@ -8,6 +8,7 @@ export const useVehicleStore = () => {
       activeVehicle: state.vehicles.find((veh) => veh.id === state.activeVehicleId),
       setActiveVehicle: state.setActiveVehicle,
       addVehicle: state.addVehicle,
+      setVehicles: state.setVehicles,
       updateVehicle: state.updateVehicle,
       removeVehicle: state.removeVehicle,
     }))

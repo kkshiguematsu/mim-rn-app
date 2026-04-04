@@ -55,7 +55,9 @@ export interface VehicleType {
   batteryPct: number;
   lastSessionDate: string;
   lastSessionKwh: number;
+  photoUrl: string;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface VehicleFormData {

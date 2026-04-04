@@ -1,4 +1,3 @@
-import { MOCK_VEHICLES } from '@/data/mock/vehicle/vehicle.mocks';
 import { VehicleType } from '@/types/vehicle/vehicle.type';
 import { StateCreator } from 'zustand';
 
@@ -10,12 +9,13 @@ export interface VehicleSlice {
 
   setActiveVehicle: (id: string) => void;
   addVehicle: (data: Omit<VehicleType, 'id'>) => void;
+  setVehicles: (vehicles: VehicleType[]) => void;
   updateVehicle: (id: string, data: Partial<VehicleType>) => void;
   removeVehicle: (id: string) => void;
 }
 
 export const createVehicleSlice: StateCreator<VehicleSlice, [], [], VehicleSlice> = (set, get) => ({
-  vehicles: MOCK_VEHICLES,
+  vehicles: [],
   activeVehicleId: 'v1',
 
   setActiveVehicle: (id) => set({ activeVehicleId: id }),
@@ -34,6 +34,8 @@ export const createVehicleSlice: StateCreator<VehicleSlice, [], [], VehicleSlice
       vehicles: [...state.vehicles, newVehicle],
     }));
   },
+
+  setVehicles: (vehicles) => set({ vehicles }),
 
   updateVehicle: (id, data) =>
     set((state) => ({
