@@ -4,7 +4,7 @@ import { useTheme } from '@/context/themeContext';
 import { BadgeAlert, BadgeCheck, BadgeInfo, BadgeX } from 'lucide-react-native';
 
 interface toastMessageProps {
-  action?: 'error' | 'warning' | 'success' | 'info' | 'muted' | undefined;
+  type?: 'error' | 'warning' | 'success' | 'info' | 'muted' | undefined;
   variant?: 'solid' | 'outline' | undefined;
   title?: string;
   description?: string;
@@ -31,7 +31,7 @@ export const useToastMessage = () => {
   };
 
   const showToast = (props: toastMessageProps) => {
-    const { title, description, action, variant } = props;
+    const { title, description, type, variant } = props;
 
     toast.show({
       id: Math.random().toString(),
@@ -40,10 +40,10 @@ export const useToastMessage = () => {
       render: ({ id }) => {
         const uniqueToastId = 'toast-' + id;
         return (
-          <Toast nativeID={uniqueToastId} action={action} variant={variant}>
+          <Toast nativeID={uniqueToastId} action={type} variant={variant}>
             {title && (
               <HStack space="sm">
-                {renderIcon(action)}
+                {renderIcon(type)}
                 <ToastTitle>{title}</ToastTitle>
               </HStack>
             )}

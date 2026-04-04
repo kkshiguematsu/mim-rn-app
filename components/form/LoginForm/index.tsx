@@ -4,8 +4,10 @@ import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
 import { Link, LinkText } from '@/components/ui/link';
 import { Text } from '@/components/ui/text';
 import { useLogin } from '@/hooks/api/auth/useLogin';
+import { useBottomSheetStore } from '@/hooks/store/useBottomSheetStore';
 import { LoginFormType } from '@/types/auth/login.type';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
+import { BottomSheetNames } from '@/types/modal/bottomSheetNames';
 import { useRouter } from 'expo-router';
 import { Lock, Mail } from 'lucide-react-native';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -42,6 +44,7 @@ export const LoginForm = () => {
   const { handleSubmit } = formMethods;
   const { navigate } = useRouter();
   const { mutate, isPending } = useLogin();
+  const { enableModal } = useBottomSheetStore();
 
   const submitForm = (data: LoginFormType) => {
     mutate(data);
@@ -56,7 +59,7 @@ export const LoginForm = () => {
       </View>
 
       <View className="my-7 flex w-full items-end">
-        <Link href="">
+        <Link href="" onPress={() => enableModal(BottomSheetNames.ForgetPasswordBottomSheet)}>
           <LinkText className="font-bold text-blue-500 no-underline">Esqueci minha senha</LinkText>
         </Link>
       </View>

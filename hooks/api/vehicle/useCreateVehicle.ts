@@ -22,14 +22,14 @@ export const useCreateVehicle = () => {
       showToast({
         title: 'Sucesso',
         description: 'Veículo cadastrado',
-        action: 'success',
+        type: 'success',
       });
     },
     onError: (error: Error) => {
       showToast({
         title: 'Erro ao cadastrar',
         description: error.message,
-        action: 'error',
+        type: 'error',
       });
     },
   });

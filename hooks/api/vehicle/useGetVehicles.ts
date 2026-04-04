@@ -23,7 +23,7 @@ export const useGetVehicles = () => {
       showToast({
         title: 'Erro',
         description: query.error.message,
-        action: 'error',
+        type: 'error',
       });
     }
   }, [query.error]);

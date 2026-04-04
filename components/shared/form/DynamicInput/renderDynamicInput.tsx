@@ -27,10 +27,6 @@ export const DynamicInputField = ({
   const { errors } = useFormState({ control });
   const error = get(errors, input.name);
 
-  // const { watch } = useFormContext();
-
-  // console.log(watch());
-
   return (
     <FormControl isInvalid={!!error} className="relative">
       <View className={clsx(['', input.className, inputTypeRender !== 'native' && 'mb-2'])}>
@@ -48,7 +44,12 @@ export const DynamicInputField = ({
         />
 
         {error && (
-          <View className="absolute -bottom-1 right-0 items-end">
+          <View
+            className={clsx([
+              'absolute -bottom-1 right-0 items-end',
+              inputTypeRender !== 'native' && '-bottom-5',
+            ])}
+          >
             <FormControlError>
               <FormControlErrorText size="xs" className="text-right">
                 {error.message as string}

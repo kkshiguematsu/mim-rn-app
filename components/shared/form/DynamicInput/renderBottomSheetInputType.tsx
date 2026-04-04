@@ -25,7 +25,20 @@ export function RenderBottomSheetInput({
     case InputTypes.TEXT:
       return (
         <BottomSheetInput
+          size="lg"
           keyboardType="default"
+          value={value}
+          placeholder={placeholder}
+          disabled={isDisabled}
+          onBlur={onBlur}
+          onChangeText={onChange}
+        />
+      );
+    case InputTypes.EMAIL:
+      return (
+        <BottomSheetInput
+          size="lg"
+          keyboardType="email-address"
           value={value}
           placeholder={placeholder}
           disabled={isDisabled}
@@ -37,6 +50,7 @@ export function RenderBottomSheetInput({
     case InputTypes.NUMBER:
       return (
         <BottomSheetInput
+          size="lg"
           keyboardType="numeric"
           value={value}
           placeholder={placeholder}

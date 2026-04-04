@@ -18,7 +18,7 @@ export const useRegister = () => {
       showToast({
         title: 'Erro no cadastro',
         description: error.message,
-        action: 'error',
+        type: 'error',
       });
     },
   });

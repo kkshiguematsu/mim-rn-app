@@ -24,7 +24,7 @@ export const useLogout = () => {
       showToast({
         title: 'Erro no logout',
         description: error.message,
-        action: 'error',
+        type: 'error',
       });
     },
   });

@@ -15,7 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export const BottomSheetRenderer = () => {
-  const { activeModal } = useBottomSheetStore();
+  const { activeModal, disableModal } = useBottomSheetStore();
   const insets = useSafeAreaInsets();
 
   const { handleOpen, handleClose } = useContext(BottomSheetContext);
@@ -44,6 +44,7 @@ export const BottomSheetRenderer = () => {
       android_keyboardInputMode="adjustResize"
       backdropComponent={BottomSheetBackdrop}
       handleComponent={BottomSheetDragIndicator}
+      onClose={disableModal}
     >
       <BottomSheetContent style={{ paddingBottom: insets.bottom }}>
         {BottomSheetComponent && <BottomSheetComponent />}

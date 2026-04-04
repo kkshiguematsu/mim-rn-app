@@ -25,7 +25,7 @@ export const useLogin = () => {
       showToast({
         title: 'Erro no login',
         description: error.message,
-        action: 'error',
+        type: 'error',
       });
     },
   });

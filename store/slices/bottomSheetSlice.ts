@@ -8,7 +8,7 @@ export interface BottomSheetSlice {
   disableModal: () => void;
 }
 
-export const createBottomSheetSlice: StateCreator<BottomSheetSlice> = (set, get) => ({
+export const createBottomSheetSlice: StateCreator<BottomSheetSlice> = (set) => ({
   activeModal: null,
   modalData: null,
   enableModal: (name, modalData) => set({ activeModal: name, modalData }),
