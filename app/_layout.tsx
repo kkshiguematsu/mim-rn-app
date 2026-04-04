@@ -7,10 +7,9 @@ import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 import { FloatingChargingView } from '@/components/layout/FloatingChargingView';
-import { ModalRenderer } from '@/components/shared/modals/ModalRenderer';
+import { BottomSheetRenderer } from '@/components/shared/bottomSheets/BottomSheetRenderer';
 import { BottomSheet } from '@/components/ui/bottomsheet';
 import { ChargingProvider } from '@/context/ChargingContext';
-import { ModalProvider } from '@/context/modalContext';
 import { ThemeProvider, useTheme } from '@/context/themeContext';
 import '@/global.css';
 import { queryClient } from '@/service/api';
@@ -25,21 +24,19 @@ function LayoutContent() {
       <GluestackUIProvider mode={'light'}>
         <KeyboardProvider>
           <BottomSheet>
-            <ModalProvider>
-              <ChargingProvider>
-                <Stack>
-                  <Stack.Screen name="index" options={{ headerShown: false }} />
-                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                  <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                  <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-                </Stack>
+            <ChargingProvider>
+              <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+              </Stack>
 
-                <StatusBar />
+              <StatusBar />
 
-                <ModalRenderer />
-                <FloatingChargingView />
-              </ChargingProvider>
-            </ModalProvider>
+              <BottomSheetRenderer />
+              <FloatingChargingView />
+            </ChargingProvider>
           </BottomSheet>
         </KeyboardProvider>
       </GluestackUIProvider>

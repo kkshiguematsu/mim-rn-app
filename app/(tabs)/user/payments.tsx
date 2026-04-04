@@ -8,9 +8,9 @@ import { BottomSheetTrigger } from '@/components/ui/bottomsheet';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
 import { VStack } from '@/components/ui/vstack';
-import { useModal } from '@/context/modalContext';
 import { useRotationAnimation } from '@/hooks/animations/useRotationAnimation';
-import { ModalNames } from '@/types/modal/modalsComponents';
+import { useBottomSheetStore } from '@/hooks/store/useBottomSheetStore';
+import { BottomSheetNames } from '@/types/modal/bottomSheetNames';
 import { Plus } from 'lucide-react-native';
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -57,16 +57,16 @@ const mockOthersPaymentsMethods: PaymentCardType[] = [
 ];
 
 export default function PaymentsPage() {
-  const { enableModal } = useModal();
+  const { enableModal } = useBottomSheetStore();
   const { animateRotation, animationStyle } = useRotationAnimation(180);
 
   const openModal = () => {
     animateRotation();
-    enableModal(ModalNames.PaymenentCardAddModal);
+    enableModal(BottomSheetNames.PaymenentCardAddBottomSheet);
   };
 
   const showPaymentCardDetails = (paymentCard: PaymentCardType) => {
-    enableModal(ModalNames.PaymentCardViewModal, paymentCard);
+    enableModal(BottomSheetNames.PaymentCardViewBottomSheet, paymentCard);
   };
 
   return (

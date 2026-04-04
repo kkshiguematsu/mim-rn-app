@@ -1,33 +1,38 @@
 import {
   BottomSheetBackdrop,
   BottomSheetContent,
+  BottomSheetContext,
   BottomSheetDragIndicator,
   BottomSheetPortal,
 } from '@/components/ui/bottomsheet';
-import { useModal } from '@/context/modalContext';
-import { ModalNames } from '@/types/modal/modalsComponents';
+import { useBottomSheetStore } from '@/hooks/store/useBottomSheetStore';
+import { BOTTOMSHEET_COMPONENTS } from '@/types/modal/bottomSheetNames';
+import { useContext, useEffect } from 'react';
 
 import { Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { PaymentCardAddModal } from '../payment/PaymentCardAddModal';
-import { PaymentCardViewModal } from '../payment/PaymentCardViewModal';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-const MODAL_COMPONENTS = {
-  [ModalNames.PaymenentCardAddModal]: PaymentCardAddModal,
-  [ModalNames.PaymentCardViewModal]: PaymentCardViewModal,
-};
-
-export const ModalRenderer = () => {
-  const { activeModal } = useModal();
+export const BottomSheetRenderer = () => {
+  const { activeModal } = useBottomSheetStore();
   const insets = useSafeAreaInsets();
+
+  const { handleOpen, handleClose } = useContext(BottomSheetContext);
 
   const avelableHeight = SCREEN_HEIGHT - insets.top;
   const maxSnap = ((avelableHeight / SCREEN_HEIGHT) * 100).toString() + '%';
 
-  const ModalComponent =
-    activeModal !== null ? (MODAL_COMPONENTS[activeModal] as React.ElementType) : null;
+  const BottomSheetComponent =
+    activeModal !== null ? (BOTTOMSHEET_COMPONENTS[activeModal] as React.ElementType) : null;
+
+  useEffect(() => {
+    if (activeModal !== null) {
+      handleOpen();
+    } else {
+      handleClose();
+    }
+  }, [activeModal]);
 
   return (
     <BottomSheetPortal
@@ -41,7 +46,7 @@ export const ModalRenderer = () => {
       handleComponent={BottomSheetDragIndicator}
     >
       <BottomSheetContent style={{ paddingBottom: insets.bottom }}>
-        {ModalComponent && <ModalComponent />}
+        {BottomSheetComponent && <BottomSheetComponent />}
       </BottomSheetContent>
     </BottomSheetPortal>
   );

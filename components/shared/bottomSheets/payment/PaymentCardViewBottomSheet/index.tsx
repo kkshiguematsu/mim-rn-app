@@ -1,16 +1,16 @@
 import { PaymentCardForm } from '@/components/form/PaymentCardForm';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
-import { useModal } from '@/context/modalContext';
+import { useBottomSheetStore } from '@/hooks/store/useBottomSheetStore';
 import { PaymentCardType } from '@/types/payment/paymentCard.type';
 import { Edit } from 'lucide-react-native';
 import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 
-export const PaymentCardViewModal = () => {
+export const PaymentCardViewBottomSheet = () => {
   const [isDisableForm, setIsDisableForm] = useState(true);
 
-  const { modalData } = useModal();
+  const { modalData } = useBottomSheetStore();
   const data: PaymentCardType = modalData;
 
   const toogleEditPaymentCard = () => {
