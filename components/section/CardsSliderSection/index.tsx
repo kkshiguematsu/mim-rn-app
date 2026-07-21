@@ -10,7 +10,7 @@ interface Props {
 
 export const CardsSliderSection = ({ cards, className, contentContainerClassName }: Props) => {
   return (
-    <View className={clsx('py-1', className)}>
+    <View className={clsx('pt-4', className)}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

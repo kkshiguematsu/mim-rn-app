@@ -1,8 +1,13 @@
 import { Icon } from '@/components/ui/icon';
+import { Menu, MenuItem, MenuItemLabel } from '@/components/ui/menu';
 import { Text } from '@/components/ui/text';
 import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
-import { VEHICLE_COLORS, VehicleType } from '@/types/vehicle/vehicle.type';
-import { Car, EllipsisVertical } from 'lucide-react-native';
+import { useBottomSheetStore } from '@/hooks/store/useBottomSheetStore';
+import { BottomSheetNames } from '@/types/bottomsheet/bottomSheetNames';
+import {} from '@/types/user/user.type';
+import { UserVehicle } from '@/types/vehicle/vehicle.type';
+import clsx from 'clsx';
+import { Car, EllipsisVertical, Share2, Trash2 } from 'lucide-react-native';
 import React from 'react';
 import { Pressable, View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -15,50 +20,42 @@ import {
   subTextStyles,
 } from './styles';
 
-// ─── ColorDot ─────────────────────────────────────────────────────────────────
-
-function ColorDot({ color }: { color: VehicleType['color'] }) {
-  const match = VEHICLE_COLORS.find((c) => c.id === color);
-
-  return (
-    <View
-      className="h-2.5 w-2.5 rounded-full"
-      style={{
-        backgroundColor: match?.hex ?? '#9ca3af',
-        borderWidth: color === 'white' ? 1 : 0,
-        borderColor: '#CCC',
-      }}
-    />
-  );
-}
-
-// ─── Props ────────────────────────────────────────────────────────────────────
-
 interface Props {
   index: number;
-  vehicle: VehicleType;
+  userVehicle: UserVehicle;
   selectedVehicleId?: string;
   onSelect: () => void;
-  onMorePress: () => void;
 }
 
-// ─── VehicleListRow ───────────────────────────────────────────────────────────
+export const VehicleListRow = ({ userVehicle, index, selectedVehicleId, onSelect }: Props) => {
+  const vehicleId = userVehicle.vehicle._id;
+  const selected = selectedVehicleId === vehicleId;
 
-export const VehicleListRow = ({
-  vehicle,
-  index,
-  selectedVehicleId,
-  onSelect,
-  onMorePress,
-}: Props) => {
-  const { brand, model, plate, connector, color } = vehicle;
-
-  const selected = selectedVehicleId === vehicle.id;
+  const { enableModal } = useBottomSheetStore();
 
   const animationFadeIn = useFadeInAnimation({
     direction: 'down',
     duration: 500 * index,
   });
+
+  const listOptions = [
+    {
+      label: 'Compartilhar',
+      icon: Share2,
+      color: 'blue',
+      onPress: () => enableModal(BottomSheetNames.ShareVehicleBottomSheet, { vehicleId }),
+    },
+    {
+      label: 'Deletar',
+      icon: Trash2,
+      color: 'red',
+      onPress: () =>
+        enableModal(BottomSheetNames.DeleteVehicleBottomSheet, {
+          vehicleId,
+          targetUserId: userVehicle.userVehicleId,
+        }),
+    },
+  ];
 
   return (
     <Animated.View entering={animationFadeIn}>
@@ -74,19 +71,15 @@ export const VehicleListRow = ({
             style={{ letterSpacing: -0.2 }}
             numberOfLines={1}
           >
-            {brand} {model}
+            {userVehicle.vehicle.catalogId.brand} {userVehicle.vehicle.catalogId.model}
           </Text>
 
           <View className="flex-row flex-wrap items-center gap-3">
             <View className="flex-row items-center gap-2">
-              <ColorDot color={color} />
-              <Text size="xs" className={subTextStyles({ selected })}>
-                {plate}
+              <Text size="xs" className={subTextStyles({ selected })} numberOfLines={1}>
+                {userVehicle.vehicle.licensePlate ? userVehicle.vehicle.licensePlate : 'Sem placa'}
               </Text>
             </View>
-            <Text size="xs" className={subTextStyles({ selected })}>
-              {connector}
-            </Text>
           </View>
         </View>
 
@@ -97,13 +90,35 @@ export const VehicleListRow = ({
             </Text>
           </Pressable>
 
-          <Pressable
-            onPress={onMorePress}
-            hitSlop={8}
-            className="h-7 w-7 items-center justify-center rounded-full border border-neutral-200 bg-neutral-100 active:bg-neutral-200"
+          <Menu
+            placement="bottom right"
+            offset={5}
+            trigger={({ ...triggerProps }) => {
+              return (
+                <Pressable
+                  {...triggerProps}
+                  hitSlop={8}
+                  className={clsx([
+                    'h-7 w-7 items-center justify-center rounded-full border active:bg-neutral-200',
+                    selected ? 'border-primary-400' : 'border-neutral-200',
+                  ])}
+                >
+                  <Icon as={EllipsisVertical} className={selectBtnTextStyles({ selected })} />
+                </Pressable>
+              );
+            }}
           >
-            <Icon as={EllipsisVertical} color="#a8a8a4" />
-          </Pressable>
+            {listOptions.map((option) => (
+              <MenuItem key={option.label} textValue={option.label} onPress={option.onPress}>
+                <MenuItemLabel>
+                  <View className="flex-row items-center gap-2">
+                    <Icon as={option.icon} className={`text-${option.color}-600`} />
+                    <Text className={`text-${option.color}-600`}>{option.label}</Text>
+                  </View>
+                </MenuItemLabel>
+              </MenuItem>
+            ))}
+          </Menu>
         </View>
       </Pressable>
     </Animated.View>

@@ -36,46 +36,40 @@ export const VEHICLE_COLORS: VEHICLE_COLOR[] = [
 
 export type ConnectorType = 'CCS2' | 'CHAdeMO' | 'Type 2' | 'Tesla';
 
+export const CONNECTOR_OPTIONS: ConnectorType[] = ['CCS2', 'CHAdeMO', 'Type 2', 'Tesla'];
+
 export interface VehicleConnector {
   type: ConnectorType | null;
-  maxPowerKw: number | null;
+  maxChargingPowerKw: number | null;
 }
 
-export interface VehicleType {
-  id: string;
+export interface VehicleCatalog {
+  _id: string;
   brand: string;
   model: string;
-  plate: string;
   year: number;
-  connector: VehicleConnector[];
-  batteryCapacityKwh: number;
-  maxPowerKw: number;
-  rangeKm: number;
-  color: string;
-  batteryPct: number;
-  lastSessionDate: string;
-  lastSessionKwh: number;
-  photoUrl: string;
-  createdAt: string;
-  updatedAt: string;
+  connectors: VehicleConnector[];
+  batteryCapacityKwh?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
+  photoUrl?: string;
 }
 
-export interface VehicleFormData {
-  brand: string;
-  model: string;
-  year: number | null;
-  batteryCapacityKwh: number | null;
-  connector: VehicleConnector[] | [];
-  color: string;
+export interface Vehicle {
+  _id: string;
+  catalogId: VehicleCatalog;
+  licensePlate?: string;
+  ownerType?: string;
+  ownerId?: string;
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-export const INITIAL_FORM_DATA: VehicleFormData = {
-  brand: '',
-  model: '',
-  year: null,
-  connector: [],
-  batteryCapacityKwh: null,
-  color: 'black',
-};
-
-export const CONNECTOR_OPTIONS: ConnectorType[] = ['CCS2', 'CHAdeMO', 'Type 2', 'Tesla'];
+export interface UserVehicle {
+  userVehicleId: string;
+  vehicle: Vehicle;
+  rules?: Record<string, any>;
+  isOwner?: boolean;
+}

@@ -7,31 +7,36 @@ import {
 } from '@/components/ui/form-control';
 import { Text } from '@/components/ui/text';
 import clsx from 'clsx';
-import { Control, FieldValues, get, useFormState } from 'react-hook-form';
+import { useController, useFormContext } from 'react-hook-form';
 import { View } from 'react-native';
-import { DynamicInput, DynamicInputProps, InputTypeRender } from '.';
+import { DynamicInput, InputTypeRender } from '.';
+import { DynamicInputProps } from './renderInput/types';
 
 interface DynamicInputFieldProps {
-  control: Control<FieldValues>;
   input: DynamicInputProps;
   inputTypeRender?: InputTypeRender;
   isDisabled?: boolean;
 }
 
 export const DynamicInputField = ({
-  control,
   input,
   inputTypeRender,
   isDisabled,
 }: DynamicInputFieldProps) => {
-  const { errors } = useFormState({ control });
-  const error = get(errors, input.name);
+  const { control } = useFormContext();
+
+  const { fieldState } = useController({
+    control,
+    name: input.name,
+  });
+
+  const error = fieldState.error;
 
   return (
-    <FormControl isInvalid={!!error} className="relative">
+    <FormControl isDisabled={isDisabled} isInvalid={!!error} className="relative">
       <View className={clsx(['', input.className, inputTypeRender !== 'native' && 'mb-2'])}>
         {inputTypeRender !== 'native' && input.label && (
-          <Text size="md" className="font-medium text-gray-900">
+          <Text size="md" className="mb-1 font-medium">
             {input.label}
           </Text>
         )}

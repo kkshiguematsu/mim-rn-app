@@ -1,4 +1,6 @@
-export const calculateCO2Avoided = (energyKwh: number): number => {
+export const calculateCO2Avoided = (energyKwh: number | undefined): number => {
+  if (!energyKwh) return 0;
+
   const CO2_PER_KWH_GASOLINE = 2.31;
   const KM_PER_LITER = 10;
   const KWH_PER_100KM_EV = 15;

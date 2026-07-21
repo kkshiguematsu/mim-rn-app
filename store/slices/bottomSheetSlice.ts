@@ -1,4 +1,4 @@
-import { BottomSheetNames } from '@/types/modal/bottomSheetNames';
+import { BottomSheetNames } from '@/types/bottomsheet/bottomSheetNames';
 import { StateCreator } from 'zustand';
 
 export interface BottomSheetSlice {

@@ -1,16 +1,16 @@
-// renderInput.tsx
 import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
+import { Textarea, TextareaInput } from '@/components/ui/textarea';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
-import { formatDateInput } from '@/utils/Date.utils';
+import { applyMask } from '@/utils/formMasks.utils';
 import React, { useState } from 'react';
-import { DynamicInputProps, sizeInput } from '..';
 import { renderIcon } from '../renderIcon';
 import { renderSelectInput } from './renderSelectInput';
+import { DynamicInputProps, sizeInput } from './types';
 
 export interface RenderInputTypeProps extends Pick<
   DynamicInputProps,
-  'type' | 'placeholder' | 'icon' | 'selectItems'
+  'type' | 'placeholder' | 'icon' | 'selectItems' | 'mask' | 'renderComponent'
 > {
   value?: string;
   onBlur: () => void;
@@ -23,9 +23,15 @@ export function RenderInput({
   icon,
   placeholder,
   selectItems,
+  mask,
   onBlur,
   onChange,
 }: RenderInputTypeProps) {
+  const handleChange = (text: string) => {
+    const maskedValue = mask ? applyMask(text, mask) : text;
+    onChange(maskedValue);
+  };
+
   switch (type) {
     case InputTypes.TEXT:
       return (
@@ -35,7 +41,7 @@ export function RenderInput({
             value={value}
             placeholder={placeholder}
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChangeText={handleChange}
           />
         </Input>
       );
@@ -48,7 +54,7 @@ export function RenderInput({
             keyboardType="email-address"
             placeholder={placeholder}
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChangeText={handleChange}
           />
         </Input>
       );
@@ -64,7 +70,7 @@ export function RenderInput({
             value={value}
             placeholder={placeholder}
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChangeText={handleChange}
           />
           <InputSlot className="pr-3" onPress={() => setVisible((v) => !v)}>
             <InputIcon as={visible ? EyeIcon : EyeOffIcon} />
@@ -82,7 +88,7 @@ export function RenderInput({
             value={value}
             placeholder={placeholder}
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChangeText={handleChange}
           />
         </Input>
       );
@@ -97,13 +103,28 @@ export function RenderInput({
             placeholder={placeholder ?? 'dd/mm/aaaa'}
             maxLength={10}
             onBlur={onBlur}
-            onChangeText={(text) => onChange(formatDateInput(text))}
+            onChangeText={handleChange}
           />
         </Input>
       );
 
     case InputTypes.SELECT:
       return renderSelectInput(value, placeholder ?? '', selectItems ?? [], onChange);
+
+    case InputTypes.TEXTAREA:
+      return (
+        <Textarea size={sizeInput}>
+          {icon && renderIcon(icon)}
+          <TextareaInput
+            multiline
+            textAlignVertical="top"
+            value={value}
+            placeholder={placeholder}
+            onBlur={onBlur}
+            onChangeText={handleChange}
+          />
+        </Textarea>
+      );
 
     default:
       return <></>;

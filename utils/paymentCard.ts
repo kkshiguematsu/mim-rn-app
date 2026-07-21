@@ -1,4 +1,4 @@
-import { FlagCard } from '@/types/payment/paymentCard.type';
+import { FlagCard, PaymentFlow, PaymentMethod, PaymentStatus } from '@/types/payment/payment.type';
 
 export const getCardBrand = (cardNumber: string): FlagCard | undefined => {
   const number = cardNumber.replace(/\D/g, '');
@@ -17,3 +17,22 @@ export const formatCardNumber = (value: string) =>
     .replace(/\D/g, '')
     .replace(/(.{4})/g, '$1 ')
     .trim();
+
+export const paymentFlowMap: Record<PaymentFlow, string> = {
+  POST_PAID: 'Pós-pago',
+  PRE_PAID: 'Pré-pago',
+};
+
+export const paymentMethodMap: Record<PaymentMethod, string> = {
+  PIX: 'Pix',
+  CREDIT_CARD: 'Cartão de crédito',
+  DEBIT_CARD: 'Cartão de débito',
+};
+
+export const paymentStatusMap: Record<PaymentStatus, string> = {
+  PENDING: 'Pendente',
+  PAID: 'Pago',
+  FREE_PAID: 'Gratuito',
+  FAILED: 'Falhou',
+  REFUNDED: 'Reembolsado',
+};

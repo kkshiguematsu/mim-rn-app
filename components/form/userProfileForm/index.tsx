@@ -1,124 +1,101 @@
-import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
+import { DynamicInputProps } from '@/components/shared/form/DynamicInput/renderInput/types';
 import { RenderForm } from '@/components/shared/form/RenderForm';
 import { Button, ButtonText } from '@/components/ui/button';
-import { FormControl } from '@/components/ui/form-control';
+import { UpdateProfilePayload, usePatchProfile } from '@/hooks/api/user/usePatchProfile';
+import { useUserStore } from '@/hooks/store/useUserStore';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
-import { User } from '@/types/user/user.type';
-import { formatDateInput } from '@/utils/Date.utils';
 import { FormProvider, useForm } from 'react-hook-form';
-
-const user: User = {
-  id: '1234567',
-  firstName: 'Kassiano',
-  lastName: 'Shiguematsu',
-
-  email: 'kassiano.e@hotmail.com',
-  password: '123456',
-  phone: '+5545998602082',
-
-  avatarUrl: 'url_avatar',
-  coverPhotoUrl: 'url_photo',
-
-  birthDate: 17101997,
-  gender: 'male',
-
-  location: {
-    country: 'Brasil',
-    state: 'Paraná',
-    city: 'Foz do Iguaçu',
-  },
-};
+import { ActivityIndicator } from 'react-native';
 
 const userInputs: DynamicInputProps[] = [
   {
-    title: 'Informações Pessoais',
-  },
-  {
     type: InputTypes.TEXT,
     label: 'Nome',
-    name: 'firstName',
+    name: 'name',
     placeholder: 'Nome',
-    className: 'flex-1',
+    rules: {
+      required: 'O nome é obrigatório',
+    },
   },
   {
-    type: InputTypes.TEXT,
-    label: 'Sobrenome',
-    name: 'lastName',
-    placeholder: 'Sobrenome',
-    className: 'flex-1',
+    type: InputTypes.EMAIL,
+    label: 'E-mail',
+    name: 'email',
+    placeholder: 'Digite seu e-mail',
+    rules: {
+      required: 'O e-mail é obrigatório',
+    },
   },
-  // {
-  //   type: InputTypes.EMAIL,
-  //   label: 'E-mail',
-  //   name: 'email',
-  //   placeholder: 'Digite seu e-mail',
-  // },
-  // {
-  //   type: InputTypes.PASSWORD,
-  //   label: 'Senha',
-  //   name: 'password',
-  //   placeholder: 'Digite sua senha',
-  // },
   {
-    type: InputTypes.TEXT,
+    type: InputTypes.NUMBER,
+    label: 'CPF',
+    name: 'taxId',
+    placeholder: 'Digite o CPF',
+    mask: 'cpf',
+    rules: {
+      required: 'O CPF é obrigatório',
+    },
+  },
+  {
+    type: InputTypes.NUMBER,
     label: 'Telefone',
     name: 'phone',
-    placeholder: '+55 (45) 99860-2082',
+    placeholder: '(12) 34567-8901',
+    mask: 'phone',
+    rules: {
+      required: 'O telefone é obrigatório',
+    },
   },
-  {
-    group: [
-      {
-        type: InputTypes.DATE,
-        label: 'Data de Nascimento',
-        name: 'birthDate',
-        placeholder: 'dd/mm/aaaa',
-        className: 'flex-1',
-      },
-      {
-        type: InputTypes.SELECT,
-        label: 'Gênero',
-        name: 'gender',
-        placeholder: 'Selecione o gênero',
-        className: 'flex-1',
-        selectItems: [
-          {
-            label: 'Masculino',
-            value: 'male',
-          },
-          {
-            label: 'Feminino',
-            value: 'female',
-          },
-          {
-            label: 'Outro',
-            value: 'Outro',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Localização',
-    className: '!mt-12',
-  },
-  {
-    type: InputTypes.TEXT,
-    label: 'País',
-    name: 'location.country',
-    placeholder: 'Brasil',
-  },
-  {
-    type: InputTypes.TEXT,
-    label: 'Estado',
-    name: 'location.state',
-    placeholder: 'Paraná',
-  },
-  {
-    type: InputTypes.TEXT,
-    label: 'Cidade',
-    name: 'location.city',
-    placeholder: 'Foz do Iguaçu',
-  },
+  // {
+  //   group: [
+  //     {
+  //       type: InputTypes.DATE,
+  //       label: 'Data de Nascimento',
+  //       name: 'birthDate',
+  //       placeholder: 'dd/mm/aaaa',
+  //       className: 'flex-1',
+  //     },
+  //     {
+  //       type: InputTypes.SELECT,
+  //       label: 'Gênero',
+  //       name: 'gender',
+  //       placeholder: 'Selecione o gênero',
+  //       className: 'flex-1',
+  //       selectItems: [
+  //         {
+  //           label: 'Masculino',
+  //           value: 'male',
+  //         },
+  //         {
+  //           label: 'Feminino',
+  //           value: 'female',
+  //         },
+  //         {
+  //           label: 'Outro',
+  //           value: 'Outro',
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
+  // {
+  //   type: InputTypes.TEXT,
+  //   label: 'País',
+  //   name: 'location.country',
+  //   placeholder: 'Brasil',
+  // },
+  // {
+  //   type: InputTypes.TEXT,
+  //   label: 'Estado',
+  //   name: 'location.state',
+  //   placeholder: 'Paraná',
+  // },
+  // {
+  //   type: InputTypes.TEXT,
+  //   label: 'Cidade',
+  //   name: 'location.city',
+  //   placeholder: 'Foz do Iguaçu',
+  // },
 ];
 
 interface Props {
@@ -126,48 +103,31 @@ interface Props {
 }
 
 export const UserProfileForm = ({ isDisabledForm }: Props) => {
-  const formMethods = useForm({
+  const { user } = useUserStore();
+  const { mutate: patchProfile, isPending } = usePatchProfile();
+
+  const formMethods = useForm<UpdateProfilePayload>({
     defaultValues: {
-      firstName: user.firstName,
-      lastName: user.lastName,
-
-      email: user.email,
-      password: user.password,
-      phone: user.phone,
-
-      avatarUrl: 'url_avatar',
-      coverPhotoUrl: 'url_photo',
-
-      birthDate: formatDateInput(user.birthDate?.toString() ?? ''),
-      gender: user.gender?.toString(),
-
-      location: {
-        country: user.location?.country,
-        state: user.location?.state,
-        city: user.location?.city,
-      },
+      name: user?.name,
+      email: user?.email,
+      taxId: user?.taxId,
+      phone: user?.phone,
     },
   });
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = formMethods;
+
+  const { handleSubmit } = formMethods;
+
+  const onSubmit = (data: UpdateProfilePayload) => {
+    patchProfile(data);
+  };
 
   return (
-    <FormControl
-      // isInvalid={isInvalid}
-      isDisabled={isDisabledForm}
-      isReadOnly={false}
-      isRequired={false}
-      className="gap-5"
-    >
-      <FormProvider {...formMethods}>
-        <RenderForm inputList={userInputs} />
-        <Button className="mt-5" isDisabled={isDisabledForm}>
-          <ButtonText>Salvar</ButtonText>
-        </Button>
-      </FormProvider>
-    </FormControl>
+    <FormProvider {...formMethods}>
+      <RenderForm inputList={userInputs} isDisableForm={isDisabledForm} />
+      <Button className="mt-5" isDisabled={isDisabledForm} size="xl">
+        {isPending && <ActivityIndicator size={'small'} />}
+        <ButtonText onPress={handleSubmit(onSubmit)}>Salvar</ButtonText>
+      </Button>
+    </FormProvider>
   );
 };

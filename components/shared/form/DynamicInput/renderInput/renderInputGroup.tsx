@@ -1,10 +1,9 @@
-import { Control, FieldValues } from 'react-hook-form';
 import { View } from 'react-native';
-import { DynamicInputProps, InputTypeRender } from '..';
+import { InputTypeRender } from '..';
 import { DynamicInputField } from '../renderDynamicInput';
+import { DynamicInputProps } from './types';
 
 export const renderInputGroup = (
-  control: Control<FieldValues, any, FieldValues>,
   group: DynamicInputProps[],
   inputTypeRender?: InputTypeRender,
   isDisabled?: boolean
@@ -13,7 +12,6 @@ export const renderInputGroup = (
     {group.map((input) => (
       <View key={input.name} className="flex-1">
         <DynamicInputField
-          control={control}
           input={input}
           inputTypeRender={inputTypeRender}
           isDisabled={isDisabled}

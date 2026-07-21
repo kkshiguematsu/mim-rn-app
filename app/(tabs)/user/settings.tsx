@@ -5,7 +5,7 @@ import { TailwindColor } from '@/components/shared/icon/TintedIcon/styles';
 import { Switch } from '@/components/ui/switch';
 import { useTheme } from '@/context/themeContext';
 import { useBottomSheetStore } from '@/hooks/store/useBottomSheetStore';
-import { BottomSheetNames } from '@/types/modal/bottomSheetNames';
+import { BottomSheetNames } from '@/types/bottomsheet/bottomSheetNames';
 import { KeySquare, Sun } from 'lucide-react-native';
 import React from 'react';
 
@@ -46,12 +46,14 @@ export default function SettingsPage() {
   ];
 
   return (
-    <Page.Scroll>
-      <Section title="Tema">
+    <Page.Scroll hasHeader={false} needsPadding={false}>
+      <Page.Header title="Configurações" hasBackButton />
+
+      <Section title="Tema" className="mx-7">
         <MenuCard rows={themeOptions} sizeIcon="lg" />
       </Section>
 
-      <Section title="Conta">
+      <Section title="Conta" className="mx-7">
         <MenuCard rows={AccountSettingsOptions} sizeIcon="lg" />
       </Section>
     </Page.Scroll>

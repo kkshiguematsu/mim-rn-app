@@ -1,14 +1,13 @@
 import { DefaultCard } from '@/components/shared/cards/DefaultCard';
+import { ChargerListItem } from '@/components/shared/list/ChargerList/ChargerListItem';
 import { Divider } from '@/components/ui/divider';
-import { HStack } from '@/components/ui/hstack';
 import { Icon } from '@/components/ui/icon';
-import { LinkText } from '@/components/ui/link';
 import { Text } from '@/components/ui/text';
-import { VStack } from '@/components/ui/vstack';
+import { useSearchNearbyChargers } from '@/hooks/api/chargers/useSearchNearbyChargers';
+import { useChargerStore } from '@/hooks/store/useChargerStore';
 import { StationType } from '@/types/station/station.type';
-import clsx from 'clsx';
-import { ChevronRight } from 'lucide-react-native';
-import { Pressable, View } from 'react-native';
+import { MapPin } from 'lucide-react-native';
+import { Pressable } from 'react-native';
 import { Section } from '../Section';
 
 export const nearbyStationsMock: StationType[] = [
@@ -45,69 +44,26 @@ export const nearbyStationsMock: StationType[] = [
 ];
 
 export const StationsListSection = () => {
+  const { nearbyChargers } = useChargerStore();
+
+  useSearchNearbyChargers();
+
   return (
-    <Section
-      title="Carregadores próximos"
-      onPress={
-        <HStack className="items-center">
-          <LinkText className="no-underline">Ver no mapa</LinkText>
-          <Icon as={ChevronRight} className="text-primary-400" />
-        </HStack>
-      }
-    >
+    <Section title="Carregadores próximos">
       <DefaultCard padding="none">
-        {nearbyStationsMock.map((station, index) => (
-          <Pressable key={index} onPress={() => {}}>
-            <View className="flex-row items-center justify-between px-6 py-4">
-              <HStack className="items-center gap-4">
-                <View
-                  className={clsx(
-                    'h-3 w-3 rounded-full',
-                    station.status === 'free'
-                      ? 'bg-green-500'
-                      : station.status === 'busy'
-                        ? 'bg-yellow-500'
-                        : 'bg-gray-300'
-                  )}
-                />
-
-                <View>
-                  <View className="flex-row items-center gap-2">
-                    <Text size="md" className="font-bold">
-                      {station.name}
-                    </Text>
-                  </View>
-                  <Text size="xs" className="text-gray-500">
-                    {station.distanceKm} km ~ {station.etaMin} min - {station.available} livres de{' '}
-                    {station.total}
-                  </Text>
-                </View>
-              </HStack>
-
-              <VStack className="items-end">
-                <Text size="md" className="font-bold">
-                  R$ {station.pricePerKwh.toFixed(2)}
-                  <Text size="xs" className="font-normal text-gray-500">
-                    /kWh
-                  </Text>
-                </Text>
-
-                <Text
-                  size="xs"
-                  className={clsx(
-                    'text-sm font-medium',
-                    station.compatible ? 'text-green-700' : 'text-red-500'
-                  )}
-                >
-                  {station.compatible ? 'Compatível' : 'Não compatível'}
-                </Text>
-              </VStack>
-
-              {/* <ChevronRight className="text-gray-400" /> */}
-            </View>
-            {nearbyStationsMock.length - 1 !== index && <Divider />}
-          </Pressable>
-        ))}
+        {!nearbyChargers || nearbyChargers.length === 0 ? (
+          <DefaultCard padding="md" className="items-center justify-center py-8">
+            <Icon as={MapPin} size="lg" className="mb-2 text-primary-600" />
+            <Text className="text-center text-gray-500">Nenhum carregador próximo</Text>
+          </DefaultCard>
+        ) : (
+          nearbyChargers.map((charger, index) => (
+            <Pressable className="p-4" key={index} onPress={() => {}}>
+              <ChargerListItem item={charger} />
+              {nearbyChargers.length - 1 !== index && <Divider />}
+            </Pressable>
+          ))
+        )}
       </DefaultCard>
     </Section>
   );

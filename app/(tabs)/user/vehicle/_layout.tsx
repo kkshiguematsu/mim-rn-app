@@ -1,11 +1,7 @@
-import { HeaderBackButtonIcon } from '@/components/shared/buttons/HeaderBackButtonIcon';
-import { useTheme } from '@/context/themeContext';
 import { Stack } from 'expo-router';
 import React from 'react';
 
 export default function VehicleStackLayout() {
-  const { theme } = useTheme();
-
   return (
     <Stack>
       <Stack.Screen
@@ -13,11 +9,6 @@ export default function VehicleStackLayout() {
         options={{
           title: 'Meus veículos',
           headerShown: false,
-          headerTransparent: true,
-          headerTitleStyle: {
-            color: theme === 'dark' ? 'white' : 'black',
-          },
-          headerBlurEffect: theme === 'dark' ? 'dark' : 'light',
         }}
       />
 
@@ -25,8 +16,7 @@ export default function VehicleStackLayout() {
         name="createVehicle"
         options={{
           title: 'Adicionar veículo',
-          headerShown: true,
-          headerLeft: () => <HeaderBackButtonIcon />,
+          headerShown: false,
         }}
       />
 
@@ -34,7 +24,7 @@ export default function VehicleStackLayout() {
         name="[vehicleId]"
         options={{
           title: 'Detalhes do veículo',
-          headerShown: true,
+          headerShown: false,
         }}
       />
     </Stack>

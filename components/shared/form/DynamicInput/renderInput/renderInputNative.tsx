@@ -1,18 +1,18 @@
 import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Input, InputField } from '@/components/ui/input';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
-import { formatDateInput } from '@/utils/Date.utils';
+import { applyMask } from '@/utils/formMasks.utils';
 import React, { useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
-import { DynamicInputProps } from '..';
 import { renderIcon } from '../renderIcon';
 import { renderSelectInput } from './renderSelectInput';
+import { DynamicInputProps } from './types';
 
 const sizeInput = 'md';
 
 export interface RenderInputTypeProps extends Pick<
   DynamicInputProps,
-  'type' | 'placeholder' | 'icon' | 'selectItems' | 'renderComponent'
+  'type' | 'placeholder' | 'icon' | 'selectItems' | 'renderComponent' | 'mask'
 > {
   value?: string;
   onBlur: () => void;
@@ -26,6 +26,7 @@ export function RenderInputNative({
   placeholder,
   selectItems,
   renderComponent,
+  mask,
   onBlur,
   onChange,
 }: RenderInputTypeProps) {
@@ -44,6 +45,11 @@ export function RenderInputNative({
 
   const RenderComponent = renderComponent ? renderComponent : null;
 
+  const handleChange = (text: string) => {
+    const maskedValue = mask ? applyMask(text, mask) : text;
+    onChange(maskedValue);
+  };
+
   switch (type) {
     case InputTypes.TEXT:
       return (
@@ -54,7 +60,7 @@ export function RenderInputNative({
             placeholder={placeholder}
             textAlign="right"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChangeText={handleChange}
           />
         </Input>
       );
@@ -66,7 +72,7 @@ export function RenderInputNative({
           <TextInput
             {...commonProps}
             keyboardType="email-address"
-            onChangeText={onChange}
+            onChangeText={handleChange}
             returnKeyType="next"
           />
         </View>
@@ -76,7 +82,7 @@ export function RenderInputNative({
       return (
         <View className="flex-row items-center">
           {icon && renderIcon(icon)}
-          <TextInput {...commonProps} secureTextEntry={!visible} onChangeText={onChange} />
+          <TextInput {...commonProps} secureTextEntry={!visible} onChangeText={handleChange} />
 
           <Pressable onPress={() => setVisible((v) => !v)}>
             {visible ? <EyeIcon /> : <EyeOffIcon />}
@@ -88,7 +94,7 @@ export function RenderInputNative({
       return (
         <View className="flex-row items-center">
           {icon && renderIcon(icon)}
-          <TextInput {...commonProps} keyboardType="numeric" onChangeText={onChange} />
+          <TextInput {...commonProps} keyboardType="numeric" onChangeText={handleChange} />
         </View>
       );
 
@@ -101,7 +107,7 @@ export function RenderInputNative({
             keyboardType="numeric"
             maxLength={10}
             placeholder={placeholder ?? 'dd/mm/aaaa'}
-            onChangeText={(text) => onChange(formatDateInput(text))}
+            onChangeText={handleChange}
           />
         </View>
       );

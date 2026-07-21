@@ -1,9 +1,9 @@
 import { Page } from '@/components/layout/page';
-import { Button, ButtonText } from '@/components/ui/button';
+import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { EvCharger } from 'lucide-react-native';
+import { EvCharger, ScanQrCode } from 'lucide-react-native';
 import { View } from 'react-native';
 
 interface InitiateScanScreenProps {
@@ -12,9 +12,9 @@ interface InitiateScanScreenProps {
 
 export const InitiateScanScreen = ({ handleStartScan }: InitiateScanScreenProps) => {
   return (
-    <Page needsSafeArea>
+    <Page needsSafeArea needsBottomTabBar={false}>
       <View className="flex-1 items-center justify-center gap-6 px-8">
-        <View className="h-56 w-56 items-center justify-center rounded-full bg-primary-200/50 p-14 dark:bg-primary-900">
+        <View className="h-56 w-56 items-center justify-center rounded-full bg-primary-500/20 p-14 dark:bg-primary-900">
           <Icon as={EvCharger} className="h-full w-full text-primary-400" />
         </View>
 
@@ -27,6 +27,7 @@ export const InitiateScanScreen = ({ handleStartScan }: InitiateScanScreenProps)
         </Text>
 
         <Button size="lg" className="" onPress={handleStartScan}>
+          <ButtonIcon as={ScanQrCode} />
           <ButtonText>Iniciar Carregamento</ButtonText>
         </Button>
       </View>

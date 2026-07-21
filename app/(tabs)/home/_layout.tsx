@@ -27,6 +27,10 @@ export default function HomeStackLayout() {
           headerBlurEffect: blurEffectColor,
         }}
       />
+      <Stack.Screen
+        name="favoriteCharges"
+        options={{ presentation: 'modal', headerShown: false }}
+      />
     </Stack>
   );
 }

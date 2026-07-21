@@ -23,6 +23,7 @@ export type TailwindColor =
   | 'fuchsia'
   | 'pink'
   | 'rose'
+  | 'secondary'
   | 'primary';
 
 export type ColorIcons = TailwindColor;
@@ -38,7 +39,7 @@ export const iconContainerColorStyles = tva({
       xl: 'rounded-xl p-3',
     },
     color: {
-      primary: 'bg-primary-100 dark:bg-primary-900/30',
+      primary: 'bg-primary-200 dark:bg-primary-900/30',
       slate: 'bg-slate-100 dark:bg-slate-900/30',
       gray: 'bg-gray-100 dark:bg-gray-900/30',
       zinc: 'bg-zinc-100 dark:bg-zinc-900/30',
@@ -61,6 +62,7 @@ export const iconContainerColorStyles = tva({
       fuchsia: 'bg-fuchsia-100 dark:bg-fuchsia-900/30',
       pink: 'bg-pink-100 dark:bg-pink-900/30',
       rose: 'bg-rose-100 dark:bg-rose-900/30',
+      secondary: 'bg-secondary-100 dark:bg-secondary-900/30',
     },
   },
   defaultVariants: {
@@ -102,6 +104,7 @@ export const iconColorStyles = tva({
       fuchsia: 'text-fuchsia-600 dark:text-fuchsia-400',
       pink: 'text-pink-600 dark:text-pink-400',
       rose: 'text-rose-600 dark:text-rose-400',
+      secondary: 'text-secondary-600 dark:text-secondary-400',
     },
   },
   defaultVariants: {

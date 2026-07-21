@@ -1,11 +1,11 @@
-import { FadeInDown, FadeInLeft, FadeInRight, FadeInUp } from 'react-native-reanimated';
+import { FadeIn, FadeInDown, FadeInLeft, FadeInRight, FadeInUp } from 'react-native-reanimated';
 
 interface UseFadeInProps {
   direction?: 'left' | 'right' | 'up' | 'down';
   duration?: number;
 }
 
-export const useFadeInAnimation = ({ direction = 'right', duration = 500 }: UseFadeInProps) => {
+export const useFadeInAnimation = ({ direction, duration = 500 }: UseFadeInProps) => {
   switch (direction) {
     case 'left':
       return FadeInLeft.duration(duration);
@@ -16,6 +16,6 @@ export const useFadeInAnimation = ({ direction = 'right', duration = 500 }: UseF
     case 'down':
       return FadeInDown.duration(duration);
     default:
-      return FadeInRight.duration(duration);
+      return FadeIn.duration(duration);
   }
 };

@@ -1,17 +1,19 @@
 import { Section } from '@/components/section/Section';
-import { Icon } from '@/components/ui/icon';
-import { ChevronRight, Clock, CreditCard, DollarSign, MapPin, Zap } from 'lucide-react-native';
+import { Address } from '@/types/charger/charger.type';
+import { useRouter } from 'expo-router';
+import { Clock, CreditCard, DollarSign, MapPin, Zap } from 'lucide-react-native';
+import { TailwindColor } from '../../icon/TintedIcon/styles';
 import { MenuCard } from '../MenuCard';
 import { MenuItemProps } from '../MenuCard/MenuItems';
 
 interface Props {
   startTime: string;
-  endTime: string;
+  endTime: string | undefined;
   energyKwh: number;
   tariff: number;
-  location: string;
-  locationSub: string;
+  location?: Address;
   paymentLabel: string;
+  className?: string;
 }
 
 export function SessionDetailsCard({
@@ -20,9 +22,11 @@ export function SessionDetailsCard({
   energyKwh,
   tariff,
   location,
-  locationSub,
   paymentLabel,
+  className,
 }: Props) {
+  const router = useRouter();
+
   const rows: MenuItemProps[] = [
     {
       label: 'Início',
@@ -32,14 +36,18 @@ export function SessionDetailsCard({
         color: 'blue',
       },
     },
-    {
-      label: 'Término previsto',
-      value: endTime,
-      icon: {
-        name: Clock,
-        color: 'purple',
-      },
-    },
+    ...(endTime
+      ? [
+          {
+            label: 'Término',
+            value: endTime,
+            icon: {
+              name: Clock,
+              color: 'purple' as TailwindColor,
+            },
+          },
+        ]
+      : []),
     {
       label: 'Energia adicionada',
       value: `${energyKwh.toFixed(1)} kWh`,
@@ -51,7 +59,7 @@ export function SessionDetailsCard({
     },
     {
       label: 'Tarifa',
-      value: `R$ ${tariff.toFixed(2)} / kWh`,
+      value: `R$ ${tariff} / kWh`,
       icon: {
         name: DollarSign,
         color: 'orange',
@@ -59,13 +67,19 @@ export function SessionDetailsCard({
     },
     {
       label: 'Localização',
-      subLabel: location,
-      value: <Icon as={ChevronRight} size="lg" className="text-neutral-400" />,
+      subLabel: `${location?.street}, ${location?.number}`,
       icon: {
         name: MapPin,
         color: 'red',
       },
-      onClick: () => {},
+      onClick: () =>
+        router.push({
+          pathname: '/(maps)/map',
+          params: {
+            lat: location?.location.coordinates[1],
+            lng: location?.location.coordinates[0],
+          },
+        }),
     },
     {
       label: 'Pagamento',
@@ -79,7 +93,7 @@ export function SessionDetailsCard({
   ];
 
   return (
-    <Section title="Detalhes da sessão">
+    <Section title="Detalhes da sessão" className={className}>
       <MenuCard rows={rows} sizeIcon="lg" />
     </Section>
   );

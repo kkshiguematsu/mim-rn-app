@@ -5,8 +5,7 @@ export const pageStyled = tva({
   variants: {
     background: {
       normal: 'bg-neutral-200 dark:bg-neutral-900',
-      primary: 'bg-[#0A4669]',
-      half: 'bg-[#0A4669] h-32',
+      primary: 'bg-primary-700',
     },
   },
   defaultVariants: {

@@ -1,7 +1,8 @@
 import { Text } from '@/components/ui/text';
 
-import { DynamicInputProps, InputTypeRender } from '@/components/shared/form/DynamicInput';
+import { InputTypeRender } from '@/components/shared/form/DynamicInput';
 import { DynamicInputField } from '@/components/shared/form/DynamicInput/renderDynamicInput';
+import { DynamicInputProps } from '@/components/shared/form/DynamicInput/renderInput/types';
 import { Icon } from '@/components/ui/icon';
 import { usePressableScaleAnimation } from '@/hooks/animations/usePressableScaleAnimation';
 import { Plus, Trash } from 'lucide-react-native';

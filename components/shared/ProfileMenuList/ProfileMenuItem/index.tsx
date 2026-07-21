@@ -15,6 +15,7 @@ export type ProfileMenuItemProps = {
   rightButton?: React.ReactNode;
   disabled?: boolean;
   className?: string;
+  isLastItem?: boolean;
   action?: () => void;
 };
 
@@ -28,19 +29,21 @@ export const ProfileMenuItem = ({
   disabled,
   className,
   rightButton,
+  isLastItem = false,
   action,
 }: ProfileMenuItemProps) => {
   return (
     <Pressable
-      className={clsx(['overflow-hidden rounded-2xl bg-neutral-100 dark:bg-zinc-700', className])}
+      className={clsx(['overflow-hidden', className])}
       onPress={action}
       disabled={disabled}
     >
       {({ pressed }) => (
         <View
           className={clsx([
-            'flex flex-row items-center justify-between px-5 py-4',
-            pressed ? 'bg-primary-500' : '',
+            'flex flex-row items-center justify-between border-t border-neutral-400/50 px-9 py-6 dark:border-gray-700',
+            pressed ? 'bg-primary-300' : '',
+            isLastItem && 'border-b',
           ])}
         >
           <View className="flex flex-row items-center gap-4">
@@ -48,10 +51,13 @@ export const ProfileMenuItem = ({
               <Icon
                 as={icon}
                 size="xl"
-                className={clsx([forceColor ? forceColor : 'text-primary-400'])}
+                className={clsx([
+                  forceColor ? forceColor : 'text-primary-400',
+                  pressed && 'text-white',
+                ])}
               />
             )}
-            <Heading className={clsx([pressed ? 'text-white' : '', forceColor ? forceColor : ''])}>
+            <Heading className={clsx([pressed ? 'text-white' : forceColor ? forceColor : ''])}>
               {label}
             </Heading>
           </View>
@@ -61,7 +67,10 @@ export const ProfileMenuItem = ({
             <Icon
               as={ChevronRight}
               size="xl"
-              className={clsx([forceColor ? forceColor : 'text-primary-400'])}
+              className={clsx([
+                forceColor ? forceColor : 'text-primary-400',
+                pressed && 'text-white',
+              ])}
             />
           )}
         </View>

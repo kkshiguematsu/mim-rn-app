@@ -1,4 +1,4 @@
-import { config } from '@/app.config';
+import { config } from '@/constants/config';
 import { QueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { storage } from './storage';
@@ -12,10 +12,10 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(async (config) => {
-  const token = await storage.getToken();
+  const { accessToken, refreshToken } = await storage.getTokens();
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
   return config;
 });

@@ -18,6 +18,11 @@
       }
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "{YOUR_GOOGLE_API_KEY}"
+        }
+      },
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -53,7 +58,6 @@
         }
       ],
       "expo-font",
-      "expo-maps",
       [
         "expo-location",
         {

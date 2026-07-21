@@ -1,55 +1,52 @@
-import { VehicleType } from '@/types/vehicle/vehicle.type';
+import { UserVehicle, Vehicle } from '@/types/vehicle/vehicle.type';
 import { StateCreator } from 'zustand';
+import { UserSlice } from './userSlice';
 
 export interface VehicleSlice {
-  vehicles: VehicleType[];
-  activeVehicleId: string;
+  vehicles: UserVehicle[];
+  activeVehicle: UserVehicle | null;
 
-  readonly activeVehicle?: VehicleType;
-
+  setVehicles: (vehicles: UserVehicle[]) => void;
   setActiveVehicle: (id: string) => void;
-  addVehicle: (data: Omit<VehicleType, 'id'>) => void;
-  setVehicles: (vehicles: VehicleType[]) => void;
-  updateVehicle: (id: string, data: Partial<VehicleType>) => void;
+  updateVehicle: (id: string, data: Partial<Vehicle>) => void;
   removeVehicle: (id: string) => void;
 }
 
-export const createVehicleSlice: StateCreator<VehicleSlice, [], [], VehicleSlice> = (set, get) => ({
+export const createVehicleSlice: StateCreator<VehicleSlice & UserSlice, [], [], VehicleSlice> = (
+  set,
+  get
+) => ({
   vehicles: [],
-  activeVehicleId: 'v1',
+  activeVehicle: null,
 
-  setActiveVehicle: (id) => set({ activeVehicleId: id }),
+  setVehicles: (vehicles: UserVehicle[]) => {
+    const activeVehicle = vehicles.find((v) => v.vehicle.isActive === true);
 
-  addVehicle: (data) => {
-    const newVehicle: VehicleType = {
-      ...data,
-      id: `v${Date.now()}`,
-      batteryPct: 0,
-      lastSessionDate: '—',
-      lastSessionKwh: 0,
-      createdAt: new Date().toISOString().split('T')[0],
-    };
-
-    set((state) => ({
-      vehicles: [...state.vehicles, newVehicle],
-    }));
+    set({ vehicles, activeVehicle });
   },
 
-  setVehicles: (vehicles) => set({ vehicles }),
+  setActiveVehicle: (id: string) => {
+    const activeVehicle = get().vehicles.find((v) => v.vehicle._id === id);
 
-  updateVehicle: (id, data) =>
-    set((state) => ({
-      vehicles: state.vehicles.map((v) => (v.id === id ? { ...v, ...data } : v)),
-    })),
+    set({ activeVehicle });
+  },
 
-  removeVehicle: (id) =>
-    set((state) => {
-      const remaining = state.vehicles.filter((v) => v.id !== id);
+  updateVehicle: (id: string, data: Partial<Vehicle>) => {
+    const updatedVehicles = get().vehicles.map((v) =>
+      v.vehicle._id === id ? { ...v, vehicle: { ...v.vehicle, ...data } } : v
+    );
 
-      return {
-        vehicles: remaining,
-        activeVehicleId:
-          state.activeVehicleId === id ? (remaining[0]?.id ?? '') : state.activeVehicleId,
-      };
-    }),
+    set({
+      vehicles: updatedVehicles,
+    });
+  },
+
+  removeVehicle: (id: string) => {
+    const remaining = get().vehicles.filter((v) => v.vehicle._id !== id);
+
+    set({
+      vehicles: remaining,
+      activeVehicle: get().activeVehicle?.vehicle._id === id ? null : get().activeVehicle,
+    });
+  },
 });

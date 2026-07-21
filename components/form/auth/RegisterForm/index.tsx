@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { config } from '@/app.config';
 import { AnimatedSlideInViewCard } from '@/components/shared/cards/AnimatedViewCard';
-import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
+import { DynamicInputProps } from '@/components/shared/form/DynamicInput/renderInput/types';
 import { RenderForm } from '@/components/shared/form/RenderForm';
 import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Icon } from '@/components/ui/icon';
 import { Spinner } from '@/components/ui/spinner';
 import { Text } from '@/components/ui/text';
+import { config } from '@/constants/config';
 import { useStaggeredEntering } from '@/hooks/animations/useStaggeredEntering';
 import { useLogin } from '@/hooks/api/auth/useLogin';
 import { useRegister } from '@/hooks/api/auth/useRegister';
@@ -28,6 +28,26 @@ const registerInputs: DynamicInputProps[] = [
     placeholder: 'Digite o nome',
     rules: {
       required: 'O nome é obrigatório',
+    },
+  },
+  {
+    type: InputTypes.NUMBER,
+    label: 'CPF',
+    name: 'taxId',
+    placeholder: 'Digite o CPF',
+    mask: 'cpf',
+    rules: {
+      required: 'O CPF é obrigatório',
+    },
+  },
+  {
+    type: InputTypes.NUMBER,
+    label: 'Telefone',
+    name: 'phone',
+    placeholder: '(12) 34567-8901',
+    mask: 'phone',
+    rules: {
+      required: 'O telefone é obrigatório',
     },
   },
   {
@@ -79,6 +99,8 @@ export const RegisterForm = () => {
   const formMethods = useForm<RegisterFormType>({
     defaultValues: {
       name: '',
+      taxId: '',
+      phone: '',
       email: '',
       password: '',
       tenantId: config.tenantId,
@@ -92,6 +114,8 @@ export const RegisterForm = () => {
   const onSubmit = (data: RegisterFormType) => {
     const registerPayload = {
       name: data.name,
+      taxId: data.taxId,
+      phone: data.phone,
       email: data.email,
       password: data.password,
       tenantId: config.tenantId,

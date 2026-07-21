@@ -121,7 +121,7 @@ export const BottomSheetPortal = ({
       handleComponent={DragIndicator}
       enablePanDownToClose={true}
       backgroundStyle={{
-        backgroundColor: theme === 'light' ? '#e5e5e5' : 'rgba(39,39,42)',
+        backgroundColor: theme === 'light' ? '#f5f5f5' : 'rgba(39,39,42)',
       }}
       {...props}
     >
@@ -294,7 +294,7 @@ cssInterop(GorhomBottomSheetSectionList, { className: 'style' });
 export const inputStyle = tva({
   base: `
     flex-row items-center overflow-hidden
-    bg-neutral-300 dark:bg-zinc-900
+    bg-neutral-200 dark:bg-zinc-900
     border border-background-300
   `,
 

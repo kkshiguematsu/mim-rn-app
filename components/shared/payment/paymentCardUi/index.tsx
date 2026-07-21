@@ -1,6 +1,6 @@
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { PaymentCardFormInput } from '@/types/form/payment/paymentCardForm.type';
+import { PaymentFormData } from '@/types/form/payment/paymentCardForm.type';
 import { formatCardNumber, getCardBrand } from '@/utils/paymentCard';
 import { Wifi } from 'lucide-react-native';
 import { useFormContext, useWatch } from 'react-hook-form';
@@ -8,17 +8,17 @@ import { View } from 'react-native';
 import { PaymentIcon } from 'react-native-payment-icons';
 
 export const PaymentCardUi = () => {
-  const { control } = useFormContext<PaymentCardFormInput>();
+  const { control } = useFormContext<PaymentFormData>();
 
-  const [code, expiredDate, cvvCode, userName] = useWatch<PaymentCardFormInput>({
+  const [code, expiredDate, cvvCode, holderName] = useWatch<PaymentFormData>({
     control,
-    name: ['code', 'expiredDate', 'cvvCode', 'userName'],
+    name: ['code', 'expiredDate', 'cvvCode', 'holderName'],
   });
 
   const cardFlag = getCardBrand(code);
 
   return (
-    <View className="relative my-7 aspect-video w-full rounded-2xl bg-purple-600 p-5">
+    <View className="relative my-2 aspect-video w-full rounded-2xl bg-primary-800 p-5">
       {cardFlag && (
         <View className="absolute left-4 top-7">
           <PaymentIcon type={cardFlag} />
@@ -42,7 +42,7 @@ export const PaymentCardUi = () => {
             </Text>
           </View>
           <Text size="sm" className="text-white">
-            {userName || 'NOME COMPLETO'}
+            {holderName || 'NOME COMPLETO'}
           </Text>
         </View>
       </View>

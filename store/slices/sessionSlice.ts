@@ -1,9 +1,9 @@
-import { Session } from '@/types/history/Session.type';
+import { Transaction } from '@/types/transaction/transaction.type';
 import { StateCreator } from 'zustand';
 
 export interface SessionSlice {
-  selectedSession: Session | null;
-  setSelectedSession: (session: Session) => void;
+  selectedSession: Transaction | null;
+  setSelectedSession: (session: Transaction) => void;
   clearSelectedSession: () => void;
 }
 

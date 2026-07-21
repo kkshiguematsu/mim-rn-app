@@ -1,4 +1,3 @@
-import { useTheme } from '@/context/themeContext';
 import { Stack } from 'expo-router';
 import { CarFront, CreditCard, Headset, Settings, User } from 'lucide-react-native';
 import React from 'react';
@@ -8,16 +7,16 @@ export const profileMenuLayout = {
     label: 'Informações pessoais',
     name: '[userId]',
     icon: User,
-    link: '/user/[userId]',
+    link: '/(tabs)/user/[userId]',
   },
   vehicles: {
     label: 'Meus veículos',
     name: 'vehicle',
     icon: CarFront,
-    link: '/user/vehicle',
+    link: '/(tabs)/user/vehicle',
   },
   payments: {
-    label: 'Pagamento',
+    label: 'Cartões',
     name: 'payments',
     icon: CreditCard,
     link: '/(tabs)/user/payments',
@@ -37,20 +36,13 @@ export const profileMenuLayout = {
 } as const;
 
 export default function UserStackLayout() {
-  const { theme } = useTheme();
-
   return (
-    <Stack>
+    <Stack initialRouteName="index">
       <Stack.Screen
         name="index"
         options={{
           title: 'Perfil',
-          headerTitleStyle: {
-            color: theme === 'dark' ? 'white' : 'black',
-          },
-          headerShown: true,
-          headerTransparent: true,
-          headerBlurEffect: theme === 'dark' ? 'dark' : 'light',
+          headerShown: false,
         }}
       />
       {Object.values(profileMenuLayout).map((menuItem) => (
@@ -62,7 +54,6 @@ export default function UserStackLayout() {
           }}
         />
       ))}
-      ;
     </Stack>
   );
 }

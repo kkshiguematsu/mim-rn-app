@@ -22,9 +22,13 @@ export const StatusCard = (props: StatusCardProps) => {
 
   return (
     <DefaultCard {...props} padding={padding} className={className}>
-      <View className="mb-2 flex-row items-center gap-2">
+      <View className="mb-2 flex-row items-center gap-1">
         {icon && <TintedIcon icon={icon} color={color} size={iconSize} />}
-        <Text size="xs" className="font-medium text-neutral-500 dark:text-neutral-400">
+        <Text
+          size="xs"
+          numberOfLines={2}
+          className="flex-1 font-medium text-neutral-500 dark:text-neutral-400"
+        >
           {title}
         </Text>
       </View>

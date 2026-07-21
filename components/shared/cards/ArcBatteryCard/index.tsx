@@ -33,7 +33,7 @@ interface ArcBatteryCardProps {
   connectorLabel: string;
   powerKw: number;
   energyAddedKwh: number;
-  costBrl: number;
+  costPerKwh: number;
   timeRemainingMin: number;
 }
 export const ArcBatteryCard = ({
@@ -43,7 +43,7 @@ export const ArcBatteryCard = ({
   connectorLabel,
   powerKw,
   energyAddedKwh,
-  costBrl,
+  costPerKwh,
   timeRemainingMin,
 }: ArcBatteryCardProps) => {
   const filledLength = (batteryLevel / FULL_BATTERY) * ARC_CIRCUMFERENCE;
@@ -122,7 +122,7 @@ export const ArcBatteryCard = ({
             className="items-center"
           >
             <Heading size="4xl" className="text-black dark:text-white">
-              {batteryLevel}
+              {batteryLevel.toFixed(0)}
               <Text size="xl" className="text-neutral-400 dark:text-neutral-400">
                 %
               </Text>
@@ -149,8 +149,8 @@ export const ArcBatteryCard = ({
             value: `${energyAddedKwh.toFixed(1)} kWh`,
           },
           {
-            label: 'Custo',
-            value: `R$ ${costBrl.toFixed(2)}`,
+            label: 'Custo kWh',
+            value: `R$ ${costPerKwh.toFixed(2)}`,
           },
         ].map(({ label, value }) => (
           <View

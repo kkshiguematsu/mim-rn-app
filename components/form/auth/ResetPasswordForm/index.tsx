@@ -1,4 +1,4 @@
-import { DynamicInputProps } from '@/components/shared/form/DynamicInput';
+import { DynamicInputProps } from '@/components/shared/form/DynamicInput/renderInput/types';
 import { RenderForm } from '@/components/shared/form/RenderForm';
 import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
 import { useResetPassword } from '@/hooks/api/auth/useResetPassword';

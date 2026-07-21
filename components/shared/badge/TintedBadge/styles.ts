@@ -1,10 +1,11 @@
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
 
 export const badgeContainerStyles = tva({
-  base: 'flex-row items-center gap-1.5 rounded-full px-3 py-1',
+  base: 'flex-shrink-0 self-start flex-row items-center gap-1.5 rounded-full px-3 py-1',
   variants: {
     color: {
       primary: 'bg-primary-200/30 dark:bg-primary-900/30',
+      secondary: 'bg-secondary-200/30 dark:bg-secondary-900/30',
       slate: 'bg-slate-200/30 dark:bg-slate-900/30',
       gray: 'bg-gray-200/30 dark:bg-gray-900/30',
       zinc: 'bg-zinc-200/30 dark:bg-zinc-900/30',
@@ -37,6 +38,7 @@ export const badgeDotStyles = tva({
   variants: {
     color: {
       primary: 'bg-primary-500',
+      secondary: 'bg-secondary-500',
       slate: 'bg-slate-500',
       gray: 'bg-gray-500',
       zinc: 'bg-zinc-500',
@@ -91,6 +93,7 @@ export const badgeTextStyles = tva({
       fuchsia: 'text-fuchsia-500 dark:text-fuchsia-400',
       pink: 'text-pink-500 dark:text-pink-400',
       rose: 'text-rose-500 dark:text-rose-400',
+      secondary: 'text-secondary-500 dark:text-secondary-400',
     },
   },
   defaultVariants: { color: 'neutral' },

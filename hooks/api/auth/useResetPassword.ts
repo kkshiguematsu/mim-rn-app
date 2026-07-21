@@ -4,11 +4,11 @@ import { storage } from '@/service/storage';
 import { useMutation } from '@tanstack/react-query';
 
 const resetPassword = async (password: string) => {
-  const token = await storage.getToken();
+  const { accessToken } = await storage.getTokens();
 
   const payload = {
     newPassword: password,
-    token,
+    accessToken,
   };
   const response = await api.post('/auth/reset-password', payload);
   return response;

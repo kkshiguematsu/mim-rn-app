@@ -1,11 +1,15 @@
-import { VehicleForm } from '@/components/form/VehicleForm';
+import { VehicleForm } from '@/components/form/vehicle/VehicleForm';
 import { Page } from '@/components/layout/page';
 import React from 'react';
+import { View } from 'react-native';
 
 export default function CreateVehiclePage() {
   return (
-    <Page.Keyboard contentContainerStyle={{ padding: 20, gap: 16, paddingBottom: 48 }}>
-      <VehicleForm />
+    <Page.Keyboard hasHeader={false} needsPadding={false}>
+      <Page.Header title="Cadastro de veículo" hasBackButton />
+      <View className="px-7">
+        <VehicleForm />
+      </View>
     </Page.Keyboard>
   );
 }

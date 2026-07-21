@@ -1,4 +1,4 @@
-import { HistoryCard } from '@/components/shared/cards/HistoryCard';
+import { HistoryCard } from '@/components/shared/cards/TransactionHistoryCard';
 import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Text } from '@/components/ui/text';

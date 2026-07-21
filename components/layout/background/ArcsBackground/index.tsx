@@ -6,7 +6,7 @@ export const ArcsBackground = () => {
   return (
     <>
       <View
-        className="absolute -right-10 -top-4 h-52 w-52 rounded-full bg-primary-400"
+        className="absolute -right-10 top-0 h-48 w-48 rounded-full bg-primary-400"
         style={{
           opacity: 0.5,
           shadowColor: GLOW_COLOR_400,

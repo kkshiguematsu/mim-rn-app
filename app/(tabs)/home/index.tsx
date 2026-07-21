@@ -4,42 +4,49 @@ import { CardSliderItemProps } from '@/components/section/CardsSliderSection/Car
 import { HeroSection } from '@/components/section/HeroSection';
 import { MounthDashboardSection } from '@/components/section/MounthDashboardSection';
 import { StationsListSection } from '@/components/section/StationsListSection';
-import { useNavigation } from 'expo-router';
-import { Car, CreditCard, Headset, Heart } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
+import { Car, Headset, Heart } from 'lucide-react-native';
 import React from 'react';
 
-const mockCards: CardSliderItemProps[] = [
-  {
-    title: 'Veículos',
-    icon: Car,
-    color: 'blue',
-  },
-  {
-    title: 'Pagamentos',
-    icon: CreditCard,
-    color: 'green',
-  },
-  {
-    title: 'Favoritos',
-    icon: Heart,
-    color: 'red',
-  },
-  {
-    title: 'Suporte',
-    icon: Headset,
-    color: 'purple',
-    onPress: () => {},
-  },
-];
-
 export default function HomeScreen() {
-  const navigation = useNavigation();
+  const router = useRouter();
+
+  const sliderCardsList: CardSliderItemProps[] = [
+    {
+      title: 'Veículos',
+      icon: Car,
+      color: 'blue',
+      onPress: () => router.push('/(tabs)/user/vehicle'),
+    },
+    // {
+    //   title: 'Pagamentos',
+    //   icon: CreditCard,
+    //   color: 'green',
+    //   onPress: () => router.push('/(tabs)/user/payments'),
+    // },
+    {
+      title: 'Favoritos',
+      icon: Heart,
+      color: 'red',
+      onPress: () => router.push('/(tabs)/home/favoriteCharges'),
+    },
+    {
+      title: 'Suporte',
+      icon: Headset,
+      color: 'purple',
+      onPress: () => router.push('/(tabs)/user/support'),
+    },
+  ];
 
   return (
-    <Page.Scroll hasHeader={false} className="gap-3">
+    <Page.Scroll hasHeader={false} needsPadding className="gap-3">
       <Page.Header content={<HeroSection />} applyInsetsTo="content" />
 
-      <CardsSliderSection className="-mx-7" contentContainerClassName="px-7" cards={mockCards} />
+      <CardsSliderSection
+        className="-mx-7"
+        contentContainerClassName="px-7"
+        cards={sliderCardsList}
+      />
 
       <StationsListSection />
 

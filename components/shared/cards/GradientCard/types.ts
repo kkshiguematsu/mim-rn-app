@@ -1,4 +1,4 @@
-import { Session } from '@/types/history/Session.type';
+import { Session } from '@/types/history/session.type';
 
 export interface GradientCardProps {
   session: Session;

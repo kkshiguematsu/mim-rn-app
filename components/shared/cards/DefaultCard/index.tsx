@@ -10,11 +10,11 @@ interface DefaultCardProps extends ICardProps {
 }
 
 export const DefaultCard = (props: DefaultCardProps) => {
-  const { children, size, variant, padding, fadeIn, className } = props;
+  const { children, size, variant, padding, fadeIn, className, ...rest } = props;
   const fadeInAnimation = useFadeInAnimation(fadeIn ? { direction: fadeIn } : {});
 
   const CardContent = (
-    <Card {...props} className={cardStyles({ size, padding, class: className })}>
+    <Card {...rest} className={cardStyles({ size, padding, class: className })}>
       {children}
     </Card>
   );

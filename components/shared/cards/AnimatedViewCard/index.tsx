@@ -1,6 +1,7 @@
 import { useSlideInAnimation } from '@/hooks/animations/useSlideInAnimation';
 import { useSlideOutAnimation } from '@/hooks/animations/useSlideOutAnimation';
 import { useBottomMenuHeight } from '@/hooks/layout/useBottomMenuHeight';
+import { usePlatform } from '@/hooks/utils/usePlatform';
 import clsx from 'clsx';
 import Animated from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -22,9 +23,11 @@ export const AnimatedSlideInViewCard = ({
   const bottomMenuHeight = useBottomMenuHeight();
   const SlideInUp = useSlideInAnimation({ direction: 'down', duration: 800 });
   const SlideOutUp = useSlideOutAnimation({ direction: 'down', duration: 800 });
+  const { isAndroid } = usePlatform();
 
   let paddingBottom = hasBottomMenu ? bottomMenuHeight : 0;
   paddingBottom += hasInsertBottom ? insert.bottom : 0;
+  paddingBottom += isAndroid ? 30 : 0;
 
   return (
     <Animated.View

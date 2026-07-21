@@ -8,6 +8,23 @@ export function formatDateToDMY(timestamp: number): string {
   }).format(dateObject);
 }
 
+export const formatStringDateToDMY = (date: string): string => {
+  const dateObject = new Date(date);
+  const day = String(dateObject.getDate()).padStart(2, '0');
+  const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+  const year = dateObject.getFullYear();
+
+  return `${day}/${month}/${year}`;
+};
+
+export const formatStringDateToHHMM = (date: string): string => {
+  const dateObject = new Date(date);
+  const hours = String(dateObject.getHours()).padStart(2, '0');
+  const minutes = String(dateObject.getMinutes()).padStart(2, '0');
+
+  return `${hours}:${minutes}`;
+};
+
 export const formatDateInput = (value: string) => {
   const numbers = value.replace(/\D/g, '');
   const limited = numbers.slice(0, 8);
@@ -62,4 +79,23 @@ export const groupByMonth = <T extends Record<string, any>>(
       const [year, month] = key.split('-').map(Number);
       return { label: `${MONTHS[month]} ${year}`, data };
     });
+};
+
+export const getCurrentMonth = () => {
+  const currentMonth = new Date().getMonth();
+  return MONTHS[currentMonth];
+};
+
+export const formatRelativeTime = (dateString: string): string => {
+  const now = new Date();
+  const date = new Date(dateString);
+  const diffMs = now.getTime() - date.getTime();
+  const diffMinutes = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffMinutes < 1) return 'agora';
+  if (diffMinutes < 60) return `em ${diffMinutes} minuto${diffMinutes > 1 ? 's' : ''}`;
+  if (diffHours < 24) return `há ${diffHours} hora${diffHours > 1 ? 's' : ''}`;
+  return `há ${diffDays} dia${diffDays > 1 ? 's' : ''}`;
 };

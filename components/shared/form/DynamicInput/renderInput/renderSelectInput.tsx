@@ -12,7 +12,8 @@ import {
 } from '@/components/ui/select';
 import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
-import { sizeInput } from '..';
+import { ScrollView } from 'react-native';
+import { sizeInput } from './types';
 
 export type DynamicSelectInputItem = {
   isDisabled?: boolean;
@@ -26,10 +27,8 @@ export const renderSelectInput = (
   selectItems: DynamicSelectInputItem[],
   onChange: (text: string) => void
 ) => {
-  const selectedItem = selectItems.find((item) => item.value === value);
-
   return (
-    <Select isDisabled={false} defaultValue={selectedItem?.label} onValueChange={onChange}>
+    <Select isDisabled={false} selectedValue={value} onValueChange={onChange}>
       <SelectTrigger size={sizeInput}>
         <SelectInput placeholder={placeholder} />
         <SelectIcon as={ChevronDown} />
@@ -41,9 +40,16 @@ export const renderSelectInput = (
             <SelectDragIndicator />
           </SelectDragIndicatorWrapper>
 
-          {selectItems.map((item) => (
-            <SelectItem key={item.value} label={item.label} value={item.value} />
-          ))}
+          <ScrollView className="max-h-[300px] w-full">
+            {selectItems.map((item) => (
+              <SelectItem
+                key={item.value}
+                label={item.label}
+                value={item.value}
+                isDisabled={item.isDisabled}
+              />
+            ))}
+          </ScrollView>
         </SelectContent>
       </SelectPortal>
     </Select>

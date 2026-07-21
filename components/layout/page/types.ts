@@ -8,6 +8,7 @@ export interface PageRootProps {
   needsSafeArea?: boolean;
   alignItems?: 'start' | 'center' | 'end';
   justifyContent?: 'start' | 'center' | 'end' | 'around' | 'between' | 'evenly';
+  needsBottomTabBar?: boolean;
 }
 
 export interface PageScrollProps extends PageRootProps {
@@ -23,10 +24,13 @@ export interface PageKeyboardProps extends PageRootProps {
 
 export interface PageHeaderProps {
   content?: React.ReactElement<{ style?: any }>;
-  applyInsetsTo?: 'wrapper' | 'content';
+  applyInsetsTo?: 'wrapper' | 'content' | 'none';
   classNameTitle?: string;
+  classNameBackButton?: string;
   title?: string;
   leftAction?: React.ReactNode;
   rightAction?: React.ReactNode;
   hasBackButton?: boolean;
+  hasCloseButton?: boolean;
+  needsPadding?: boolean;
 }

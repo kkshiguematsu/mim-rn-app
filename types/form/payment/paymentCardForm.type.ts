@@ -1,6 +1,6 @@
-export type PaymentCardFormInput = {
+export type PaymentFormData = {
   code: string;
   expiredDate: string;
   cvvCode: string;
-  userName: string;
+  holderName: string;
 };

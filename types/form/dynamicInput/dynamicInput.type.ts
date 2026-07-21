@@ -7,4 +7,6 @@ export enum InputTypes {
   SELECT,
   SELECTBUTTON,
   PICKER,
+  FILE,
+  TEXTAREA,
 }

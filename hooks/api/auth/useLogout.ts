@@ -4,26 +4,29 @@ import { api } from '@/service/api';
 import { LoginResponse } from '@/types/auth/login.type';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
+import { useDeletePushNotificationToken } from '../notification/useDeletePushNotificationToken';
 
-const logoutUser = async (): Promise<void> => {
+const logoutUser = async (deletePushToken: () => Promise<void>): Promise<void> => {
+  await deletePushToken();
   await api.post<LoginResponse>('/auth/logout');
 };
 
 export const useLogout = () => {
-  const { showToast } = useToastMessage();
-  const { logout } = useUserStore();
   const router = useRouter();
+  const { logout } = useUserStore();
+  const { showToast } = useToastMessage();
+  const { mutateAsync: deletePushNotificationToken } = useDeletePushNotificationToken();
 
   return useMutation({
-    mutationFn: logoutUser,
-    onSuccess: () => {
+    mutationFn: () => logoutUser(deletePushNotificationToken),
+    onSuccess: async () => {
       logout();
       router.replace('/(auth)/login');
     },
-    onError: (error: Error) => {
+    onError: () => {
       showToast({
         title: 'Erro no logout',
-        description: error.message,
+        description: 'Erro ao fazer logout.',
         type: 'error',
       });
     },

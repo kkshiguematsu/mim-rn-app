@@ -1,21 +1,19 @@
-import { useTheme } from '@/context/themeContext';
-
+import { usePlatform } from '@/hooks/utils/usePlatform';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import React, { useRef } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { TabButton } from './CustomAnimatedTabButton';
 
 export const BottomTabNavigator = ({ state, descriptors, navigation }: BottomTabBarProps) => {
-  const { isDark } = useTheme();
   const insets = useSafeAreaInsets();
-  const prevIndex = useRef(state.index);
+  const { isAndroid } = usePlatform();
 
   return (
     <View
-      className="absolute inset-x-6 bottom-0 flex flex-row justify-evenly overflow-hidden rounded-full bg-primary-800 py-3"
+      className="absolute bottom-0 w-72 flex-row justify-evenly self-center overflow-hidden rounded-full bg-primary-800 py-2"
       style={{
-        marginBottom: insets.bottom,
+        marginBottom: isAndroid ? insets.bottom + 20 : insets.bottom,
       }}
     >
       {state.routes.map((route, index) => {

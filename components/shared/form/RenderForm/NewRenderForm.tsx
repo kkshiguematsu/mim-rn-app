@@ -7,8 +7,9 @@ import {
 import { Section } from '@/components/section/Section';
 import { useFormContext } from 'react-hook-form';
 import { View } from 'react-native';
-import { DynamicInputProps, InputTypeRender } from '../DynamicInput';
+import { InputTypeRender } from '../DynamicInput';
 import { DynamicInputField } from '../DynamicInput/renderDynamicInput';
+import { DynamicInputProps } from '../DynamicInput/renderInput/types';
 
 export interface FormSection {
   title?: string;

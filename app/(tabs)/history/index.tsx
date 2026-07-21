@@ -1,43 +1,89 @@
 import { HistoryForm } from '@/components/form/HistoryForm';
 import { Page } from '@/components/layout/page';
-import { HistoryMounthSection } from '@/components/section/HistoryMounthSection';
-import { TintedBadge } from '@/components/shared/badge/TintedBadge';
-import { Heading } from '@/components/ui/heading';
-import { VStack } from '@/components/ui/vstack';
-import { mockHistoryCards } from '@/data/mock/history/historyCard';
-import { groupByMonth } from '@/utils/Date.utils';
-import { ListFilter } from 'lucide-react-native';
-import { View } from 'react-native';
+import { TransactionHistoryCard } from '@/components/shared/cards/TransactionHistoryCard';
+import { Text } from '@/components/ui/text';
+import {
+  TransactionHistoryParams,
+  useTransactionsHistory,
+} from '@/hooks/api/transation/useTransactionsHistory';
+import { useBottomMenuHeight } from '@/hooks/layout/useBottomMenuHeight';
+import { Transaction } from '@/types/transaction/transaction.type';
+import { useState } from 'react';
+import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HistoryPage() {
-  const groupedHistory = groupByMonth(mockHistoryCards, 'date');
+  const [filters, setFilters] = useState<TransactionHistoryParams>({
+    limit: 10,
+    sortBy: 'startedAt',
+    sortOrder: 'desc',
+  });
+
+  const insets = useSafeAreaInsets();
+  const bottomMenuHeight = useBottomMenuHeight();
+
+  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage, refetch, isRefetching } =
+    useTransactionsHistory(filters);
+
+  const transactions = data?.pages.flatMap((page) => page.items) || [];
+
+  const handleLoadMore = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  const handleFiltersChange = (newFilters: TransactionHistoryParams) => {
+    setFilters(newFilters);
+  };
+
+  const renderItem = ({ item }: { item: Transaction }) => (
+    <View className="px-7">
+      <TransactionHistoryCard key={item._id} data={item} />
+    </View>
+  );
+
+  const renderFooter = () => {
+    if (!isFetchingNextPage) return null;
+    return (
+      <View className="py-4">
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  };
+
+  const renderEmpty = () => {
+    if (isLoading) return null;
+    return (
+      <View className="py-10">
+        <Text className="text-center text-neutral-400">Nenhuma transação encontrada</Text>
+      </View>
+    );
+  };
 
   return (
-    <Page.Scroll needsPadding={false} hasHeader={false}>
-      <Page.Header
-        content={
-          <View className="mb-4 flex-row items-center justify-between px-7">
-            <View>
-              <Heading size="3xl" className="text-black dark:text-white">
-                Histórico
-              </Heading>
-            </View>
-            <TintedBadge
-              label="Ordenar"
-              icon={ListFilter}
-              size="sm"
-              color="blue"
-              className="self-center"
-            />
-          </View>
-        }
-      />
-      <HistoryForm />
-      <VStack space="sm" className="px-7">
-        {groupedHistory.map((group) => (
-          <HistoryMounthSection key={group.label} {...group} />
-        ))}
-      </VStack>
-    </Page.Scroll>
+    <Page needsPadding={false} needsBottomTabBar={false}>
+      <Page.Header content={<HistoryForm onFiltersChange={handleFiltersChange} />} />
+
+      {isLoading ? (
+        <View className="py-8">
+          <ActivityIndicator className="text-primary-500" size="small" />
+        </View>
+      ) : (
+        <FlatList
+          data={transactions}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id}
+          style={{ flex: 1 }}
+          contentContainerStyle={{ gap: 8, paddingBottom: bottomMenuHeight + insets.bottom }}
+          ListEmptyComponent={renderEmpty}
+          ListFooterComponent={renderFooter}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0.5}
+          refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
+    </Page>
   );
 }

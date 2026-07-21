@@ -1,16 +1,16 @@
 import { useUserStore } from '@/hooks/store/useUserStore';
 import { Redirect } from 'expo-router';
-import { useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 
 export default function Index() {
-  const { bootstrap, isLoading, isAuthenticated } = useUserStore();
-
-  useEffect(() => {
-    bootstrap();
-  }, []);
+  const { isLoading, isAuthenticated } = useUserStore();
 
   if (isLoading) {
-    return null;
+    return (
+      <View className="flex flex-1 items-center justify-center">
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
   }
 
   if (!isAuthenticated) {

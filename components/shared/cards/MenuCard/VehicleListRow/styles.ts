@@ -5,7 +5,7 @@ export const rowStyles = tva({
   variants: {
     selected: {
       true: 'rounded-2xl border border-primary-300 bg-primary-300/30',
-      false: '',
+      false: 'border border-transparent',
     },
   },
 });

@@ -5,7 +5,7 @@ import { BottomTabNavigator } from '@/components/layout/BottomTabNavigator';
 import { useTheme } from '@/context/themeContext';
 import { TabConfig } from '@/types/layout/TabType';
 import { BlurView } from 'expo-blur';
-import { EvCharger, FileClock, Home, Map, User } from 'lucide-react-native';
+import { EvCharger, FileClock, Home, User } from 'lucide-react-native';
 
 const tabs: TabConfig[] = [
   {
@@ -25,13 +25,6 @@ const tabs: TabConfig[] = [
     },
   },
   {
-    name: 'map/index',
-    options: {
-      title: 'Map',
-      tabBarIcon: Map,
-    },
-  },
-  {
     name: 'history',
     options: {
       title: 'Histórico',
@@ -45,6 +38,7 @@ const tabs: TabConfig[] = [
       title: 'Perfil',
       tabBarIcon: User,
       headerShown: false,
+      lazy: false,
     },
   },
 ];

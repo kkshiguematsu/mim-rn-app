@@ -5,31 +5,37 @@ import { Button, ButtonText } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
+import { config } from '@/constants/config';
+import clsx from 'clsx';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import Animated, { BounceIn, Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function Index() {
-  const [isLoginCardVisible, seIsLoginCardVisible] = useState(false);
+  const [isLoginCardVisible, seIsLoginCardVisible] = useState(true);
 
   return (
-    <Page.Keyboard
-      background="primary"
-      alignItems="center"
-      justifyContent="end"
-      hasHeader={false}
-      needsPadding={false}
-    >
+    <Page.Keyboard background="primary" hasHeader={false} needsPadding={false}>
       <Animated.View
         key="loginLogo"
         entering={BounceIn.duration(800).easing(Easing.ease)}
-        className="absolute top-32 flex h-48 justify-center overflow-hidden rounded-2xl"
+        className="flex-1 items-center justify-center"
       >
-        <Image source={require('../../assets/images/mim-logo-tec.webp')} alt="Logo" size="2xl" />
+        <Image
+          source={config.tenantLogo}
+          className="w-[80%] overflow-hidden rounded-2xl"
+          alt="Logo"
+          size="2xl"
+        />
       </Animated.View>
+
       {isLoginCardVisible ? (
-        <AnimatedSlideInViewCard key="loginCard" className="!pb-24">
-          <Heading className="my-10 text-center text-2xl font-bold">Login</Heading>
+        <AnimatedSlideInViewCard
+          key="loginCard"
+          className={clsx(['justify-center pt-14'])}
+          hasInsertBottom
+        >
+          <Heading className="text-center text-2xl font-bold">Login</Heading>
           <LoginForm />
         </AnimatedSlideInViewCard>
       ) : (

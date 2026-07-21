@@ -1,34 +1,41 @@
 import { Text } from '@/components/ui/text';
-import { END_REASON_BADGE, Session } from '@/types/history/Session.type';
+import { Transaction } from '@/types/transaction/transaction.type';
+import { calculateBatteryPercentage, calculateEnergyConsumed } from '@/utils/transaction.utils';
 import { View } from 'react-native';
-import { TintedBadge } from '../../badge/TintedBadge';
 import { BatteryBar } from '../../bar/BaterryBar';
 
 const BLUE_FILLED = 'rgba(59,130,246,0.4)';
 const BLUE_LAST = '#60a5fa';
 
 interface Props {
-  data: Session;
+  data: Transaction;
 }
 
 export const SessionHeroCard = ({ data }: Props) => {
-  const rangeAfterKm = 314;
-  const rangeBeforeKm = 245;
-  const deltaKm = rangeAfterKm - rangeBeforeKm;
-  const bagdeEndReason = END_REASON_BADGE[data.endReason];
+  // const bagdeEndReason = END_REASON_BADGE[data.endReason];
+
+  const vehicle = data.userId?.vehicles?.find((v) => v.licensePlate === data.vehiclePlate);
+  const energyAdded = calculateEnergyConsumed(data.meterStop, data.meterStart);
+  const percentageBatteryStarted = vehicle
+    ? calculateBatteryPercentage(data.meterStart, vehicle.vehicleId.batteryCapacityKwh)
+    : 0;
+  const percentageBatteryFinished =
+    vehicle && data.meterStop
+      ? calculateBatteryPercentage(data.meterStop, vehicle.vehicleId.batteryCapacityKwh)
+      : 0;
 
   return (
-    <View className="overflow-hidden rounded-3xl bg-[#111110] p-5">
+    <View className="mx-7 overflow-hidden rounded-3xl bg-[#111110] p-5">
       <View className="mb-5 flex-row items-center justify-between">
         <Text size="xs" className="font-semibold uppercase tracking-widest text-white/35">
-          Autonomia
+          Bateria
         </Text>
-        <TintedBadge
+        {/* <TintedBadge
           label={bagdeEndReason.label}
           color="blue"
           size="xs"
           className="!bg-blue-500/15"
-        />
+        /> */}
       </View>
 
       <View className="mb-5 flex-row items-center">
@@ -45,10 +52,10 @@ export const SessionHeroCard = ({ data }: Props) => {
               lineHeight: 38,
             }}
           >
-            {rangeBeforeKm}
+            {percentageBatteryStarted}
             <Text style={{ fontSize: 15, fontWeight: '400', color: 'rgba(255,255,255,0.4)' }}>
               {' '}
-              km
+              %
             </Text>
           </Text>
         </View>
@@ -57,7 +64,7 @@ export const SessionHeroCard = ({ data }: Props) => {
           <View className="h-5 w-px bg-white/10" />
           <View className="rounded-full border border-blue-500/30 bg-blue-500/15 px-3 py-1">
             <Text size="sm" className="font-bold text-blue-400">
-              +{deltaKm} km
+              +{energyAdded.toFixed(0)} kWh
             </Text>
           </View>
           <View className="h-5 w-px bg-white/10" />
@@ -76,25 +83,20 @@ export const SessionHeroCard = ({ data }: Props) => {
               lineHeight: 38,
             }}
           >
-            {rangeAfterKm}
+            {percentageBatteryFinished}
             <Text style={{ fontSize: 15, fontWeight: '400', color: 'rgba(96,165,250,0.5)' }}>
               {' '}
-              km
+              %
             </Text>
           </Text>
         </View>
       </View>
 
-      <BatteryBar batteryPct={data.batteryEnd} filledColor={BLUE_FILLED} lastColor={BLUE_LAST} />
-
-      <View className="mt-1.5 flex-row justify-between">
-        <Text size="xs" className="text-white/25">
-          {data.batteryStart}% antes
-        </Text>
-        <Text size="xs" className="font-semibold text-blue-400">
-          {data.batteryEnd}% agora
-        </Text>
-      </View>
+      <BatteryBar
+        batteryPct={Number(percentageBatteryFinished)}
+        filledColor={BLUE_FILLED}
+        lastColor={BLUE_LAST}
+      />
     </View>
   );
 };

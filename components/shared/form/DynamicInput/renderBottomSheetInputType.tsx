@@ -1,14 +1,15 @@
 import { BottomSheetInput } from '@/components/ui/bottomsheet';
 import { Icon } from '@/components/ui/icon';
 import { InputTypes } from '@/types/form/dynamicInput/dynamicInput.type';
+import { applyMask } from '@/utils/formMasks.utils';
 import { EyeIcon, EyeOffIcon } from 'lucide-react-native';
 import { useState } from 'react';
 import { Pressable, View } from 'react-native';
-import { DynamicInputProps } from '.';
+import { DynamicInputProps } from './renderInput/types';
 
 export interface renderBottomSheetInputProps extends Pick<
   DynamicInputProps,
-  'type' | 'placeholder' | 'icon' | 'selectItems' | 'isDisabled'
+  'type' | 'placeholder' | 'icon' | 'selectItems' | 'isDisabled' | 'mask'
 > {
   value?: string;
   onBlur: () => void;
@@ -21,10 +22,16 @@ export function RenderBottomSheetInput({
   placeholder,
   icon,
   selectItems,
+  mask,
   isDisabled,
   onBlur,
   onChange,
 }: renderBottomSheetInputProps) {
+  const handleChange = (text: string) => {
+    const maskedValue = mask ? applyMask(text, mask) : text;
+    onChange(maskedValue);
+  };
+
   switch (type) {
     case InputTypes.TEXT:
       return (
@@ -35,7 +42,7 @@ export function RenderBottomSheetInput({
           placeholder={placeholder}
           disabled={isDisabled}
           onBlur={onBlur}
-          onChangeText={onChange}
+          onChangeText={handleChange}
         />
       );
     case InputTypes.EMAIL:
@@ -47,7 +54,7 @@ export function RenderBottomSheetInput({
           placeholder={placeholder}
           disabled={isDisabled}
           onBlur={onBlur}
-          onChangeText={onChange}
+          onChangeText={handleChange}
         />
       );
     case InputTypes.PASSWORD:
@@ -63,7 +70,7 @@ export function RenderBottomSheetInput({
             placeholder={placeholder}
             editable={!isDisabled}
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChangeText={handleChange}
           />
 
           <Pressable className="px-4" onPress={() => setVisible((v) => !v)}>
@@ -85,7 +92,7 @@ export function RenderBottomSheetInput({
           placeholder={placeholder}
           disabled={isDisabled}
           onBlur={onBlur}
-          onChangeText={onChange}
+          onChangeText={handleChange}
         />
       );
 

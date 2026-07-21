@@ -1,7 +1,7 @@
 import { Text } from '@/components/ui/text';
 
 import { useFadeInAnimation } from '@/hooks/animations/useFadeInAnimation';
-import { VehicleType } from '@/types/vehicle/vehicle.type';
+import { Vehicle } from '@/types/vehicle/vehicle.type';
 import { BlurView } from 'expo-blur';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
@@ -9,7 +9,7 @@ import Animated from 'react-native-reanimated';
 import { TintedBadge } from '../../badge/TintedBadge';
 
 interface Props {
-  vehicle: VehicleType;
+  vehicle: Vehicle;
   onEditPress: () => void;
 }
 
@@ -18,8 +18,7 @@ export function VehicleHeroCard({ vehicle, onEditPress }: Props) {
     direction: 'up',
     duration: 300,
   });
-  const { brand, model, plate, batteryPct, rangeKm, connector, lastSessionDate, lastSessionKwh } =
-    vehicle;
+
   return (
     <Animated.View entering={animationFadeIn}>
       <View className="overflow-hidden rounded-3xl bg-neutral-900 dark:bg-neutral-800">
@@ -36,61 +35,57 @@ export function VehicleHeroCard({ vehicle, onEditPress }: Props) {
 
         <View className="p-4">
           <View className="mb-4 flex-row items-start justify-between">
-            <View>
+            <View className="gap-2">
               <TintedBadge
                 label="Veículo ativo"
                 color="blue"
                 className="self-start !bg-blue-500/15"
                 animated
               />
-              <Text
-                size="xl"
-                className="font-bold text-white"
-                style={{
-                  letterSpacing: -0.5,
-                }}
-              >
-                {brand} {model}
-              </Text>
-              <View className="mt-1 self-start rounded border border-neutral-100/20 bg-neutral-100/10 px-2 py-[2px]">
+              <View>
                 <Text
-                  size="xs"
-                  className="font-medium text-white/55"
+                  size="xl"
+                  className="font-bold text-white"
                   style={{
-                    letterSpacing: 1,
+                    letterSpacing: -0.5,
                   }}
                 >
-                  {plate}
+                  {vehicle.catalogId.brand} {vehicle.catalogId.model}
                 </Text>
+                <View className="mt-1 self-start rounded border border-neutral-100/20 bg-neutral-100/10 px-2 py-[2px]">
+                  <Text
+                    size="xs"
+                    className="font-medium text-white/55"
+                    style={{
+                      letterSpacing: 1,
+                    }}
+                  >
+                    {vehicle.licensePlate}
+                  </Text>
+                </View>
               </View>
             </View>
 
             <Pressable
               onPress={onEditPress}
-              className="flex-row items-center gap-[5px] rounded-lg border border-primary-700 bg-primary-800 px-2.5 py-[6px] active:opacity-60"
+              className="flex-row items-center gap-[5px] rounded-lg border border-primary-400 bg-primary-600 px-2.5 py-[6px] active:opacity-60"
             >
-              <Text size="xs" className="font-medium text-primary-400">
+              <Text size="xs" className="font-medium text-primary-200">
                 Editar
               </Text>
             </Pressable>
           </View>
 
           <View className="flex-row items-end justify-between">
-            <View className="flex-row items-end gap-[2px]">
-              <Text size="5xl" className="font-extrabold leading-[52px] tracking-[-2px] text-white">
-                {batteryPct}
-              </Text>
-              <Text size="xl" className="mb-2 font-medium tracking-[-1] text-white/50">
-                %
-              </Text>
+            <View className="flex-row items-start gap-4">
+              {vehicle.catalogId.connectors.map((connector, index) => (
+                <TintedBadge key={index} label={connector.type as string} color="secondary" />
+              ))}
             </View>
 
             <View className="items-end pb-1.5">
               <Text size="lg" className="font-semibold tracking-[-0.5px] text-white">
-                {rangeKm} km
-              </Text>
-              <Text size="sm" className="mt-0.5 text-white/40">
-                autonomia restante
+                {vehicle.catalogId.batteryCapacityKwh} kwH
               </Text>
             </View>
           </View>
